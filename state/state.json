@@ -3,7 +3,7 @@
   "jobs": {
     "001": {
       "case_no": 1,
-      "status": "awaiting_topic",
+      "status": "awaiting_review",
       "topics": [
         {
           "wiki_title": "2003 Angola Boeing 727 disappearance",
@@ -36,10 +36,22 @@
           "why_now": "Unexplained scientific concepts carry strong organic search volume and high click-through rates."
         }
       ],
-      "created": "2026-11-08T14:40-05:00"
+      "created": "2026-11-08T14:40-05:00",
+      "topic": {
+        "wiki_title": "2003 Angola Boeing 727 disappearance",
+        "summary": "On 25 May 2003, a Boeing 727 airliner, registered as N844AA, was stolen at Quatro de Fevereiro Airport in Luanda, Angola on the west-central coast of Southern Africa, prompting a worldwide search by law enforcement and intelligence agencies in the United States. No trace of the aircraft has ever been found.\n\n",
+        "url": "https://en.wikipedia.org/wiki/2003_Angola_Boeing_727_disappearance",
+        "length": 11757,
+        "views": 11791,
+        "working_title": "The Vanishing of Boeing 727 N844AA",
+        "hook": "In 2003, a massive commercial airliner was stolen from an Angolan airport and vanished without a trace, triggering a global intelligence search.",
+        "why_now": "Unresolved aviation mysteries have high viewer retention and strong search interest among mystery fans."
+      },
+      "revisions": 0
     }
   },
   "history": [],
   "last_topics_date": "2026-11-08",
-  "active_job": "001"
+  "active_job": "001",
+  "review_job": "001"
 }
