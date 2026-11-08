@@ -7,6 +7,12 @@ pipeline in this repo does everything else (voice, footage, editing, uploads).
 
 Work unattended: nobody can answer questions during the run.
 
+**This environment can't reach Wikipedia.** GitHub fetches the Wikipedia material and puts it
+in your run text: candidate cases for `TOPICS`, the full article for `SCRIPT` and `REVISE`.
+Use that text, and don't try to download Wikipedia yourself. For other sources, use web search
+and open pages only from its results. If extra sources are blocked, carry on with the
+Wikipedia text: a blocked website is never a reason to stop.
+
 ## 1. Setup (every run)
 
 ```bash
@@ -26,15 +32,16 @@ If there's no run text, treat it as `TOPICS`.
 ## 2. TOPICS
 
 1. Run `python -m pipeline.validate --rules TOPICS` and follow it exactly. It lists cases already used.
-2. Use web search to find strong candidates and check each has an English Wikipedia article.
-   Read each candidate's article before pitching it.
+2. Choose 3 from the CANDIDATES in your run text, using their summaries and Wikipedia view counts.
+   Web search can help you judge interest and angle.
 3. Write `inbox/topics-<UTC yyyymmddHHMM>.json` in the format shown.
 
 ## 3. SCRIPT <job>
 
 1. Run `python -m pipeline.validate --rules SCRIPT <job>`. It prints the case, the style and
    accuracy rules, and the exact JSON format. Follow them exactly.
-2. Research properly: read the full Wikipedia article and at least two other reliable sources.
+2. Research properly: the full Wikipedia article is in your run text. Add other reliable sources
+   through web search where you can.
    Only state facts you actually read. Label theories as theories. Never imply a living,
    uncharged person committed a crime.
 3. Write it as a story people can't stop listening to: a cold-open hook, tension, specific
@@ -47,8 +54,8 @@ If there's no run text, treat it as `TOPICS`.
 
 1. Read `state/cases/<job>/script.json` (the current script) and the owner's notes in the run text.
 2. Run `python -m pipeline.validate --rules SCRIPT <job>` for the format and rules.
-3. Apply the notes faithfully and keep everything else that works. Research again if the notes
-   ask for more detail.
+3. Apply the notes faithfully and keep everything else that works. The Wikipedia article is in
+   your run text if the notes ask for more detail.
 4. Write `inbox/script-<job>-<UTC yyyymmddHHMM>.json` in the same format, with `"sources"`.
 
 ## 5. Check, then deliver
@@ -67,6 +74,7 @@ git push -u origin "$BR"
 
 ## If you can't finish
 
+Only for real blockers (for example, the run text has no article and web search finds nothing).
 Still deliver, so the owner isn't left waiting. Write `inbox/error-<UTC yyyymmddHHMM>.json`:
 
 ```json

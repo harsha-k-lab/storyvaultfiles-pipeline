@@ -24,7 +24,9 @@ def rules(kind: str, job_id: str | None):
         used = sorted(st.used_titles() | {h["wiki_title"] for h in st.data["history"]})
         print(f"""Pitch 3 cases for "{CH['name']}" ({CH['niche']}).
 
-Each case MUST have its own English Wikipedia article (needed for free photos and credits),
+Choose from the CANDIDATES in your run text (GitHub fetched them from Wikipedia, because this
+environment can't reach Wikipedia). You may pitch another case only if you're sure of its exact
+English Wikipedia article title. Each case MUST have its own English Wikipedia article,
 be genuinely unresolved, have rich documented detail, be advertiser-friendly, and be at
 least {CFG['research']['avoid_recent_years']} years old. Avoid cases centred on violence against children.
 Mix one famous case with lesser-known ones. Check interest with web search.
@@ -49,10 +51,12 @@ TOPIC: {topic.get('wiki_title')}  —  {topic.get('url')}
 WORKING TITLE: {topic.get('working_title')}
 ANGLE: {topic.get('hook')}
 
-RESEARCH: read the whole Wikipedia article AND at least 2 other reliable sources
-(official records, established newspapers, museum or archive pages). Only use facts you
-actually read. Where sources disagree, say so in the narration. Put every page you used in
-"sources".
+RESEARCH: the full Wikipedia article is in your run text (GitHub fetched it, because this
+environment can't reach Wikipedia). It is your main source. Then use web search for other
+reliable sources (official records, established newspapers, archives) and open pages only from
+the search results. If other sources can't be reached, write from the article alone — don't stop.
+Only use facts you actually read. Where sources disagree, say so. List the Wikipedia article and
+every other page you read in "sources".
 
 The case's real photos are matched to sentences automatically — always set "image": -1.
 
@@ -88,8 +92,8 @@ def check(path: Path) -> list[str]:
     elif kind == "script":
         if not data.get("job"):
             problems.append('Missing "job".')
-        if len(data.get("sources") or []) < 2:
-            problems.append('List at least 2 pages you used in "sources".')
+        if len(data.get("sources") or []) < 1:
+            problems.append('List the pages you used in "sources" (at least the Wikipedia article).')
         raw = data.get("script") or {}
         for k in ("title", "thumbnail_text", "description", "tags", "scenes", "short"):
             if not raw.get(k):

@@ -51,8 +51,16 @@ def cmd_topics(state: State, scheduled: bool = False, wish: str | None = None, f
             telegram.send("⏰ Claude didn't send today's topics in time, so Gemini is picking them instead.")
             state.data.pop("claude_pending", None)
             force_gemini = True
-    if not force_gemini and CFG.get("claude", {}).get("use_for_topics", True):
-        link, why = claude.fire(state, f"TOPICS\nwish: {wish or ''}", reserve=2)
+    cands = None
+    if not force_gemini and CFG.get("claude", {}).get("use_for_topics", True) and claude.configured():
+        # The routine's network can't reach Wikipedia, so GitHub gathers candidate cases for it.
+        cands = research.candidates(state.used_titles(), query=wish)
+        listing = "\n".join(json.dumps({"wiki_title": c["wiki_title"], "url": c["url"],
+                                         "wikipedia_views_60d": c.get("views", 0),
+                                         "summary": c["summary"][:700]}, ensure_ascii=False)
+                            for c in cands)
+        link, why = claude.fire(state, f"TOPICS\nwish: {wish or ''}\n\nCANDIDATES (from Wikipedia, "
+                                       f"one JSON per line):\n{listing}", reserve=2)
         if link is not None:
             state.data["claude_pending"] = {"kind": "topics", "date": today, "wish": wish or "",
                                             "at": now_local().isoformat(timespec="seconds")}
@@ -65,7 +73,8 @@ def cmd_topics(state: State, scheduled: bool = False, wish: str | None = None, f
             log(why)
     if wish:
         telegram.send(f"🔎 Looking for cases about <b>{esc(wish)}</b>…")
-    cands = research.candidates(state.used_titles(), query=wish)
+    if cands is None:
+        cands = research.candidates(state.used_titles(), query=wish)
     if len(cands) < 3:
         telegram.send("I couldn't find enough well-documented cases for that. Try another idea, or send /topics.")
         return
@@ -141,6 +150,20 @@ def _render_and_send(state: State, job_id: str, script: dict, images: list[dict]
         f"<a href=\"{links['short.mp4']}\">short</a>", review_rows)
 
 
+def _article_block(title: str, limit: int = 50000) -> str:
+    """The Wikipedia article text, fetched here on GitHub (the routine can't reach Wikipedia)."""
+    try:
+        a = research.article(title)
+    except Exception as exc:  # noqa: BLE001
+        log("Couldn't fetch article for Claude:", exc)
+        return f"WIKIPEDIA ARTICLE: {title} (couldn't be fetched — research it with web search)"
+    imgs = research.free_images(a["title"])
+    photos = "\n".join(f"- {im['caption'] or im['file']}" for im in imgs) or "- none"
+    return (f"WIKIPEDIA ARTICLE: {a['title']} — {a['url']}\n"
+            f"Free case photos the video will use (they're placed automatically):\n{photos}\n\n"
+            f"ARTICLE TEXT:\n{a['text'][:limit]}")
+
+
 def cmd_produce(state: State, job_id: str, index: int, force_gemini: bool = False):
     job = state.job(job_id)
     allowed = {"awaiting_topic"} | ({"writing"} if force_gemini else set())
@@ -150,8 +173,8 @@ def cmd_produce(state: State, job_id: str, index: int, force_gemini: bool = Fals
     topic = job["topics"][index]
     job.update({"status": "producing", "topic": topic, "topic_index": index})
     state.save()
-    if not force_gemini:
-        link, why = claude.fire(state, f"SCRIPT {job_id}")
+    if not force_gemini and claude.configured():
+        link, why = claude.fire(state, f"SCRIPT {job_id}\n\n" + _article_block(topic["wiki_title"]))
         if link is not None:
             job.update({"status": "writing", "writer": "Claude",
                         "requested_at": now_local().isoformat(timespec="seconds")})
@@ -190,8 +213,9 @@ def cmd_revise(state: State, job_id: str, feedback: str | None, force_gemini: bo
     script = load_json(case_dir(job_id) / "script.json")
     meta = load_json(case_dir(job_id) / "meta.json")
     images = meta.get("images", [])
-    if feedback and not force_gemini:
-        link, why = claude.fire(state, f"REVISE {job_id}\n{feedback}")
+    if feedback and not force_gemini and claude.configured():
+        link, why = claude.fire(state, f"REVISE {job_id}\n{feedback}\n\n"
+                                       + _article_block(meta["source_title"], limit=40000))
         if link is not None:
             job.update({"status": "writing", "writer": "Claude", "pending_notes": feedback,
                         "requested_at": now_local().isoformat(timespec="seconds")})
