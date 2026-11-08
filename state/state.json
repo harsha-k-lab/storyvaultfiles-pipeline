@@ -1,5 +1,5 @@
 {
-  "next_case": 2,
+  "next_case": 3,
   "jobs": {
     "001": {
       "case_no": 1,
@@ -48,11 +48,49 @@
         "why_now": "Unresolved aviation mysteries have high viewer retention and strong search interest among mystery fans."
       },
       "revisions": 1
+    },
+    "002": {
+      "case_no": 2,
+      "status": "awaiting_topic",
+      "topics": [
+        {
+          "wiki_title": "Disappearance of Amy Lynn Bradley",
+          "summary": "Amy Lynn Bradley (May 12, 1974 – disappeared March 24, 1998) was a 23-year-old American woman who disappeared from the Royal Caribbean cruise ship Rhapsody of the Seas while en route to Curaçao. A graduate of Longwood University, Bradley disappeared without a trace and remains missing. Regarded as one of the most high-profile unsolved missing person cases at sea, Bradley's disappearance has received international attention.\nAfter Bradley had been dancing until the early hours of that morning, the ship's keycard lock system recorded her returning to her cabin at 3:40 a.m. Her father, Ron, awoke around 5:30 a.m. and saw her asleep on a deck chair on the balcony. When she was no longer there at 6:00 a.m., the family alerted ship security and authorities. The Netherlands Antilles Coast Guard conducted a four-day search of the surrounding waters and cruise line routes, but found no evidence. Early theories suggested she may have fallen overboard or died by suicide, though no physical evidence found to date supports either scenario.\nIn the years since her disappearance, there have been multiple reported sightings of Bradley in Curaçao, Barbados, and San Francisco. While none have been co",
+          "url": "https://en.wikipedia.org/wiki/Disappearance_of_Amy_Lynn_Bradley",
+          "length": 39907,
+          "views": 43555,
+          "working_title": "Vanished at Sea: The Disappearance of Amy Lynn Bradley",
+          "hook": "A 23-year-old woman sleeps on a cruise ship balcony at sunrise, but within minutes she vanishes into the open ocean without a trace.",
+          "why_now": "As one of the most high-profile maritime missing person cases in history, it commands massive public interest and search volume."
+        },
+        {
+          "wiki_title": "Kaz II",
+          "summary": "Kaz II, dubbed \"the ghost yacht\", is a 9.8-metre catamaran which was found drifting 88 nautical miles (163 kilometres) off the north-eastern coast of Australia on 20 April 2007. The fate of its three-man crew remains unknown, and the mysterious circumstances in which they disappeared have been compared to that of Mary Celeste in 1872.",
+          "url": "https://en.wikipedia.org/wiki/Kaz_II",
+          "length": 27484,
+          "views": 5025,
+          "working_title": "The Mystery of Kaz II: Australia's Ghost Yacht",
+          "hook": "A catamaran is found drifting off the Australian coast with its crew missing, leaving behind an unsolved maritime puzzle reminiscent of Mary Celeste.",
+          "why_now": "Modern ghost ship cases provide a compelling real-life mystery that generates strong audience retention."
+        },
+        {
+          "wiki_title": "Hale Boggs",
+          "summary": "Thomas Hale Boggs Sr. (February 15, 1914 – disappeared October 16, 1972; declared dead December 29, 1972) was an American Democratic Party politician and a member of the U.S. House of Representatives from New Orleans, Louisiana. He was the House majority leader and a member of the Warren Commission.\nIn 1972, while still majority leader, Boggs was on a fundraising drive in Alaska when the twin engine airplane on which he was travelling along with Alaska congressman Nick Begich and two others disappeared en route from Anchorage to Juneau, Alaska.\n\n",
+          "url": "https://en.wikipedia.org/wiki/Hale_Boggs",
+          "length": 32055,
+          "views": 10570,
+          "working_title": "The Vanishing in Alaska: The Hale Boggs Disappearance",
+          "hook": "A light aircraft carrying two U.S. congressmen disappears over the remote Alaskan wilderness, prompting one of the largest search efforts in history.",
+          "why_now": "Unsolved high-profile aviation disappearances involving political figures trigger deep curiosity and strong click-through rates."
+        }
+      ],
+      "created": "2026-11-08T16:47-05:00",
+      "topics_by": "Gemini"
     }
   },
   "history": [],
   "last_topics_date": "2026-11-08",
-  "active_job": "001",
+  "active_job": "002",
   "review_job": "001",
   "claude_runs": {
     "date": "2026-11-08",
