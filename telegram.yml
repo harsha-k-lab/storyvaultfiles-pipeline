@@ -1,0 +1,58 @@
+name: Telegram action
+# Started by the Cloudflare Worker whenever you tap a button or message the bot.
+on:
+  repository_dispatch:
+    types: [telegram]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install video tools and fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core > /dev/null
+          for f in ofl/anton/Anton-Regular.ttf ofl/bebasneue/BebasNeue-Regular.ttf ofl/specialelite/SpecialElite-Regular.ttf; do
+            curl -sSfL -o "assets/fonts/$(basename $f)" "https://github.com/google/fonts/raw/main/$f" || echo "font $f skipped"
+          done
+          pip install -q -r requirements.txt
+
+      - name: Run pipeline
+        env:
+          SVF_PAYLOAD: ${{ toJson(github.event.client_payload) }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+        run: python -m pipeline.run handle
+
+      - name: Save progress
+        if: always()
+        run: |
+          git config user.name "storyvault-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state
+          git diff --cached --quiet && exit 0
+          git commit -qm "state: telegram action"
+          for i in 1 2 3; do git pull -q --rebase && git push -q && exit 0; sleep 5; done

@@ -1,0 +1,66 @@
+# ─────────────────────────────────────────────────────────────
+#  StoryVaultFiles pipeline settings
+#  Change anything here, commit, and the next run uses it.
+#  Passwords and keys do NOT go here — they go in GitHub "Secrets".
+# ─────────────────────────────────────────────────────────────
+
+channel:
+  name: "StoryVaultFiles"
+  handle: "@storyvaultfiles"
+  niche: "unsolved mysteries"
+  tagline: "Every case has a file. Some were never closed."
+  posting_note: "New case files every day."   # spoken in the end card
+  timezone: "America/Toronto"
+  daily_topics_hour: 12          # 12 = 12:00 PM local time
+
+# Where topic ideas come from (Wikipedia categories — free, factual, licensed for reuse).
+research:
+  categories:
+    - "Unexplained disappearances"
+    - "Missing person cases"
+    - "Missing person cases in the United States"
+    - "Unidentified decedents"
+    - "Unsolved murders in the United States"
+    - "Ghost ships"
+    - "Missing aircraft"
+    - "Undeciphered historical codes and ciphers"
+    - "Mass disappearances"
+    - "Unexplained phenomena"
+  candidates_per_day: 14          # how many cases the AI looks at before pitching 3
+  min_article_chars: 7000         # skip cases with too little documented detail
+  avoid_recent_years: 12          # skip cases newer than this (respect for families)
+
+writing:
+  # Free Gemini models, tried in order. If Google renames them, the pipeline
+  # automatically finds another free "flash" model.
+  models: ["gemini-3.5-flash", "gemini-3.6-flash", "gemini-3.1-flash-lite", "gemini-flash-latest", "gemini-2.5-flash"]
+  target_minutes: 10              # long video length (8–12 works best for mysteries)
+  words_per_minute: 145
+  short_seconds: 55               # Instagram Reel / YouTube Short length
+
+voice:
+  # Free Microsoft neural voices. Good mystery narrators:
+  #   en-US-ChristopherNeural (deep, calm)   en-US-GuyNeural (warm)
+  #   en-GB-RyanNeural (British, documentary) en-US-AndrewMultilingualNeural (modern)
+  name: "en-US-ChristopherNeural"
+  rate: "-6%"
+  pitch: "-2Hz"
+
+video:
+  width: 1920
+  height: 1080
+  fps: 30
+  seconds_per_shot: 7             # new stock clip every ~7 s keeps it visually alive
+  music_volume: 0.32              # background music level under the voice (0–1)
+  # Put your own royalty-free .mp3 files in assets/music/ to use them instead of
+  # the built-in generated ambient soundtrack.
+
+publish:
+  youtube:
+    privacy: "public"             # stays "private" automatically until Google approves your API audit
+    category_id: "24"             # 24 = Entertainment, 27 = Education
+    also_upload_short: true       # also post the Short to YouTube Shorts (great for growth)
+    ai_disclosure: true           # ticks YouTube's "altered or synthetic content" box (AI voice)
+  instagram:
+    enabled: true
+    api_version: "v23.0"

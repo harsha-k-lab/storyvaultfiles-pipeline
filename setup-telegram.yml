@@ -1,0 +1,31 @@
+name: Connect Telegram
+# Run once after creating the Cloudflare Worker. Paste the Worker's URL when asked.
+on:
+  workflow_dispatch:
+    inputs:
+      worker_url:
+        description: "Your Cloudflare Worker URL (https://….workers.dev)"
+        required: true
+
+jobs:
+  connect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Point the Telegram bot at the Worker
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          SECRET: ${{ secrets.WEBHOOK_SECRET }}
+          URL: ${{ github.event.inputs.worker_url }}
+          CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          curl -sS "https://api.telegram.org/bot$TOKEN/setWebhook" \
+            --data-urlencode "url=$URL" \
+            --data-urlencode "secret_token=$SECRET" \
+            --data-urlencode 'allowed_updates=["message","callback_query"]' | tee result.json
+          grep -q '"ok":true' result.json || { echo "::error::Telegram rejected the webhook. Check the token and URL."; exit 1; }
+          curl -sS "https://api.telegram.org/bot$TOKEN/setMyCommands" \
+            --data-urlencode 'commands=[{"command":"topics","description":"3 new topic ideas now"},{"command":"status","description":"What is in progress"},{"command":"help","description":"How this bot works"}]' > /dev/null
+          if [ -n "$CHAT" ]; then
+            curl -sS "https://api.telegram.org/bot$TOKEN/sendMessage" --data-urlencode "chat_id=$CHAT" \
+              --data-urlencode "text=✅ StoryVaultFiles is connected. Send /topics to try it now." > /dev/null
+          fi

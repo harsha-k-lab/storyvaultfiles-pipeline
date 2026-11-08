@@ -1,0 +1,25 @@
+name: Keep Instagram connected
+# Instagram tokens last 60 days; this renews yours on the 1st and 15th of each month.
+on:
+  schedule:
+    - cron: "17 9 1,15 * *"
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests PyYAML
+      - name: Renew and save token
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          NEW=$(python -m pipeline.run refresh-instagram | tail -1)
+          echo "::add-mask::$NEW"
+          gh secret set INSTAGRAM_ACCESS_TOKEN --body "$NEW" -R "$GITHUB_REPOSITORY"
+          echo "Instagram token renewed."
