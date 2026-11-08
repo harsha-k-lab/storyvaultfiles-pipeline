@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import hashlib
-import random
+import re
 from pathlib import Path
 
 import requests
@@ -22,7 +22,8 @@ class Footage:
         self.cache = cache
         self.cache.mkdir(parents=True, exist_ok=True)
         self.orientation = orientation
-        self.used: set[str] = set()
+        self.used: dict[str, int] = {}   # clip id → shot number it was used at
+        self.shot_no = 0
         self.pexels_key = secret("PEXELS_API_KEY", required=False)
         self.pixabay_key = secret("PIXABAY_API_KEY", required=False)
         self._search_cache: dict[str, list[dict]] = {}
@@ -46,7 +47,8 @@ class Footage:
                 continue
             best = min(files, key=lambda f: abs((f.get("width") or 0) - want_w))
             out.append({"id": f"pexels-{v['id']}", "url": best["link"], "kind": "video",
-                        "duration": v.get("duration", 10), "credit": v.get("user", {}).get("name", "Pexels")})
+                        "duration": v.get("duration", 10), "credit": v.get("user", {}).get("name", "Pexels"),
+                        "tags": " ".join([v.get("url", "").replace("-", " "), *map(str, v.get("tags") or [])])})
         return out
 
     def _pixabay_videos(self, query: str) -> list[dict]:
@@ -67,10 +69,7 @@ class Footage:
             portrait = (f.get("height") or 0) > (f.get("width") or 0)
             out.append({"id": f"pixabay-{h['id']}", "url": f["url"], "kind": "video",
                         "duration": h.get("duration", 10), "credit": f"{h.get('user', 'Pixabay')} (Pixabay)",
-                        "fits": portrait == (self.orientation == "portrait")})
-        # Pixabay is mostly landscape; vertical Shorts still use landscape clips (center-cropped),
-        # but genuinely vertical clips go first.
-        out.sort(key=lambda i: not i["fits"])
+                        "fits": portrait == (self.orientation == "portrait"), "tags": h.get("tags", "")})
         return out
 
     def _pixabay_photos(self, query: str) -> list[dict]:
@@ -83,7 +82,7 @@ class Footage:
         if r.status_code != 200:
             return []
         return [{"id": f"pixabay-photo-{h['id']}", "url": h.get("largeImageURL") or h["webformatURL"],
-                 "kind": "image", "credit": f"{h.get('user', 'Pixabay')} (Pixabay)"}
+                 "kind": "image", "credit": f"{h.get('user', 'Pixabay')} (Pixabay)", "tags": h.get("tags", "")}
                 for h in r.json().get("hits", []) if h.get("largeImageURL") or h.get("webformatURL")]
 
     def _openverse_photos(self, query: str) -> list[dict]:
@@ -104,7 +103,9 @@ class Footage:
                 lic = "public domain"
             out.append({"id": f"openverse-{p['id']}", "url": p["url"], "kind": "image",
                         "credit": f"\u201c{(p.get('title') or 'Untitled')[:60]}\u201d by {p.get('creator') or 'unknown'}"
-                                  f", {lic} \u2014 {p.get('foreign_landing_url') or p['url']}"})
+                                  f", {lic} \u2014 {p.get('foreign_landing_url') or p['url']}",
+                        "tags": " ".join([p.get("title") or "", *[t.get("name", "") for t in p.get("tags") or []
+                                                                  if isinstance(t, dict)]])})
         return out
 
     def _pexels_photos(self, query: str) -> list[dict]:
@@ -116,34 +117,98 @@ class Footage:
         if r.status_code != 200:
             return []
         return [{"id": f"pexels-photo-{p['id']}", "url": p["src"]["large2x"], "kind": "image",
-                 "credit": p.get("photographer", "Pexels")} for p in r.json().get("photos", [])]
+                 "credit": p.get("photographer", "Pexels"), "tags": p.get("alt") or p.get("url", "").replace("-", " ")}
+                for p in r.json().get("photos", [])]
+
+    def _run(self, fns, query: str) -> list[dict]:
+        out = []
+        for fn in fns:
+            try:
+                out += fn(query)
+            except Exception as exc:  # noqa: BLE001
+                log(f"Footage search error '{query}': {exc}")
+        return out
 
     def search(self, query: str) -> list[dict]:
+        """Results in the sites' own relevance order (no shuffling — the best match comes first).
+        Photos are only fetched when there isn't enough matching video."""
         if query in self._search_cache:
             return self._search_cache[query]
         results: list[dict] = []
         if not FAKE:
-            for fn in (self._pixabay_videos, self._pexels_videos):
-                try:
-                    results += fn(query)
-                except Exception as exc:  # noqa: BLE001
-                    log(f"Footage search error '{query}': {exc}")
-            if len(results) < 3:
-                for fn in (self._pixabay_photos, self._pexels_photos, self._openverse_photos):
-                    try:
-                        results += fn(query)
-                    except Exception as exc:  # noqa: BLE001
-                        log(f"Photo search error '{query}': {exc}")
-                    if len(results) >= 6:
-                        break
-        videos = [r for r in results if r["kind"] == "video"]
-        photos = [r for r in results if r["kind"] != "video"]
-        random.shuffle(videos)
-        random.shuffle(photos)
-        videos.sort(key=lambda i: not i.get("fits", True))  # keeps the shuffle within each group
-        results = videos + photos  # moving footage first, still images as backup
+            kws = keywords(query)
+            results = self._run((self._pixabay_videos, self._pexels_videos), query)
+            if sum(1 for r in results if match(r, kws) >= 0.5) < 3:
+                results += self._run((self._pixabay_photos, self._pexels_photos), query)
+            if not any(match(r, kws) >= 0.5 for r in results):
+                results += self._run((self._openverse_photos,), query)
+        for rank, r in enumerate(results):
+            r["rank"] = rank
         self._search_cache[query] = results
         return results
+
+    def _score(self, item: dict, kws: list[str]) -> float:
+        rel = match(item, kws)
+        score = rel + 0.08 / (1 + item.get("rank", 0) / 5)  # sites rank good matches first
+        if item["kind"] == "video":
+            score += 0.12                                     # moving footage beats a still
+        if item.get("fits") is False:
+            score -= 0.05                                     # needs heavy cropping
+        return score
+
+    def get(self, ladder: list[str], mood: list[str]) -> tuple[Path, dict] | None:
+        """Clip that best shows what's being said.
+
+        ladder = searches from most specific ("airplane taking off night") to most general
+        ("airplane"). A clip only counts if it is actually tagged with the search words.
+        Order of preference: matching clip → the story's mood shots → generic dark shots."""
+        self.shot_no += 1
+        if FAKE:
+            q = (ladder or mood or ["test"])[0]
+            item = {"id": f"fake-{q}-{self.shot_no}", "kind": "video", "credit": "Test", "query": q}
+            return self.fake_clip(f"{q}-{self.shot_no}"), item
+
+        ranked: dict[str, tuple[float, dict]] = {}
+        for q in ladder:
+            kws = keywords(q)
+            for item in self.search(q):
+                if match(item, kws) == 0:
+                    continue
+                last = self.used.get(item["id"])
+                if last is not None and self.shot_no - last < 12:   # never repeat a clip close together
+                    continue
+                sc = self._score(item, kws) - (0.3 if last is not None else 0)
+                if item["id"] not in ranked or sc > ranked[item["id"]][0]:
+                    ranked[item["id"]] = (sc, {**item, "query": q})
+            if ranked and max(v[0] for v in ranked.values()) >= 0.6:
+                break   # found a clear match — don't drift to vaguer searches
+        # Prefer clips that show the sentence's main subject (the last, one-word search),
+        # so "night" alone can't win a shot about an airplane taking off at night.
+        subject = keywords(ladder[-1]) if ladder else []
+        with_subject = {k: v for k, v in ranked.items() if match(v[1], subject) > 0}
+        pool = with_subject or ranked
+        if ranked and not with_subject:
+            # nothing tagged with the subject yet — ask the sites for the subject alone
+            for item in self.search(ladder[-1]):
+                if item["id"] not in self.used and match(item, subject) > 0:
+                    pool = {item["id"]: (self._score(item, subject), {**item, "query": ladder[-1]})}
+                    break
+        tries = [v[1] for v in sorted(pool.values(), key=lambda v: v[0], reverse=True)[:4]]
+        if not tries:
+            for q in [*mood, *MOOD_FALLBACKS[:3]]:
+                tries = [{**i, "query": q} for i in self.search(q) if i["id"] not in self.used][:3]
+                if tries:
+                    log(f"No clip matched {ladder[:1]} — using story mood shot '{q}'")
+                    break
+        for item in tries:
+            try:
+                path = self.download(item)
+            except Exception as exc:  # noqa: BLE001
+                log(f"Skip clip {item['id']}: {exc}")
+                continue
+            self.used[item["id"]] = self.shot_no
+            return path, item
+        return None
 
     # ── download ──────────────────────────────────────────────────────────
     def download(self, item: dict) -> Path:
@@ -173,25 +238,6 @@ class Footage:
                  "-c:v", "libx264", "-preset", "ultrafast", "-pix_fmt", "yuv420p", path])
         return path
 
-    def get(self, queries: list[str], fallback_queries: list[str]) -> tuple[Path, dict] | None:
-        """Best unused clip for the first query that returns something."""
-        for q in [*queries, *fallback_queries]:
-            if FAKE:
-                item = {"id": f"fake-{q}-{len(self.used)}", "kind": "video", "credit": "Test"}
-                self.used.add(item["id"])
-                return self.fake_clip(f"{q}-{len(self.used)}"), item
-            for item in self.search(q):
-                if item["id"] in self.used:
-                    continue
-                try:
-                    path = self.download(item)
-                except Exception as exc:  # noqa: BLE001
-                    log(f"Skip clip {item['id']}: {exc}")
-                    continue
-                self.used.add(item["id"])
-                return path, item
-        return None
-
 
 def download_image(url: str, dest: Path) -> Path | None:
     if FAKE:
@@ -204,6 +250,47 @@ def download_image(url: str, dest: Path) -> Path | None:
     except Exception as exc:  # noqa: BLE001
         log(f"Image download failed: {exc}")
         return None
+
+
+STOP = {"a", "an", "the", "of", "in", "on", "at", "to", "into", "with", "and", "or", "for", "from",
+        "by", "is", "are", "was", "his", "her", "their", "its", "up", "off", "out", "over", "close"}
+
+
+def _stem(w: str) -> str:
+    for suf in ("ing", "ers", "er", "es", "ed", "s"):
+        if len(w) > len(suf) + 2 and w.endswith(suf):
+            return w[: -len(suf)]
+    return w
+
+
+# Different words stock sites use for the same thing.
+SAME = {"plane": "airplane", "aircraft": "airplane", "jet": "airplane", "airliner": "airplane",
+        "aeroplane": "airplane", "cop": "police", "officer": "police", "detective": "police",
+        "woods": "forest", "sea": "ocean", "automobile": "car", "vehicle": "car", "kid": "child",
+        "photograph": "photo", "boat": "ship", "vessel": "ship", "mountains": "mountain"}
+PHRASES = [(r"\b(taking|takes|took|take) off\b", "takeoff"), (r"\b(landing|lands|landed)\b", "landing"),
+           (r"\bnews ?paper", "newspaper"), (r"\bsearch(ing|es|ed)?\b", "search")]
+
+
+def _words(text: str) -> list[str]:
+    text = text.lower()
+    for pat, rep in PHRASES:
+        text = re.sub(pat, rep, text)
+    return [SAME.get(w, _stem(SAME.get(w, w))) for w in re.findall(r"[a-z]+", text)]
+
+
+def keywords(query: str) -> list[str]:
+    return [w for w in _words(query) if w not in STOP and len(w) > 1]
+
+
+def match(item: dict, kws: list[str]) -> float:
+    """Share of the search words that the clip is actually tagged with (0–1)."""
+    if not kws:
+        return 0.0
+    tag_words = set(_words(item.get("tags") or ""))
+    hits = sum(1 for k in kws if k in tag_words or any(t.startswith(k) or k.startswith(t)
+                                                       for t in tag_words if len(t) > 3 and len(k) > 3))
+    return hits / len(kws)
 
 
 MOOD_FALLBACKS = ["dark forest fog", "rain window night", "old documents desk", "empty road night",

@@ -69,6 +69,7 @@ def _photos(images: list[dict], work: Path) -> list[Path | None]:
 def _render_and_send(state: State, job_id: str, script: dict, images: list[dict], note: str):
     job = state.job(job_id)
     work = job_dir(job_id)
+    script = writer.normalize(script)   # also upgrades drafts written in the older format
     photos = _photos(images, work)
     long = render.render_long(script, work, job["case_no"], photos)
     short = render.render_short(script, work)
@@ -92,7 +93,11 @@ def _render_and_send(state: State, job_id: str, script: dict, images: list[dict]
     sent = telegram.send_video(prev, "▶️ Preview (small copy). Full quality is saved for upload.")
     if not sent:
         telegram.send(f"▶️ Watch the full video: <a href=\"{links['video.mp4']}\">video.mp4</a>")
-    telegram.send_video(short["video"], "📱 Short / Reel version")
+    short_file = short["video"]
+    if short_file.stat().st_size > 48 * 1024 * 1024:
+        short_file = render.preview(short_file, work / "short_preview.mp4", vertical=True)
+    if not telegram.send_video(short_file, "📱 Short / Reel version"):
+        telegram.send(f"📱 Short / Reel: <a href=\"{links['short.mp4']}\">short.mp4</a>")
     telegram.send(
         "👀 <b>Your review</b>\n"
         "• Tap <b>Publish</b> to post to YouTube + Instagram\n"

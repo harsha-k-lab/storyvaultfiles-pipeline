@@ -7,7 +7,7 @@ from pathlib import Path
 
 from . import graphics
 from .core import CFG, log, media_duration, run
-from .stock import MOOD_FALLBACKS, Footage
+from .stock import Footage
 from .tts import speak
 
 VC = CFG["video"]
@@ -75,7 +75,7 @@ def _frame_grab(video: Path, out: Path) -> Path | None:
         return None
 
 
-def _finish(silent: Path, narration: Path, ass: Path, out: Path, crf: int = 21):
+def _finish(silent: Path, narration: Path, ass: Path, out: Path, crf: int = 21, maxrate: str = "8M"):
     mv = float(VC["music_volume"])
     music = out.parent / (out.stem + "-music.wav")
     graphics.ambient_music(music, media_duration(narration))
@@ -90,6 +90,7 @@ def _finish(silent: Path, narration: Path, ass: Path, out: Path, crf: int = 21):
     cmd = ["ffmpeg", "-y", "-i", silent.resolve(), "-i", narration.resolve(), "-i", music.resolve(),
            "-filter_complex", fc, "-map", "[v]", "-map", "[a]",
            "-c:v", "libx264", "-preset", "veryfast", "-crf", str(crf), "-profile:v", "high",
+           "-maxrate", maxrate, "-bufsize", str(int(maxrate[:-1]) * 2) + "M",
            "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", "-shortest",
            out.resolve()]
     proc = subprocess.run([str(c) for c in cmd], cwd=ass.parent, capture_output=True, text=True)
@@ -97,15 +98,74 @@ def _finish(silent: Path, narration: Path, ass: Path, out: Path, crf: int = 21):
         raise RuntimeError("Final video encode failed:\n" + proc.stderr[-1500:])
 
 
-def preview(src: Path, out: Path) -> Path:
-    """Small copy (≤ 50 MB) that plays right inside Telegram."""
-    for crf, height in ((30, 480), (34, 360)):
+def preview(src: Path, out: Path, vertical: bool = False) -> Path:
+    """Small copy (under 50 MB) that plays right inside Telegram."""
+    sizes = ((26, 1280), (30, 960)) if vertical else ((30, 480), (34, 360))
+    for crf, height in sizes:
         run(["ffmpeg", "-y", "-i", src, "-vf", f"scale=-2:{height}", "-c:v", "libx264",
-             "-preset", "veryfast", "-crf", str(crf), "-c:a", "aac", "-b:a", "64k", "-ac", "1",
+             "-preset", "veryfast", "-crf", str(crf), "-c:a", "aac", "-b:a", "96k",
              "-movflags", "+faststart", out])
         if out.stat().st_size < 48 * 1024 * 1024:
             break
     return out
+
+
+def plan_cuts(shots: list[dict], words: list[dict], total_frames: int, lead: float,
+              min_s: float, max_s: float) -> list[tuple[int, dict, int]]:
+    """Cut the picture exactly where each sentence starts being spoken.
+
+    Returns [(frames, shot, part)]: part 0 is the shot's first clip; long sentences are
+    split into extra clips (part 1, 2…) that show the same subject from another clip."""
+    counts = [max(1, len(sh["text"].split())) for sh in shots]
+    total_tokens = sum(counts)
+    starts, cum = [0], 0
+    for c in counts[:-1]:
+        cum += c
+        if words:
+            w = next((wd for wd in words if wd.get("ti", 0) >= cum), words[-1])
+            t = w["start"] + lead - 0.10          # cut just before the first word of the sentence
+        else:
+            t = total_frames / FPS * cum / total_tokens
+        starts.append(max(starts[-1], round(t * FPS)))
+    bounds = list(zip(starts, starts[1:] + [total_frames]))
+    # merge sentences too short to hold a clip into the one before
+    merged: list[list] = []
+    for (a, b), sh in zip(bounds, shots):
+        if merged and (b - a) < min_s * FPS:
+            merged[-1][1] = b
+        else:
+            merged.append([a, b, sh])
+    if len(merged) > 1 and merged[0][1] - merged[0][0] < min_s * FPS:
+        merged[1][0] = 0
+        merged.pop(0)
+    plan = []
+    for a, b, sh in merged:
+        n = max(1, round((b - a) / (max_s * FPS) + 0.25))
+        size = (b - a) // n
+        for k in range(n):
+            plan.append((size if k < n - 1 else (b - a) - size * (n - 1), sh, k))
+    return plan
+
+
+def _shot_clip(footage: Footage, sh: dict, part: int, photos: list, mood: list[str],
+               fcount: int, out: Path, w: int, h: int, credits: dict, blank: Path):
+    img_idx = sh.get("image", -1)
+    photo = photos[img_idx] if isinstance(img_idx, int) and 0 <= img_idx < len(photos) else None
+    if part == 0 and photo:
+        shot_from_image(photo, fcount, out, w, h)
+        return None
+    got = footage.get(sh.get("search") or [], mood)
+    if not got:
+        shot_from_image(blank, fcount, out, w, h)
+        return None
+    path, item = got
+    if item["kind"] == "video":
+        shot_from_video(path, fcount, out, w, h)
+    else:
+        shot_from_image(path, fcount, out, w, h)
+    credits[item.get("credit", "")] = True
+    log(f'  “{sh["text"][:50]}…” → {item["kind"]} for “{item.get("query", "")}”')
+    return path if item["kind"] == "video" else None
 
 
 # ── long-form ────────────────────────────────────────────────────────────────
@@ -137,36 +197,19 @@ def render_long(script: dict, work: Path, case_no: int, photos: list[Path | None
     t = 0.0
     first_frame: Path | None = next((p for p in photos if p), None)
     card_bg = first_frame
-    fallback = MOOD_FALLBACKS[:]
+    mood = script.get("mood") or []
+    blank = graphics.end_card(work / "blank.jpg", w, h)
     for bi, b in enumerate(beats):
         frames = _frames(b["seconds"])
         seconds = frames / FPS
         if b["kind"] == "scene":
             sc = b["scene"]
-            n = max(1, round(seconds / per_shot))
-            base = frames // n
-            parts = [base] * (n - 1) + [frames - base * (n - 1)]
-            img_idx = sc.get("image", -1)
-            photo = photos[img_idx] if isinstance(img_idx, int) and 0 <= img_idx < len(photos) else None
-            for k, fcount in enumerate(parts):
-                out = shots_dir / f"b{bi:03d}_{k}.mp4"
-                if k == 0 and photo:
-                    shot_from_image(photo, fcount, out, w, h)
-                else:
-                    random.shuffle(fallback)
-                    qs = sc.get("visuals") or []
-                    got = footage.get(qs[k % len(qs):] + qs[:k % len(qs)] if qs else [], fallback[:3])
-                    if got:
-                        path, item = got
-                        if item["kind"] == "video":
-                            shot_from_video(path, fcount, out, w, h)
-                        else:
-                            shot_from_image(path, fcount, out, w, h)
-                        credits[item.get("credit", "")] = True
-                        if card_bg is None and item["kind"] == "video":
-                            card_bg = _frame_grab(path, work / "cardbg.jpg")
-                    else:
-                        shot_from_image(graphics.end_card(work / "blank.jpg", w, h), fcount, out, w, h)
+            plan = plan_cuts(sc["shots"], b["words"], frames, lead=0.15, min_s=2.2, max_s=per_shot)
+            for k, (fcount, sh, part) in enumerate(plan):
+                out = shots_dir / f"b{bi:03d}_{k:02d}.mp4"
+                clip = _shot_clip(footage, sh, part, photos, mood, fcount, out, w, h, credits, blank)
+                if card_bg is None and clip:
+                    card_bg = _frame_grab(clip, work / "cardbg.jpg")
                 shot_files.append(out)
             pad = audio_dir / f"pad{bi:03d}.wav"
             _pad_audio(b["wav"], seconds, pad, lead=0.15)
@@ -224,22 +267,12 @@ def render_short(script: dict, work: Path) -> dict:
     total = dur + 0.6
     frames = _frames(total)
     footage = Footage(work / "footage_v", "portrait")
-    n = max(4, round(total / 3.2))  # fast cuts keep short-form viewers watching
-    base = frames // n
-    parts = [base] * (n - 1) + [frames - base * (n - 1)]
-    qs = sh.get("visuals") or ["dark forest fog"]
-    shot_files = []
-    for k, fc in enumerate(parts):
+    blank = graphics.end_card(sdir / "blank.jpg", w, h)
+    plan = plan_cuts(sh["shots"], words, frames, lead=0.1, min_s=1.6, max_s=3.5)  # fast cuts for Shorts
+    shot_files, credits = [], {}
+    for k, (fc, shot, part) in enumerate(plan):
         out = sdir / f"s{k:02d}.mp4"
-        fallback = MOOD_FALLBACKS[:]
-        random.shuffle(fallback)
-        got = footage.get([qs[k % len(qs)]], fallback[:3])
-        if got and got[1]["kind"] == "video":
-            shot_from_video(got[0], fc, out, w, h)
-        elif got:
-            shot_from_image(got[0], fc, out, w, h)
-        else:
-            shot_from_image(graphics.end_card(sdir / "blank.jpg", w, h), fc, out, w, h)
+        _shot_clip(footage, shot, part, [], script.get("mood") or [], fc, out, w, h, credits, blank)
         shot_files.append(out)
     silent = sdir / "silent.mp4"
     _concat(shot_files, silent)
@@ -249,5 +282,5 @@ def render_short(script: dict, work: Path) -> dict:
     ass = graphics.write_ass(words, sdir / "short.ass", w, h, vertical=True)
     final = work / "short.mp4"
     log("Final encode (short)…")
-    _finish(silent, narration, ass, final, crf=22)
+    _finish(silent, narration, ass, final, crf=22, maxrate="5M")
     return {"video": final, "seconds": frames / FPS}

@@ -40,27 +40,29 @@ def _even_timings(text: str, duration: float) -> list[dict]:
     t, out = 0.0, []
     for tok, w in zip(tokens, weights):
         d = duration * w / total
-        out.append({"word": tok, "start": t, "end": t + d * 0.92})
+        out.append({"word": tok, "start": t, "end": t + d * 0.92, "ti": len(out)})
         t += d
     return out
 
 
 def _attach_punctuation(text: str, words: list[dict]) -> list[dict]:
-    """edge-tts drops punctuation from word events; put it back for nicer captions."""
+    """edge-tts drops punctuation from word events; put it back for nicer captions,
+    and remember which word of the script ("ti") each spoken word is, so visuals can
+    be cut exactly where each sentence starts."""
     tokens = text.split()
     out, ti = [], 0
     for w in words:
         bare = re.sub(r"\W", "", w["word"]).lower()
         match = None
         for j in range(ti, min(ti + 4, len(tokens))):
-            if re.sub(r"\W", "", tokens[j]).lower().startswith(bare[:3]) and bare:
+            if bare and re.sub(r"\W", "", tokens[j]).lower().startswith(bare[:3]):
                 match = j
                 break
         if match is not None:
-            out.append({**w, "word": tokens[match]})
+            out.append({**w, "word": tokens[match], "ti": match})
             ti = match + 1
         else:
-            out.append(w)
+            out.append({**w, "ti": max(ti - 1, 0)})
     return out
 
 
