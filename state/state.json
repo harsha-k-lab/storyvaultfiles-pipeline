@@ -1,0 +1,45 @@
+{
+  "next_case": 2,
+  "jobs": {
+    "001": {
+      "case_no": 1,
+      "status": "awaiting_topic",
+      "topics": [
+        {
+          "wiki_title": "2003 Angola Boeing 727 disappearance",
+          "summary": "On 25 May 2003, a Boeing 727 airliner, registered as N844AA, was stolen at Quatro de Fevereiro Airport in Luanda, Angola on the west-central coast of Southern Africa, prompting a worldwide search by law enforcement and intelligence agencies in the United States. No trace of the aircraft has ever been found.\n\n",
+          "url": "https://en.wikipedia.org/wiki/2003_Angola_Boeing_727_disappearance",
+          "length": 11757,
+          "views": 11791,
+          "working_title": "The Vanishing of Boeing 727 N844AA",
+          "hook": "In 2003, a massive commercial airliner was stolen from an Angolan airport and vanished without a trace, triggering a global intelligence search.",
+          "why_now": "Unresolved aviation mysteries have high viewer retention and strong search interest among mystery fans."
+        },
+        {
+          "wiki_title": "Patomskiy crater",
+          "summary": "The Patomskiy crater or Patom crater (Russian: Патомский кратер, Patomskiy Krater), also known as Конус Колпакова, Konus Kolpakova \"Kolpakov cone\") is a peculiar rock formation located in the Bodaibo District of the Irkutsk region of southeastern Siberia, 360 kilometres (220 mi) from the district center Bodaibo. It is a large mound made of shattered limestone blocks on the slopes of the Patom Highlands in an area of dense taiga. Its base diameter is about 160 metres (520 ft) and its height about 40 metres (130 ft); the cone's crown is ring-shaped, and in its center there is a smaller mound with a height of about 12 metres (39 ft). The volume of the crater is estimated as 230,000–250,000 cubic metres (8.1–8.8 million cubic feet), with a weight of about one million tons.\nThe Patomskiy crater was described by Russian geologist Vadim Kolpakov in 1949, though it was known to the local population before this. Its origins have been subject of intense scientific interest, with hypotheses including meteorite, volcanic and gaseous origin, but to date no definite proof has been given. Through dendrochronology, the age of the crater is estimated to be 300 years.",
+          "url": "https://en.wikipedia.org/wiki/Patomskiy_crater",
+          "length": 8985,
+          "views": 4701,
+          "working_title": "Siberia's Unexplained Patom Crater",
+          "hook": "Deep inside the dense Siberian taiga sits a massive 40-meter mound of shattered limestone whose origin remains a mystery.",
+          "why_now": "Lesser-known wilderness anomalies captivate late-night documentary audiences looking for fresh topics."
+        },
+        {
+          "wiki_title": "Spontaneous human combustion",
+          "summary": "Spontaneous human combustion (SHC) is the pseudoscientific concept of the spontaneous combustion of a living (or recently deceased) human body without an external source of ignition on the body. In addition to reported cases, descriptions of the alleged phenomenon appear in literature, and both types have been observed to share common characteristics in terms of circumstances and the remains of the victim.\nScientific investigations have attempted to analyze reported instances of SHC and have resulted in hypotheses regarding potential causes and mechanisms, including victim behavior and habits, alcohol consumption, and proximity to potential sources of ignition, as well as the behavior of fires that consume melted fats. Natural explanations, as well as unverified natural phenomena, have been proposed to explain reports of SHC. The current scientific consensus is that purported cases of SHC involve overlooked external sources of ignition.",
+          "url": "https://en.wikipedia.org/wiki/Spontaneous_human_combustion",
+          "length": 30766,
+          "views": 45648,
+          "working_title": "The Mystery of Spontaneous Human Combustion",
+          "hook": "Investigators and scientists have long debated rare fire cases where human remains are severely burned while surrounding items remain untouched.",
+          "why_now": "Unexplained scientific concepts carry strong organic search volume and high click-through rates."
+        }
+      ],
+      "created": "2026-11-08T14:40-05:00"
+    }
+  },
+  "history": [],
+  "last_topics_date": "2026-11-08",
+  "active_job": "001"
+}
