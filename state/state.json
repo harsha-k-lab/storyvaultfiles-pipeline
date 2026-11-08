@@ -1,5 +1,5 @@
 {
-  "next_case": 3,
+  "next_case": 4,
   "jobs": {
     "001": {
       "case_no": 1,
@@ -86,23 +86,50 @@
       ],
       "created": "2026-11-08T16:47-05:00",
       "topics_by": "Gemini"
+    },
+    "003": {
+      "case_no": 3,
+      "status": "awaiting_topic",
+      "topics": [
+        {
+          "wiki_title": "Ourang Medan",
+          "url": "https://en.wikipedia.org/wiki/Ourang_Medan",
+          "working_title": "The Ghost Ship Where Every Crewman Died Smiling",
+          "hook": "A ship's SOS ends with the chilling words 'I die', and rescuers find a whole crew dead with eyes open and faces frozen in terror.",
+          "why_now": "Famous ghost-ship legend with strong views and a perfect cold-open hook for horror-mystery fans.",
+          "summary": ""
+        },
+        {
+          "wiki_title": "L'Inconnue de la Seine",
+          "url": "https://en.wikipedia.org/wiki/L%27Inconnue_de_la_Seine",
+          "working_title": "The Smiling Drowned Girl Everyone Kissed Goodnight",
+          "hook": "A death mask of an unidentified young woman pulled from the Seine became the most copied face in Europe and even the model for a CPR dummy.",
+          "why_now": "Lesser-known, deeply visual, strongly emotional story with 11k recent views and an unresolved identity.",
+          "summary": ""
+        },
+        {
+          "wiki_title": "L'Oiseau Blanc",
+          "url": "https://en.wikipedia.org/wiki/L%27Oiseau_Blanc",
+          "working_title": "The Lost Plane That Beat Lindbergh Across the Atlantic?",
+          "hook": "Two French war heroes vanished days before Lindbergh landed in Paris, and nobody has ever found their plane.",
+          "why_now": "Aviation-mystery audience favourite with ongoing search expeditions and a built-in 'what if' twist.",
+          "summary": ""
+        }
+      ],
+      "created": "2026-11-08T18:32-05:00",
+      "topics_by": "Claude"
     }
   },
   "history": [],
   "last_topics_date": "2026-11-08",
-  "active_job": "002",
+  "active_job": "003",
   "review_job": "001",
   "claude_runs": {
     "date": "2026-11-08",
     "count": 2
   },
   "delivered": [
-    "error-202611082145"
-  ],
-  "claude_pending": {
-    "kind": "topics",
-    "date": "2026-11-08",
-    "wish": "",
-    "at": "2026-11-08T18:31:05-05:00"
-  }
+    "error-202611082145",
+    "topics-202611082331"
+  ]
 }
