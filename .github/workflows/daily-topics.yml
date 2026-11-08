@@ -1,10 +1,9 @@
 name: Daily topics
-# Runs at 16:00 and 17:00 UTC; the script only sends at 12 PM Toronto time
-# (covers both winter and summer time). You can also run it by hand.
+# Runs hourly 16:00–20:00 UTC. The script asks Claude for topics at 12 PM Toronto time
+# (summer or winter time), and the later runs switch to Gemini if Claude hasn't delivered.
 on:
   schedule:
-    - cron: "0 16 * * *"
-    - cron: "0 17 * * *"
+    - cron: "0 16-20 * * *"
   workflow_dispatch:
 
 permissions:
@@ -46,6 +45,8 @@ jobs:
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          CLAUDE_ROUTINE_URL: ${{ secrets.CLAUDE_ROUTINE_URL }}
+          CLAUDE_ROUTINE_TOKEN: ${{ secrets.CLAUDE_ROUTINE_TOKEN }}
           GH_TOKEN: ${{ github.token }}
         run: python -m pipeline.run topics ${{ github.event_name == 'schedule' && '--scheduled' || '' }}
 

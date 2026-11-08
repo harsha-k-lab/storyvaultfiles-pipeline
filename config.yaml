@@ -30,7 +30,16 @@ research:
   min_article_chars: 7000         # skip cases with too little documented detail
   avoid_recent_years: 12          # skip cases newer than this (respect for families)
 
+claude:
+  # Claude researches and writes when the CLAUDE_ROUTINE_URL and CLAUDE_ROUTINE_TOKEN
+  # secrets are set (SETUP.md step 12). Otherwise, or if Claude is unavailable, Gemini writes.
+  enabled: true
+  daily_runs: 5            # routine runs your plan allows per day: Pro 5, Max 15, Team/Enterprise 25
+  use_for_topics: true     # false = Gemini picks topics, saving Claude's runs for scripts and revisions
+  fallback_minutes: 50     # daily topics switch to Gemini if Claude hasn't delivered by then
+
 writing:
+  # Gemini is the free backup writer.
   # Free Gemini models, tried in order. If Google renames them, the pipeline
   # automatically finds another free "flash" model.
   models: ["gemini-3.5-flash", "gemini-3.6-flash", "gemini-3.1-flash-lite", "gemini-flash-latest", "gemini-2.5-flash"]

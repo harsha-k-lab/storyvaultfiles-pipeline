@@ -2,6 +2,7 @@
 
   topics [--scheduled] [--wish "idea"]   find 3 cases and send them to Telegram
   handle                                 react to a Telegram button/message (payload in SVF_PAYLOAD)
+  deliver <folder>                       use the topics/script files Claude pushed
   refresh-instagram                      print a refreshed Instagram token
 """
 from __future__ import annotations
@@ -11,11 +12,12 @@ import json
 import os
 import sys
 import traceback
+from datetime import datetime
 from pathlib import Path
 
-from . import publish, render, research, telegram, writer
+from . import claude, publish, render, research, telegram, writer
 from .core import CFG, FAKE, STATE_DIR, State, job_dir, load_json, log, now_local, save_json
-from .stock import download_image
+from .stock import download_image, keywords, match
 from .telegram import esc
 
 
@@ -27,13 +29,40 @@ def case_dir(job_id: str) -> Path:
 
 # ── 1. Topics ────────────────────────────────────────────────────────────────
 
-def cmd_topics(state: State, scheduled: bool = False, wish: str | None = None):
+def _minutes_since(iso: str) -> float:
+    try:
+        return (now_local() - datetime.fromisoformat(iso)).total_seconds() / 60
+    except (TypeError, ValueError):
+        return 1e9
+
+
+def cmd_topics(state: State, scheduled: bool = False, wish: str | None = None, force_gemini: bool = False):
     today = now_local().date().isoformat()
     if scheduled:
         hour = int(CFG["channel"]["daily_topics_hour"])
         if now_local().hour < hour or state.data.get("last_topics_date") == today:
             log("Not time yet / already sent today — skipping.")
             return
+        pend = state.data.get("claude_pending") or {}
+        if pend.get("kind") == "topics" and pend.get("date") == today:
+            if _minutes_since(pend.get("at")) < float(CFG.get("claude", {}).get("fallback_minutes", 50)):
+                log("Claude is still researching today's topics — waiting.")
+                return
+            telegram.send("⏰ Claude didn't send today's topics in time, so Gemini is picking them instead.")
+            state.data.pop("claude_pending", None)
+            force_gemini = True
+    if not force_gemini and CFG.get("claude", {}).get("use_for_topics", True):
+        link, why = claude.fire(state, f"TOPICS\nwish: {wish or ''}", reserve=2)
+        if link is not None:
+            state.data["claude_pending"] = {"kind": "topics", "date": today, "wish": wish or "",
+                                            "at": now_local().isoformat(timespec="seconds")}
+            state.save()
+            about = f" about <b>{esc(wish)}</b>" if wish else ""
+            telegram.send(f"🧠 Claude is researching cases{about} and will send 3 ideas in about 10–15 minutes."
+                          + (f"\n<a href=\"{link}\">Watch Claude work</a>" if link else ""))
+            return
+        if why:
+            log(why)
     if wish:
         telegram.send(f"🔎 Looking for cases about <b>{esc(wish)}</b>…")
     cands = research.candidates(state.used_titles(), query=wish)
@@ -41,12 +70,17 @@ def cmd_topics(state: State, scheduled: bool = False, wish: str | None = None):
         telegram.send("I couldn't find enough well-documented cases for that. Try another idea, or send /topics.")
         return
     recent = [h["wiki_title"] for h in state.data["history"]]
-    topics = writer.pitch_topics(cands, recent, wish)
+    send_topics(state, writer.pitch_topics(cands, recent, wish), "Gemini")
+
+
+def send_topics(state: State, topics: list[dict], by: str):
     job_id = state.new_job(topics)
-    state.data["last_topics_date"] = today
+    state.data["last_topics_date"] = now_local().date().isoformat()
+    state.data.pop("claude_pending", None)
+    state.job(job_id)["topics_by"] = by
     state.save()
     case_no = state.job(job_id)["case_no"]
-    lines = [f"🗂 <b>Case file #{case_no:03d} — pick today's story</b>\n"]
+    lines = [f"🗂 <b>Case file #{case_no:03d} — pick today's story</b> <i>(picked by {by})</i>\n"]
     for i, t in enumerate(topics, 1):
         lines.append(f"<b>{i}. {esc(t['working_title'])}</b>\n{esc(t['hook'])}\n"
                      f"<i>{esc(t.get('why_now', ''))}</i> · <a href=\"{t['url']}\">source</a>\n")
@@ -107,17 +141,34 @@ def _render_and_send(state: State, job_id: str, script: dict, images: list[dict]
         f"<a href=\"{links['short.mp4']}\">short</a>", review_rows)
 
 
-def cmd_produce(state: State, job_id: str, index: int):
+def cmd_produce(state: State, job_id: str, index: int, force_gemini: bool = False):
     job = state.job(job_id)
-    if job["status"] != "awaiting_topic":
+    allowed = {"awaiting_topic"} | ({"writing"} if force_gemini else set())
+    if job["status"] not in allowed:
         telegram.send(f"Case #{job['case_no']:03d} is already {job['status'].replace('_', ' ')}.")
         return
     topic = job["topics"][index]
-    job.update({"status": "producing", "topic": topic})
+    job.update({"status": "producing", "topic": topic, "topic_index": index})
     state.save()
+    if not force_gemini:
+        link, why = claude.fire(state, f"SCRIPT {job_id}")
+        if link is not None:
+            job.update({"status": "writing", "writer": "Claude",
+                        "requested_at": now_local().isoformat(timespec="seconds")})
+            state.save()
+            telegram.send(
+                f"🎬 Great choice: <b>{esc(topic['working_title'])}</b>\n"
+                "🧠 Claude is researching the case and writing the script (about 10–20 minutes). "
+                "Then the voice and video take about 25 minutes. I'll send the preview here."
+                + (f"\n<a href=\"{link}\">Watch Claude work</a>" if link else ""),
+                [[("⚡ Use Gemini instead", f"gem:{job_id}:{index}")]])
+            return
+        if why:
+            telegram.send(f"ℹ️ {esc(why)} — Gemini will write this one.")
     telegram.send(f"🎬 Great choice: <b>{esc(topic['working_title'])}</b>\n"
                   "Researching, writing, recording the voice and editing. This usually takes "
                   "20–35 minutes — I'll send the preview here.")
+    job.update({"status": "producing", "writer": "Gemini"})
     source = research.article(topic["wiki_title"])
     images = research.free_images(source["title"])
     script = writer.write_script(topic, source, images, job["case_no"])
@@ -125,7 +176,7 @@ def cmd_produce(state: State, job_id: str, index: int):
     save_json(case_dir(job_id) / "script.json", script)
     save_json(case_dir(job_id) / "meta.json", {"source_url": source["url"], "source_title": source["title"],
                                                 "images": images})
-    _render_and_send(state, job_id, script, images, "Here's your draft.")
+    _render_and_send(state, job_id, script, images, "Here's your draft (written by Gemini).")
 
 
 def _check_script(script: dict):
@@ -134,13 +185,27 @@ def _check_script(script: dict):
         raise RuntimeError(f"The AI returned an incomplete script (missing {missing}). Tap Retry.")
 
 
-def cmd_revise(state: State, job_id: str, feedback: str | None):
+def cmd_revise(state: State, job_id: str, feedback: str | None, force_gemini: bool = False):
     job = state.job(job_id)
     script = load_json(case_dir(job_id) / "script.json")
     meta = load_json(case_dir(job_id) / "meta.json")
     images = meta.get("images", [])
+    if feedback and not force_gemini:
+        link, why = claude.fire(state, f"REVISE {job_id}\n{feedback}")
+        if link is not None:
+            job.update({"status": "writing", "writer": "Claude", "pending_notes": feedback,
+                        "requested_at": now_local().isoformat(timespec="seconds")})
+            state.save()
+            telegram.send(f"✏️ Claude is applying your notes:\n<i>{esc(feedback)}</i>\n"
+                          "Rewrite in about 10 minutes, then about 25 minutes for the video."
+                          + (f"\n<a href=\"{link}\">Watch Claude work</a>" if link else ""),
+                          [[("⚡ Use Gemini instead", f"gemrev:{job_id}")]])
+            return
+        if why:
+            telegram.send(f"ℹ️ {esc(why)} — Gemini will apply these notes.")
     job["status"] = "producing"
     job["revisions"] = job.get("revisions", 0) + 1
+    job.pop("pending_notes", None)
     state.save()
     if feedback:
         telegram.send(f"✏️ Applying your notes:\n<i>{esc(feedback)}</i>\nNew version in ~20–35 minutes.")
@@ -148,11 +213,114 @@ def cmd_revise(state: State, job_id: str, feedback: str | None):
         script = writer.revise_script(script, feedback, source, images)
         _check_script(script)
         save_json(case_dir(job_id) / "script.json", script)
-        note = f"Revision {job['revisions']} — your notes applied."
+        note = f"Revision {job['revisions']} — your notes applied (Gemini)."
     else:
         telegram.send("🎞 Same script, fresh footage. New version in ~20–30 minutes.")
         note = f"Revision {job['revisions']} — new footage."
     _render_and_send(state, job_id, script, images, note)
+
+
+# ── 2b. Claude's deliveries ──────────────────────────────────────────────────
+
+def auto_place_photos(script: dict, images: list[dict]):
+    """Put each real case photo on the sentence that talks about what it shows."""
+    shots = [sh for sc in script["scenes"] for sh in sc["shots"]]
+    taken = {sh.get("image") for sh in shots if isinstance(sh.get("image"), int) and sh["image"] >= 0}
+    for i, im in enumerate(images):
+        if i in taken:
+            continue
+        about = f"{im.get('caption', '')} {im.get('file', '').replace('File:', '').rsplit('.', 1)[0]}"
+        kws = [k for k in keywords(about.replace("_", " ")) if len(k) > 3][:12]
+        best = max(((match({"tags": sh["text"]}, kws), n) for n, sh in enumerate(shots)
+                    if sh.get("image", -1) < 0), default=(0, -1))
+        if kws and best[0] * len(kws) >= 2:   # at least two shared words
+            shots[best[1]]["image"] = i
+
+
+def _topic_from_claude(t: dict) -> dict:
+    title = t["wiki_title"].strip()
+    return {"wiki_title": title,
+            "url": t.get("url") or f"https://en.wikipedia.org/wiki/{title.replace(' ', '_')}",
+            "working_title": t.get("working_title") or title, "hook": t.get("hook", ""),
+            "why_now": t.get("why_now", ""), "summary": t.get("summary", "")}
+
+
+def cmd_deliver(state: State, folder: Path):
+    files = sorted(folder.glob("*.json")) if folder.exists() else []
+    if not files:
+        log("Nothing delivered.")
+        return
+    done = state.data.setdefault("delivered", [])
+    for f in files:
+        data = load_json(f)
+        did = str(data.get("id") or f.stem)
+        if did in done:
+            log(f"{did} already used — skipping")
+            continue
+        done.append(did)
+        del done[:-200]
+        state.save()
+        kind = data.get("kind")
+        log(f"Claude delivered {kind}: {did}")
+        if kind == "topics":
+            topics = [_topic_from_claude(t) for t in data.get("topics", [])[:3]]
+            if len(topics) < 3:
+                raise RuntimeError("Claude sent fewer than 3 topics.")
+            send_topics(state, topics, "Claude")
+        elif kind == "script":
+            _deliver_script(state, data)
+        elif kind == "error":
+            job_id = str(data.get("job") or "")
+            job = state.data["jobs"].get(job_id)
+            rows = None
+            if job and job["status"] == "writing":
+                rows = [[("⚡ Use Gemini instead",
+                          f"gemrev:{job_id}" if job.get("pending_notes") else f"gem:{job_id}:{job.get('topic_index', 0)}")]]
+            elif (state.data.get("claude_pending") or {}).get("kind") == "topics":
+                state.data.pop("claude_pending", None)
+                rows = [[("⚡ Topics from Gemini", "gemtopics:0")]]
+            state.save()
+            telegram.send(f"⚠️ Claude couldn't finish: {esc(str(data.get('message', 'no reason given')))}", rows)
+        else:
+            raise RuntimeError(f"Unknown delivery kind: {kind}")
+
+
+def _deliver_script(state: State, data: dict):
+    job_id = str(data["job"]).zfill(3)
+    job = state.job(job_id)
+    if job["status"] != "writing":
+        telegram.send(f"ℹ️ Claude finished case #{job['case_no']:03d}, but it's already "
+                      f"{job['status'].replace('_', ' ')} — I kept the current version.")
+        return
+    script = writer.normalize(data["script"])
+    _check_script(script)
+    revision = bool(job.get("pending_notes")) and (case_dir(job_id) / "script.json").exists()
+    topic = job["topic"]
+    if revision:
+        meta = load_json(case_dir(job_id) / "meta.json")
+        images = meta.get("images", [])
+        job["revisions"] = job.get("revisions", 0) + 1
+        note = f"Revision {job['revisions']} — your notes applied by Claude."
+    else:
+        images = research.free_images(topic["wiki_title"])
+        meta = {"source_url": topic["url"], "source_title": topic["wiki_title"], "images": images}
+        note = "Here's your draft, researched and written by Claude."
+    meta["extra_sources"] = [s for s in data.get("sources", []) if isinstance(s, dict) and s.get("url")][:12]
+    auto_place_photos(script, images)
+    save_json(case_dir(job_id) / "script.json", script)
+    save_json(case_dir(job_id) / "meta.json", meta)
+    job.pop("pending_notes", None)
+    job["status"] = "producing"
+    state.save()
+    telegram.send(f"🧠 Claude's script is in: <b>{esc(script['title'])}</b>\n"
+                  "Recording the voice and editing the video now (about 25 minutes).")
+    try:
+        _render_and_send(state, job_id, script, images, note)
+    except Exception:
+        job["status"] = "awaiting_review"
+        state.data["retry_payload"] = {"kind": "button", "data": f"redo:{job_id}"}
+        state.save()
+        raise
 
 
 # ── 3. Publish ───────────────────────────────────────────────────────────────
@@ -168,6 +336,8 @@ def build_description(script: dict, meta: dict) -> str:
         parts.append("⏱ Chapters\n" + "\n".join(f"{_fmt_ts(t)} {n}" for t, n in meta["chapters"]))
     src = [f"📁 Sources\nBased on the Wikipedia article “{meta['source_title']}” — {meta['source_url']} "
            "(text licensed CC BY-SA 4.0)."]
+    for x in meta.get("extra_sources", [])[:10]:
+        src.append(f"Research: {x.get('title', x['url'])} — {x['url']}")
     for im in meta.get("images", []):
         src.append(f"Photo: {im['file'].replace('File:', '')} by {im['artist']} ({im['license']}) {im['page']}")
     if meta.get("credits"):
@@ -271,7 +441,10 @@ def cmd_status(state: State):
     rows = [f"#{v['case_no']:03d} · {v['status'].replace('_', ' ')} · "
             f"{esc(v.get('topic', {}).get('working_title', 'choosing topic'))}"
             for k, v in sorted(state.data["jobs"].items())[-8:]]
-    telegram.send("📋 <b>Recent cases</b>\n" + ("\n".join(rows) or "Nothing yet."))
+    extra = ""
+    if claude.configured():
+        extra = f"\n\n🧠 Claude runs left today: {max(claude.runs_left(state), 0)}"
+    telegram.send("📋 <b>Recent cases</b>\n" + ("\n".join(rows) or "Nothing yet.") + extra)
 
 
 def handle(state: State, payload: dict):
@@ -288,6 +461,16 @@ def handle(state: State, payload: dict):
         job_id = rest.split(":")[0]
         if action == "pick":
             return cmd_produce(state, job_id, int(rest.split(":")[1]))
+        if action == "gem":
+            return cmd_produce(state, job_id, int(rest.split(":")[1]), force_gemini=True)
+        if action == "gemrev":
+            job = state.job(job_id)
+            if job["status"] != "writing":
+                return telegram.send(f"Case #{job['case_no']:03d} is already {job['status'].replace('_', ' ')}.")
+            return cmd_revise(state, job_id, job.get("pending_notes"), force_gemini=True)
+        if action == "gemtopics":
+            state.data.pop("claude_pending", None)
+            return cmd_topics(state, force_gemini=True)
         if action == "new":
             if job_id in state.data["jobs"]:
                 state.data["jobs"][job_id]["status"] = "skipped"
@@ -313,6 +496,12 @@ def handle(state: State, payload: dict):
         return cmd_topics(state)
     if low.startswith("/status"):
         return cmd_status(state)
+    writing = state.latest_job("writing")
+    if writing:
+        job = state.job(writing)
+        btn = f"gemrev:{writing}" if job.get("pending_notes") else f"gem:{writing}:{job.get('topic_index', 0)}"
+        return telegram.send(f"✍️ Claude is still writing case #{job['case_no']:03d}. "
+                             "I'll send it as soon as it's ready.", [[("⚡ Use Gemini instead", btn)]])
     review = state.data.get("review_job")
     if review and state.data["jobs"].get(review, {}).get("status") == "awaiting_review":
         return cmd_revise(state, review, text)
@@ -326,7 +515,8 @@ def handle(state: State, payload: dict):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("command", choices=["topics", "handle", "refresh-instagram"])
+    ap.add_argument("command", choices=["topics", "handle", "deliver", "refresh-instagram"])
+    ap.add_argument("folder", nargs="?")
     ap.add_argument("--scheduled", action="store_true")
     ap.add_argument("--wish")
     args = ap.parse_args()
@@ -340,6 +530,9 @@ def main():
     try:
         if args.command == "topics":
             cmd_topics(state, scheduled=args.scheduled, wish=args.wish)
+        elif args.command == "deliver":
+            payload = {"kind": "command", "text": "/status"}
+            cmd_deliver(state, Path(args.folder or "inbox"))
         else:
             payload = json.loads(os.environ.get("SVF_PAYLOAD") or "{}")
             log("Payload:", payload)
@@ -354,7 +547,7 @@ def main():
                 v["status"] = "awaiting_review" if "revisions" in v else "awaiting_topic"
             if v["status"] == "publishing":
                 v["status"] = "awaiting_review"
-        state.data["last_failed"] = payload
+        state.data["last_failed"] = state.data.pop("retry_payload", None) or payload
         state.save()
         try:
             telegram.send(f"⚠️ Something went wrong:\n<code>{esc(str(exc))[:900]}</code>",

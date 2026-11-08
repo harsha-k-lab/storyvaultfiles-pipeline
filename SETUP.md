@@ -3,7 +3,7 @@
 This sets up a pipeline that, **every day at 12:00 PM (Toronto time)**:
 
 1. Sends you 3 unsolved-mystery story ideas on Telegram.
-2. When you tap one, writes a researched script, records an AI narrator, edits a
+2. When you tap one, Claude (or Gemini as a backup) writes a researched script, records an AI narrator, edits a
    ~10-minute video plus a ~55-second vertical Short, and sends you a preview.
 3. When you type notes, rewrites and re-renders. When you tap **Publish**, uploads
    the video to YouTube, the Short to YouTube Shorts, and the Short to Instagram Reels.
@@ -28,6 +28,7 @@ This sets up a pipeline that, **every day at 12:00 PM (Toronto time)**:
 | 6 | Cloudflare | Free bridge that passes your taps to GitHub |
 | 9 | Google Cloud | Lets the pipeline upload to YouTube |
 | 10 | Instagram professional account + Meta developer app | Lets it post Reels |
+| 12 | Claude routine (your Claude plan) | Claude researches and writes; Gemini is the backup |
 
 ---
 
@@ -213,6 +214,37 @@ stays in development mode, which works for accounts you own.
 2. Telegram: send `/topics` → tap an idea → wait for the preview → tap **Publish**.
 
 From now on it runs by itself every day at noon. 🎉
+
+## Step 12 — Let Claude research and write (10 min, uses your Claude plan)
+
+With this step, **Claude** picks the daily topics, researches each case across several
+sources, writes the script, and applies your notes. Gemini stays as the automatic backup.
+It uses your existing Claude plan, with no extra cost: each topic list, script or
+revision is one "routine run". Pro allows 5 runs a day, Max 15.
+
+1. Open **claude.ai/code/routines** → **New routine**.
+2. **Name:** `StoryVaultFiles writer`
+3. **Prompt** — paste exactly:
+   ```
+   You are the StoryVaultFiles writer. Follow ROUTINE.md in this repository exactly.
+   The run text tells you the command (TOPICS, SCRIPT <job> or REVISE <job>).
+   ```
+4. **Repository:** `harsha-k-lab/storyvaultfiles-pipeline`. Leave the default environment.
+5. **Trigger:** remove any schedule trigger (GitHub already runs the daily schedule). Click
+   **Add another trigger** → **API** → **Generate token**. Copy **both** the URL and the token.
+   The token is shown only once.
+6. **Save** the routine.
+7. In GitHub → **Settings → Secrets and variables → Actions**, add:
+   - `CLAUDE_ROUTINE_URL` = the URL from step 5
+   - `CLAUDE_ROUTINE_TOKEN` = the token from step 5
+8. If you're on **Max**, edit `config.yaml` and set `daily_runs: 15` under `claude:`.
+
+Test it: send `/topics` to your bot. You'll get "🧠 Claude is researching…" with a
+link to watch, and the 3 ideas arrive in about 10–15 minutes.
+
+How runs add up per day: topics (1) + script (1) + each revision (1). If Claude's runs
+for the day are used up, Gemini writes automatically and the bot tells you.
+`/status` shows Claude's runs left today.
 
 ---
 
