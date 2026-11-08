@@ -58,10 +58,7 @@
     "date": "2026-11-08",
     "count": 1
   },
-  "claude_pending": {
-    "kind": "topics",
-    "date": "2026-11-08",
-    "wish": "",
-    "at": "2026-11-08T16:44:40-05:00"
-  }
+  "delivered": [
+    "error-202611082145"
+  ]
 }
