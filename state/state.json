@@ -94,9 +94,15 @@
   "review_job": "001",
   "claude_runs": {
     "date": "2026-11-08",
-    "count": 1
+    "count": 2
   },
   "delivered": [
     "error-202611082145"
-  ]
+  ],
+  "claude_pending": {
+    "kind": "topics",
+    "date": "2026-11-08",
+    "wish": "",
+    "at": "2026-11-08T18:31:05-05:00"
+  }
 }
