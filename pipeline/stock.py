@@ -1,4 +1,4 @@
-"""Free stock footage (Pexels, Pixabay) and freely licensed case photos."""
+"""Free visuals: Pixabay (main), Openverse (no key needed), Pexels (only if you already have a key)."""
 from __future__ import annotations
 
 import hashlib
@@ -11,6 +11,8 @@ from .core import FAKE, log, retry, run, secret
 from .research import HEADERS
 
 PEXELS = "https://api.pexels.com"
+PIXABAY = "https://pixabay.com/api"
+OPENVERSE = "https://api.openverse.org/v1"
 
 
 class Footage:
@@ -50,22 +52,59 @@ class Footage:
     def _pixabay_videos(self, query: str) -> list[dict]:
         if not self.pixabay_key:
             return []
-        r = requests.get("https://pixabay.com/api/videos/",
-                         params={"key": self.pixabay_key, "q": query[:100], "per_page": 20,
-                                 "safesearch": "true"}, timeout=30)
+        r = requests.get(f"{PIXABAY}/videos/", timeout=30, params={
+            "key": self.pixabay_key, "q": query[:100], "per_page": 30, "safesearch": "true",
+            "video_type": "film", "min_width": 1280 if self.orientation == "landscape" else 0})
         if r.status_code != 200:
+            log(f"Pixabay videos {r.status_code} for '{query}'")
             return []
         out = []
         for h in r.json().get("hits", []):
             vids = h.get("videos", {})
-            f = vids.get("large") if vids.get("large", {}).get("url") else vids.get("medium", {})
-            if not f or not f.get("url"):
+            f = next((vids[k] for k in ("large", "medium") if vids.get(k, {}).get("url")), None)
+            if not f:
                 continue
             portrait = (f.get("height") or 0) > (f.get("width") or 0)
-            if (self.orientation == "portrait") != portrait and self.orientation == "portrait":
-                continue
             out.append({"id": f"pixabay-{h['id']}", "url": f["url"], "kind": "video",
-                        "duration": h.get("duration", 10), "credit": h.get("user", "Pixabay")})
+                        "duration": h.get("duration", 10), "credit": f"{h.get('user', 'Pixabay')} (Pixabay)",
+                        "fits": portrait == (self.orientation == "portrait")})
+        # Pixabay is mostly landscape; vertical Shorts still use landscape clips (center-cropped),
+        # but genuinely vertical clips go first.
+        out.sort(key=lambda i: not i["fits"])
+        return out
+
+    def _pixabay_photos(self, query: str) -> list[dict]:
+        if not self.pixabay_key:
+            return []
+        r = requests.get(f"{PIXABAY}/", timeout=30, params={
+            "key": self.pixabay_key, "q": query[:100], "image_type": "photo", "per_page": 30,
+            "safesearch": "true",
+            "orientation": "horizontal" if self.orientation == "landscape" else "vertical"})
+        if r.status_code != 200:
+            return []
+        return [{"id": f"pixabay-photo-{h['id']}", "url": h.get("largeImageURL") or h["webformatURL"],
+                 "kind": "image", "credit": f"{h.get('user', 'Pixabay')} (Pixabay)"}
+                for h in r.json().get("hits", []) if h.get("largeImageURL") or h.get("webformatURL")]
+
+    def _openverse_photos(self, query: str) -> list[dict]:
+        """No key needed. Only licenses that allow commercial use AND editing."""
+        r = requests.get(f"{OPENVERSE}/images/", headers=HEADERS, timeout=30, params={
+            "q": query[:200], "page_size": 20, "mature": "false", "size": "large",
+            "license_type": "commercial,modification", "extension": "jpg,png",
+            "aspect_ratio": "wide" if self.orientation == "landscape" else "tall"})
+        if r.status_code != 200:
+            log(f"Openverse {r.status_code} for '{query}'")
+            return []
+        out = []
+        for p in r.json().get("results", []):
+            if not p.get("url"):
+                continue
+            lic = f"CC {p.get('license', '').upper()} {p.get('license_version', '')}".strip()
+            if p.get("license") in ("cc0", "pdm"):
+                lic = "public domain"
+            out.append({"id": f"openverse-{p['id']}", "url": p["url"], "kind": "image",
+                        "credit": f"\u201c{(p.get('title') or 'Untitled')[:60]}\u201d by {p.get('creator') or 'unknown'}"
+                                  f", {lic} \u2014 {p.get('foreign_landing_url') or p['url']}"})
         return out
 
     def _pexels_photos(self, query: str) -> list[dict]:
@@ -84,17 +123,25 @@ class Footage:
             return self._search_cache[query]
         results: list[dict] = []
         if not FAKE:
-            for fn in (self._pexels_videos, self._pixabay_videos):
+            for fn in (self._pixabay_videos, self._pexels_videos):
                 try:
                     results += fn(query)
                 except Exception as exc:  # noqa: BLE001
                     log(f"Footage search error '{query}': {exc}")
             if len(results) < 3:
-                try:
-                    results += self._pexels_photos(query)
-                except Exception as exc:  # noqa: BLE001
-                    log(f"Photo search error '{query}': {exc}")
-        random.shuffle(results)
+                for fn in (self._pixabay_photos, self._pexels_photos, self._openverse_photos):
+                    try:
+                        results += fn(query)
+                    except Exception as exc:  # noqa: BLE001
+                        log(f"Photo search error '{query}': {exc}")
+                    if len(results) >= 6:
+                        break
+        videos = [r for r in results if r["kind"] == "video"]
+        photos = [r for r in results if r["kind"] != "video"]
+        random.shuffle(videos)
+        random.shuffle(photos)
+        videos.sort(key=lambda i: not i.get("fits", True))  # keeps the shuffle within each group
+        results = videos + photos  # moving footage first, still images as backup
         self._search_cache[query] = results
         return results
 

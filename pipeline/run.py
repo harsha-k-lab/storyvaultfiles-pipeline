@@ -166,7 +166,11 @@ def build_description(script: dict, meta: dict) -> str:
     for im in meta.get("images", []):
         src.append(f"Photo: {im['file'].replace('File:', '')} by {im['artist']} ({im['license']}) {im['page']}")
     if meta.get("credits"):
-        src.append("Stock footage via Pexels & Pixabay: " + ", ".join(meta["credits"][:25]))
+        simple = [c for c in meta["credits"] if "\u2014" not in c]
+        licensed = [c for c in meta["credits"] if "\u2014" in c]
+        if simple:
+            src.append("Stock footage: " + ", ".join(simple[:25]))
+        src += [f"Image: {c}" for c in licensed[:20]]
     src.append("Narration uses an AI voice. Theories discussed are unproven.")
     parts.append("\n".join(src))
     parts.append(" ".join(script.get("hashtags", [])))

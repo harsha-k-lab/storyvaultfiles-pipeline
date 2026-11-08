@@ -52,6 +52,8 @@ video:
   fps: 30
   seconds_per_shot: 7             # new stock clip every ~7 s keeps it visually alive
   music_volume: 0.32              # background music level under the voice (0–1)
+  # Footage comes from Pixabay (needs a free key), then Openverse photos (no key).
+  # Pexels is used too if you already have a key (new Pexels keys are paused).
   # Put your own royalty-free .mp3 files in assets/music/ to use them instead of
   # the built-in generated ambient soundtrack.
 

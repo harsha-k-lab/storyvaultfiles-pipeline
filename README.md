@@ -11,7 +11,7 @@ to YouTube and Instagram once you approve.
 ```
 12:00 daily ─► GitHub Actions ─► Wikipedia (cases) + Gemini (pitches) ─► Telegram: 3 ideas
 You tap ─► Telegram ─► Cloudflare Worker ─► GitHub Actions:
-     Gemini script ─► edge-tts voice ─► Pexels/Pixabay/Wikimedia visuals ─► FFmpeg edit
+     Gemini script ─► edge-tts voice ─► Pixabay/Openverse/Wikimedia visuals ─► FFmpeg edit
      ─► preview on Telegram ─► you: notes (re-render) or Publish
 Publish ─► YouTube (video + Short) ─► Instagram Reel ─► links on Telegram
 ```

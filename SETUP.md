@@ -23,7 +23,7 @@ This sets up a pipeline that, **every day at 12:00 PM (Toronto time)**:
 | 1 | Gmail + YouTube channel | Your channel |
 | 2 | GitHub | Free cloud computers that build the videos |
 | 3 | Google AI Studio | Free AI script writer (Gemini) |
-| 4 | Pexels (+ optional Pixabay) | Free stock footage |
+| 4 | Pixabay | Free stock footage (Openverse photos are a no-key backup) |
 | 5 | Telegram bot | Where you approve topics and videos |
 | 6 | Cloudflare | Free bridge that passes your taps to GitHub |
 | 9 | Google Cloud | Lets the pipeline upload to YouTube |
@@ -66,11 +66,13 @@ models. Here that's only public Wikipedia facts and scripts.
 
 ## Step 4 — Free stock footage (5 min)
 
-1. **Pexels:** sign up at **pexels.com**, then go to **pexels.com/api** → **Your API key**.
-   Copy it → `PEXELS_API_KEY`.
-2. **Pixabay (optional, more variety):** sign up at **pixabay.com**, then open
-   **pixabay.com/api/docs** and your key is shown under "Parameters".
-   Copy it → `PIXABAY_API_KEY`.
+1. Sign up at **pixabay.com** (free) and confirm your email.
+2. While logged in, open **pixabay.com/api/docs**. Your key is shown in green under
+   **Parameters → key**. Copy it → `PIXABAY_API_KEY`.
+
+Pexels has paused new API keys, so it's not needed. If Pixabay finds nothing for a scene,
+the pipeline uses freely licensed photos from **Openverse**, which needs no key. If you
+ever get a Pexels key, add it as `PEXELS_API_KEY` for extra variety.
 
 ## Step 5 — Telegram bot (3 min)
 
@@ -78,7 +80,9 @@ models. Here that's only public Wikipedia facts and scripts.
 2. Send `/newbot`. Name: `StoryVaultFiles Studio`. Username: something ending in
    `bot`, e.g. `storyvault_studio_bot`.
 3. BotFather replies with a token like `7123456789:AAH…` → `TELEGRAM_BOT_TOKEN`.
-4. Make up a long random password (20+ letters and numbers) → `WEBHOOK_SECRET`.
+4. You don't sign up anywhere for this. Invent a password of 20–40 characters using only
+   letters and numbers (no spaces or symbols), or use any password generator, and save it in
+   your notes. You'll paste the same text in step 6b and step 7 → `WEBHOOK_SECRET`.
 
 ## Step 6 — Cloudflare Worker bridge (15 min)
 
@@ -119,8 +123,7 @@ In your repo: **Settings** → **Secrets and variables** → **Actions** →
 | Secret | From |
 |--------|------|
 | `GEMINI_API_KEY` | Step 3 |
-| `PEXELS_API_KEY` | Step 4 |
-| `PIXABAY_API_KEY` | Step 4 (optional) |
+| `PIXABAY_API_KEY` | Step 4 |
 | `TELEGRAM_BOT_TOKEN` | Step 5 |
 | `WEBHOOK_SECRET` | Step 5 |
 | `GH_PAT` | Step 6a |
@@ -251,7 +254,7 @@ case photos, chapters, varied footage, and **you** reviewing every video. To kee
 |---------|-----------|
 | GitHub Actions (public repo) | Unlimited minutes; each job up to 6 h |
 | Gemini API | Daily request limit per project. If you hit it, tap Retry later |
-| Pexels / Pixabay | 200 / 100 requests per hour |
+| Pixabay | 100 requests per minute |
 | Cloudflare Workers | 100,000 requests per day |
 | YouTube API | Around 100 uploads per day |
 | edge-tts voice | Free, unofficial service. If it ever stops, change voice settings or ask Claude for an alternative |
