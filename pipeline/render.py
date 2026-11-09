@@ -179,18 +179,24 @@ def render_long(script: dict, work: Path, case_no: int, photos: list[Path | None
     footage = Footage(work / "footage", "landscape")
     per_shot = float(VC["seconds_per_shot"])
 
-    # 1) Voice for every scene first (also tells us the timing).
-    beats = [{"kind": "intro", "seconds": 4.0}]
-    chapter_no = 0
+    # 1) Voice for every scene first (also tells us the timing). No silent cards:
+    #    the narration runs continuously and titles appear on top of the footage.
+    beats, chapter_no = [], 0
     for i, sc in enumerate(script["scenes"]):
-        if sc.get("chapter"):
-            chapter_no += 1
-            beats.append({"kind": "chapter", "seconds": 2.8, "name": sc["chapter"], "no": chapter_no})
         log(f"Voice {i + 1}/{len(script['scenes'])}")
         wav = audio_dir / f"scene{i:03d}.wav"
         dur, words = speak(sc["narration"], wav)
-        beats.append({"kind": "scene", "seconds": dur + 0.45, "wav": wav, "words": words, "scene": sc})
-    beats.append({"kind": "end", "seconds": 6.0})
+        b = {"kind": "scene", "seconds": dur + 0.25, "wav": wav, "words": words, "scene": sc}
+        if sc.get("chapter") and i > 0:
+            chapter_no += 1
+            b.update(chapter=sc["chapter"], chapter_no=chapter_no)
+        beats.append(b)
+    beats.append({"kind": "end", "seconds": 4.0})
+
+    # where the title goes: over "This is case file number …", else the 2nd sentence
+    title_at = next(((bi, si) for bi, b in enumerate(beats[:3]) if b["kind"] == "scene"
+                     for si, sh in enumerate(b["scene"]["shots"]) if "case file" in sh["text"].lower()),
+                    (0, 1 if len(beats[0]["scene"]["shots"]) > 1 else 0))
 
     # 2) Visuals.
     shot_files, audio_files, all_words, credits = [], [], [], {}
@@ -202,28 +208,33 @@ def render_long(script: dict, work: Path, case_no: int, photos: list[Path | None
     for bi, b in enumerate(beats):
         frames = _frames(b["seconds"])
         seconds = frames / FPS
+        b["start"] = t
         if b["kind"] == "scene":
             sc = b["scene"]
-            plan = plan_cuts(sc["shots"], b["words"], frames, lead=0.15, min_s=2.2, max_s=per_shot)
+            plan = plan_cuts(sc["shots"], b["words"], frames, lead=0.05, min_s=2.2, max_s=per_shot)
+            title_k = -1
+            if bi == title_at[0]:   # the clip that holds the title sentence (it may have been merged)
+                idxs = [sc["shots"].index(p[1]) for p in plan]
+                title_k = max((k for k, i in enumerate(idxs) if i <= title_at[1] and plan[k][2] == 0), default=0)
             for k, (fcount, sh, part) in enumerate(plan):
                 out = shots_dir / f"b{bi:03d}_{k:02d}.mp4"
                 clip = _shot_clip(footage, sh, part, photos, mood, fcount, out, w, h, credits, blank)
                 if card_bg is None and clip:
                     card_bg = _frame_grab(clip, work / "cardbg.jpg")
+                if k == 0 and b.get("chapter"):
+                    _overlay(out, graphics.chapter_overlay(work / f"ch{bi:03d}.png", b["chapter_no"],
+                                                           b["chapter"], w, h), 3.8)
+                if k == title_k:
+                    _overlay(out, graphics.title_overlay(work / "title.png", case_no, script["title"], w, h), 4.5)
                 shot_files.append(out)
             pad = audio_dir / f"pad{bi:03d}.wav"
-            _pad_audio(b["wav"], seconds, pad, lead=0.15)
-            all_words += [{**wd, "start": wd["start"] + t + 0.15, "end": wd["end"] + t + 0.15}
+            _pad_audio(b["wav"], seconds, pad, lead=0.05)
+            all_words += [{**wd, "start": wd["start"] + t + 0.05, "end": wd["end"] + t + 0.05}
                           for wd in b["words"]]
         else:
-            png = work / f"card{bi:03d}.jpg"
-            if b["kind"] == "intro":
-                graphics.intro_card(png, case_no, script["title"], w, h, card_bg)
-            elif b["kind"] == "chapter":
-                graphics.chapter_card(png, b["no"], b["name"], w, h, card_bg)
-            else:
-                graphics.end_card(png, w, h, card_bg)
-            out = shots_dir / f"b{bi:03d}_card.mp4"
+            png = work / "endcard.jpg"
+            graphics.end_card(png, w, h, card_bg)
+            out = shots_dir / f"b{bi:03d}_end.mp4"
             shot_from_image(png, frames, out, w, h, grade=False, fade=True)
             shot_files.append(out)
             pad = audio_dir / f"pad{bi:03d}.wav"
@@ -248,12 +259,20 @@ def render_long(script: dict, work: Path, case_no: int, photos: list[Path | None
 
 
 def _chapters(beats: list[dict]) -> list[tuple[float, str]]:
-    out, t = [(0.0, "Intro")], 0.0
-    for b in beats:
-        if b["kind"] == "chapter":
-            out.append((t, b["name"]))
-        t += _frames(b["seconds"]) / FPS
+    """YouTube chapters: first at 0:00, at least 3, each at least 10 seconds long."""
+    out = [(0.0, "Intro")] + [(b["start"], b["chapter"]) for b in beats if b.get("chapter")]
+    out = [c for i, c in enumerate(out) if i == 0 or c[0] - out[i - 1][0] >= 10]
     return out if len(out) >= 3 else []
+
+
+def _overlay(clip: Path, png: Path, seconds: float):
+    """Fade a transparent title image in and out over the start of a clip."""
+    d = min(seconds, media_duration(clip))
+    tmp = clip.with_name(clip.stem + "_ov.mp4")
+    run(["ffmpeg", "-y", "-i", clip, "-loop", "1", "-t", f"{d:.2f}", "-i", png, "-filter_complex",
+         f"[1:v]format=rgba,fade=t=in:st=0:d=0.4:alpha=1,fade=t=out:st={max(d - 0.6, 0.4):.2f}:d=0.6:alpha=1[o];"
+         f"[0:v][o]overlay=0:0:eof_action=pass,format=yuv420p[v]", "-map", "[v]", *_enc_fast(tmp)])
+    tmp.replace(clip)
 
 
 # ── short / reel ─────────────────────────────────────────────────────────────

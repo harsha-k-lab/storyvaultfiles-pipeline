@@ -268,3 +268,42 @@ def ambient_music(out: Path, seconds: float) -> Path:
          "-f", "lavfi", "-i", f"sine=f={octave * 2:.2f}:d={d:.2f}:r=44100",
          "-filter_complex", fc, "-map", "[out]", "-ar", "44100", out])
     return out
+
+
+# ── overlays shown on top of moving footage (narration keeps playing) ─────────
+
+def _shade(img: Image.Image, box, alpha: int, blur: int):
+    layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    ImageDraw.Draw(layer).rectangle(box, fill=(0, 0, 0, alpha))
+    return Image.alpha_composite(img, layer.filter(ImageFilter.GaussianBlur(blur)))
+
+
+def title_overlay(out: Path, case_no: int, title: str, w: int, h: int) -> Path:
+    s = h / 1080
+    img = _shade(Image.new("RGBA", (w, h), (0, 0, 0, 0)), [0, h * 0.22, w, h * 0.78], 150, int(60 * s))
+    d = ImageDraw.Draw(img)
+    d.text((w / 2, h * 0.30), CFG["channel"]["name"].upper(), font=_font("type", int(38 * s)),
+           fill=PAPER + (255,), anchor="mm")
+    y = h * 0.42
+    for line in textwrap.wrap(title.upper(), width=26 if w > h else 16)[:3]:
+        f = _fit_text(d, line, "display", w * 0.84, int(104 * s))
+        d.text((w / 2, y), line, font=f, fill=(245, 245, 240, 255), anchor="mm",
+               stroke_width=max(2, int(3 * s)), stroke_fill=(0, 0, 0, 255))
+        y += f.size * 1.1
+    _stamp(img, f"CASE FILE #{case_no:03d}", (int(w / 2 - 230 * s), int(y + 20 * s)), int(58 * s))
+    img.save(out)
+    return out
+
+
+def chapter_overlay(out: Path, number: int, name: str, w: int, h: int) -> Path:
+    s = h / 1080
+    img = _shade(Image.new("RGBA", (w, h), (0, 0, 0, 0)), [-60, -60, w * 0.62, h * 0.33], 170, int(70 * s))
+    d = ImageDraw.Draw(img)
+    roman = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"][min(number, 10) - 1]
+    x, y = w * 0.06, h * 0.09
+    d.text((x, y), f"CHAPTER {roman}", font=_font("type", int(40 * s)), fill=RED + (255,))
+    f = _fit_text(d, name.upper(), "display", w * 0.52, int(92 * s))
+    d.text((x, y + 52 * s), name.upper(), font=f, fill=(242, 240, 232, 255),
+           stroke_width=max(2, int(2 * s)), stroke_fill=(0, 0, 0, 255))
+    img.save(out)
+    return out
