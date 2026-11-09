@@ -1,11 +1,51 @@
 {
-  "next_case": 1,
-  "jobs": {},
+  "next_case": 2,
+  "jobs": {
+    "001": {
+      "case_no": 1,
+      "status": "awaiting_topic",
+      "topics": [
+        {
+          "wiki_title": "Zodiac Killer",
+          "summary": "The Zodiac Killer (also known by the pseudonym The Zodiac) is an unidentified serial killer who murdered at least five people in the San Francisco Bay Area between December 1968 and October 1969. The Zodiac attacked three couples and a cab driver in Benicia, Vallejo, unincorporated Napa County, and the city of San Francisco. Two of the Zodiac's seven victims survived.\nIn a series of letters mailed to Bay Area newspapers, the Zodiac took credit for the murders, described details known only to police, threatened bombings and more murders if the newspapers did not print his letters, and included cryptograms with his correspondence. Two of the Zodiac's four cryptograms were decrypted in 1969 and 2020, and the other two remain unsolved. The Zodiac's last letter was received by the San Francisco Chronicle in 1974. In the letter, the Zodiac claimed to have killed 37 people.\nDespite several theories about the Zodiac's true identity, the only suspect police named was Arthur Leigh Allen, a former elementary school teacher and convicted sex offender who died in 1992. The Zodiac's murders, cryptograms, and letters to newspapers have made the case one of the most famous unsolved cases in Americ",
+          "url": "https://en.wikipedia.org/wiki/Zodiac_Killer",
+          "length": 100700,
+          "views": 431768,
+          "working_title": "The Zodiac Killer: The Codes Law Enforcement Couldn't Break",
+          "hook": "A phantom killer targeted couples in Northern California, taunting police with encrypted letters that defied decipherment for decades.",
+          "why_now": "Massive search interest and enduring fascination with unsolved historical ciphers make this a high-performing staple for true crime audiences."
+        },
+        {
+          "wiki_title": "Killing of Dot King",
+          "summary": "On the morning of March 15, 1923, the body of Dorothy King, 29, (born Anna Marie Keenan) was found in her apartment at 144 West 57th Street in the Manhattan borough of New York City, United States. King was a model, actress, and demimondaine whom the press dubbed \"The Broadway Butterfly\". Her still-unsolved murder was a press sensation at the time it occurred. The term \"sugar baby\", originally New York City nightlife slang, may have been popularized by journalists reporting on the case.",
+          "url": "https://en.wikipedia.org/wiki/Killing_of_Dot_King",
+          "length": 16141,
+          "views": 21923,
+          "working_title": "The Unsolved Murder of Broadway's 1920s Butterfly",
+          "hook": "In March 1923, a Manhattan model was found dead in her apartment, triggering a sensational investigation into New York City's high-society nightlife.",
+          "why_now": "Lesser-known Jazz Age cold cases attract viewers who enjoy vintage mystery and historical noir storytelling."
+        },
+        {
+          "wiki_title": "Patomskiy crater",
+          "summary": "The Patomskiy crater or Patom crater (Russian: Патомский кратер, Patomskiy Krater), also known as Конус Колпакова, Konus Kolpakova \"Kolpakov cone\") is a peculiar rock formation located in the Bodaibo District of the Irkutsk region of southeastern Siberia, 360 kilometres (220 mi) from the district center Bodaibo. It is a large mound made of shattered limestone blocks on the slopes of the Patom Highlands in an area of dense taiga. Its base diameter is about 160 metres (520 ft) and its height about 40 metres (130 ft); the cone's crown is ring-shaped, and in its center there is a smaller mound with a height of about 12 metres (39 ft). The volume of the crater is estimated as 230,000–250,000 cubic metres (8.1–8.8 million cubic feet), with a weight of about one million tons.\nThe Patomskiy crater was described by Russian geologist Vadim Kolpakov in 1949, though it was known to the local population before this. Its origins have been subject of intense scientific interest, with hypotheses including meteorite, volcanic and gaseous origin, but to date no definite proof has been given. Through dendrochronology, the age of the crater is estimated to be 300 years.\n\n",
+          "url": "https://en.wikipedia.org/wiki/Patomskiy_crater",
+          "length": 8985,
+          "views": 4931,
+          "working_title": "Siberia's Unexplained Mound: The Mystery of Patomskiy Crater",
+          "hook": "Deep inside the remote Siberian taiga sits a massive cone of shattered limestone with a strange central mound that challenges conventional geology.",
+          "why_now": "Visual, remote anomaly cases perform exceptionally well among audiences fascinated by unexplained natural phenomena."
+        }
+      ],
+      "created": "2026-11-09T15:31-05:00",
+      "topics_by": "Gemini"
+    }
+  },
   "history": [],
-  "last_topics_date": "2026-11-08",
+  "last_topics_date": "2026-11-09",
   "delivered": [],
   "claude_runs": {
     "date": "2026-11-09",
     "count": 5
-  }
+  },
+  "active_job": "001"
 }
