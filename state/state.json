@@ -158,7 +158,7 @@
       "writer": "Claude",
       "requested_at": "2026-11-09T10:02:30-05:00",
       "recovered": true,
-      "revisions": 0
+      "revisions": 1
     }
   },
   "history": [],
