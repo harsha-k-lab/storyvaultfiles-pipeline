@@ -4,19 +4,15 @@
   "images": [],
   "extra_sources": [
     {
-      "title": "README.md",
+      "title": "StoryVaultFiles pipeline README",
       "url": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/blob/main/README.md"
     },
     {
-      "title": "SETUP.md",
+      "title": "StoryVaultFiles setup guide",
       "url": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/blob/main/SETUP.md"
     },
     {
-      "title": "ROUTINE.md",
-      "url": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/blob/main/ROUTINE.md"
-    },
-    {
-      "title": "config.yaml",
+      "title": "StoryVaultFiles config",
       "url": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/blob/main/config.yaml"
     }
   ],
@@ -26,26 +22,26 @@
     "VirtualZero (Pixabay)",
     "Natures_Embrace (Pixabay)",
     "klimkin (Pixabay)",
-    "Coverr-Free-Footage (Pixabay)",
+    "Sang_Soi (Pixabay)",
     "TobiasRehbein (Pixabay)",
-    "16179491 (Pixabay)",
+    "cipnt (Pixabay)",
     "Bastien86 (Pixabay)",
+    "blackmarketmusic (Pixabay)",
     "StefWithAnF (Pixabay)",
-    "“Darkroom by Walker Evans” by lacma, public domain — https://www.rawpixel.com/image/11800837/darkroom-walker-evans",
+    "xBriantcx (Pixabay)",
     "MuhammadAhmad10 (Pixabay)",
-    "ninosouza (Pixabay)",
-    "ilbellodelweb (Pixabay)",
+    "AbstractBackground (Pixabay)",
+    "bdamnjanovic (Pixabay)",
     "ForgacsBogi (Pixabay)",
-    "Kathanhero (Pixabay)",
-    "wonderlandwoo (Pixabay)",
-    "crew_jak (Pixabay)",
-    "jimkuehnel (Pixabay)",
-    "MilanWulf (Pixabay)",
-    "NickyPe (Pixabay)"
+    "magicmore (Pixabay)",
+    "Darioguzben (Pixabay)",
+    "Firmbee (Pixabay)",
+    "Coverr-Free-Footage (Pixabay)",
+    "Life-Of-Vids (Pixabay)"
   ],
   "links": {
     "short.mp4": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-004/short.mp4",
     "thumbnail.jpg": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-004/thumbnail.jpg"
   },
-  "minutes": 1.4
+  "minutes": 1.3
 }

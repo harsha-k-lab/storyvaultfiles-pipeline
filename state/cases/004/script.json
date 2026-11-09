@@ -20,7 +20,7 @@
     "#facelesschannel",
     "#aivideo"
   ],
-  "look": "a dim modern studio at night, warm lamp light, cool monitor glow, cinematic documentary stills, no faces",
+  "look": "a dim modern studio at night, warm lamp light, cool monitor glow, cinematic documentary stills, no faces, no readable text",
   "title_card": {
     "kicker": "BEHIND THE SCENES",
     "title": "HOW A VIDEO MAKES ITSELF",
@@ -39,192 +39,156 @@
   "short": {
     "shots": [
       {
-        "text": "Nobody edits these mystery videos. Nobody records the voice.",
+        "text": "Nobody edits these mystery videos, and nobody records the narration.",
         "search": [
           "empty desk",
           "dark room"
         ],
-        "image_prompt": "empty editing desk in a dark room, a single glowing monitor, no one sitting at it, wide shot",
+        "image_prompt": "wide shot of an empty editing desk in a dark room, one monitor glowing blue, an empty chair pushed back, no people",
         "image": -1
       },
       {
-        "text": "Every day at noon, a phone lights up with three unsolved cases.",
+        "text": "Every day at noon, three unsolved cases arrive as messages on a phone.",
         "search": [
           "phone notification",
-          "smartphone screen"
+          "smartphone"
         ],
-        "image_prompt": "close-up of a smartphone lying on a table in daylight, its dark screen just switched on to a lock screen showing a notification banner with three stacked message previews, no readable text, soft window light",
+        "image_prompt": "close-up of a smartphone on a wooden table in daylight, its screen lit with three blurred message banners, no readable text",
         "image": -1
       },
       {
-        "text": "Wikipedia supplies the real facts.",
+        "text": "The facts come from Wikipedia, and an AI model writes the script from them.",
         "search": [
           "library",
           "books"
         ],
-        "image_prompt": "wide shot of a quiet library reading room, open encyclopedia volumes on a long oak table, dust in window light",
+        "image_prompt": "wide shot of a quiet library reading room, open encyclopedia volumes on an oak table, dust floating in window light",
         "image": -1
       },
       {
-        "text": "A language model picks the cases and writes the script.",
-        "search": [
-          "computer screen",
-          "typing text"
-        ],
-        "image_prompt": "close-up of a computer monitor in a dark room showing lines of text being written, cool screen light",
-        "image": -1
-      },
-      {
-        "text": "You tap one idea.",
+        "text": "The owner taps one idea.",
         "search": [
           "finger tapping phone",
           "touchscreen"
         ],
-        "image_prompt": "close-up of a thumb tapping a smartphone touchscreen, the screen shows three simple option buttons, dim room, cool screen light on the hand",
+        "image_prompt": "close-up of a thumb pressing a smartphone screen in a dim room, cool light on the hand, three blurred buttons",
         "image": -1
       },
       {
-        "text": "A message crosses a small Cloudflare bridge and wakes a cloud computer.",
+        "text": "A small bridge in the cloud wakes a computer to start work.",
         "search": [
-          "bridge night",
-          "clouds"
+          "server room",
+          "data center"
         ],
-        "image_prompt": "wide shot of a glowing smartphone on a desk with a thin line of light running from it across the room to a rack of servers whose indicator lights switch on, dark room, cool light",
+        "image_prompt": "wide shot of a dark server room where a row of racks lights up one after another, blue indicator lights, long corridor",
         "image": -1
       },
       {
-        "text": "The script is checked, then an AI narrator reads it aloud.",
+        "text": "An AI narrator reads the finished script aloud in a calm British voice.",
         "search": [
           "microphone",
           "studio"
         ],
-        "image_prompt": "medium shot of a vintage ribbon microphone in a recording booth beside a music stand holding a typed script page with a pencil tick on it, warm lamp, acoustic foam walls",
+        "image_prompt": "medium shot of a vintage ribbon microphone in a recording booth beside a music stand holding a script, warm lamp, foam walls",
         "image": -1
       },
       {
-        "text": "Every sentence gets its own picture.",
+        "text": "Every sentence then gets its own picture, a cinematic still made to match the words.",
         "search": [
-          "photos wall",
+          "photo prints",
           "collage"
         ],
-        "image_prompt": "medium shot of a long row of different photographic prints, one beneath each line of a typed script laid out on a table, desk lamp",
+        "image_prompt": "medium shot of many black and white photographic prints pinned in a row on a wall above a table with a typed script, desk lamp",
         "image": -1
       },
       {
-        "text": "Cinematic, period-accurate stills, made for free.",
+        "text": "These stills are made for free, one at a time.",
         "search": [
           "darkroom",
-          "photo"
+          "photograph"
         ],
-        "image_prompt": "close-up of hands sliding a black and white photographic print from a developing tray, red safelight",
+        "image_prompt": "close-up of hands lifting a photographic print out of a developing tray, red safelight glow",
         "image": -1
       },
       {
-        "text": "When a picture can't be made, stock footage fills in.",
+        "text": "If a picture can't be made, stock footage fills the gap.",
         "search": [
           "film reels",
           "archive shelf"
         ],
-        "image_prompt": "wide shot of a stock footage library: shelves of labelled film reels with one reel being pulled out to replace an empty gap, cool overhead light",
+        "image_prompt": "wide shot of shelves of labelled film reels in an archive, one reel pulled halfway out, cool overhead light",
         "image": -1
       },
       {
-        "text": "FFmpeg cuts it all together with music and captions.",
+        "text": "Software cuts everything together with music and captions.",
         "search": [
-          "video editing timeline",
-          "editing software"
+          "video editing",
+          "timeline"
         ],
-        "image_prompt": "close-up of a video editing timeline on a computer monitor, colourful clips and an audio waveform in a row, a mouse cursor, dark desk",
+        "image_prompt": "close-up of a video editing timeline on a monitor, colourful clips and an audio waveform, a mouse cursor, dark desk",
         "image": -1
       },
       {
-        "text": "A long video and a vertical Short come out of one script.",
+        "text": "One script becomes a long video and a vertical Short.",
         "search": [
-          "frames wall",
-          "studio"
+          "studio",
+          "frames"
         ],
-        "image_prompt": "medium shot of one wide landscape frame and one tall vertical frame hanging side by side on a studio wall, both showing the same scene, spotlights",
+        "image_prompt": "medium shot of one wide landscape picture frame and one tall vertical frame hanging side by side on a studio wall, spotlights",
         "image": -1
       },
       {
-        "text": "Then it all waits for you.",
+        "text": "Then everything waits for a person.",
         "search": [
           "armchair",
           "dark room"
         ],
-        "image_prompt": "wide shot of a finished video paused on a laptop screen with a play triangle, an empty armchair beside the desk, quiet room, lamp on",
+        "image_prompt": "wide shot of a quiet living room at night, an empty armchair beside a lit lamp and a laptop with a paused video",
         "image": -1
       },
       {
-        "text": "You watch the preview on Telegram.",
+        "text": "The preview arrives on Telegram.",
         "search": [
-          "watching video phone",
-          "phone video"
+          "phone screen",
+          "night"
         ],
-        "image_prompt": "close-up of a hand holding a smartphone playing a video preview on its screen, a play button visible, dim room",
+        "image_prompt": "medium shot of a smartphone propped on a bedside table at night, its screen showing a paused video frame, soft glow",
         "image": -1
       },
       {
-        "text": "You can type notes, and the script is rewritten and rendered again.",
+        "text": "There, the owner can type notes and have the script rewritten.",
         "search": [
-          "editing notes",
-          "pencil"
+          "typing",
+          "keyboard"
         ],
-        "image_prompt": "close-up of a pencil crossing out a line on a typed page, handwritten notes in the margin, desk lamp",
+        "image_prompt": "close-up of hands typing on a phone keyboard, a cup of tea beside them, warm lamp light",
         "image": -1
       },
       {
-        "text": "Or you tap Publish.",
+        "text": "Or tap Publish, and the video goes to YouTube and the Short to Reels.",
         "search": [
-          "tapping phone screen",
-          "phone button"
+          "upload",
+          "screen"
         ],
-        "image_prompt": "close-up of a finger about to press a large green button on a smartphone screen, dim room, no readable text",
+        "image_prompt": "over-the-shoulder shot of a person's back at a desk, a monitor showing a video upload progress bar, dim room",
         "image": -1
       },
       {
-        "text": "The video goes to YouTube.",
+        "text": "The links come back to the phone.",
         "search": [
-          "cinema",
-          "marquee"
+          "phone",
+          "table"
         ],
-        "image_prompt": "medium shot of a laptop on a desk showing a widescreen video player with a red play button, dim room, no readable text",
+        "image_prompt": "close-up of a smartphone lighting up on a table with a single notification glow, morning light",
         "image": -1
       },
       {
-        "text": "The Short goes to YouTube Shorts and Instagram Reels.",
+        "text": "The machine does the building, but a human decides what goes out.",
         "search": [
-          "projector",
-          "light beam"
+          "hand",
+          "switch"
         ],
-        "image_prompt": "close-up of a smartphone held upright showing a tall vertical video playing, two small app-style icons glowing beside it, dim room, no readable text",
-        "image": -1
-      },
-      {
-        "text": "The links come back to your phone.",
-        "search": [
-          "phone notification",
-          "phone table"
-        ],
-        "image_prompt": "smartphone on a wooden table, its screen switched on showing a lock screen with two link-style notification banners, coffee cup beside it, morning light, no readable text",
-        "image": -1
-      },
-      {
-        "text": "So the machine does the building.",
-        "search": [
-          "factory night",
-          "conveyor"
-        ],
-        "image_prompt": "wide shot of a quiet factory floor at night, conveyor belts running by themselves, amber lights",
-        "image": -1
-      },
-      {
-        "text": "A human still decides what goes out.",
-        "search": [
-          "silhouette",
-          "window"
-        ],
-        "image_prompt": "medium shot of a person's silhouette at a window, one hand raised toward a glowing screen, back to camera",
+        "image_prompt": "close-up of a hand hovering over a large old fashioned lever switch on a control panel, dramatic side light",
         "image": -1
       },
       {
@@ -233,7 +197,7 @@
           "fork road",
           "fog"
         ],
-        "image_prompt": "close-up of two paths in fog splitting in a dark forest, a lantern on one",
+        "image_prompt": "wide shot of a path splitting in two through fog in a dark forest, a lantern hanging on one path",
         "image": -1
       },
       {
@@ -242,13 +206,13 @@
           "file cabinet",
           "archive"
         ],
-        "image_prompt": "wide shot of an old steel filing cabinet with one drawer open and a glow inside, dark archive room",
+        "image_prompt": "wide shot of an old steel filing cabinet with one drawer open and a warm glow inside, dark archive room",
         "image": -1
       }
     ],
     "caption": "One tap starts a pipeline that researches, writes, narrates and edits a mystery video.\nA human still approves every upload.\nWould you trust a pipeline with the story?",
-    "narration": "Nobody edits these mystery videos. Nobody records the voice. Every day at noon, a phone lights up with three unsolved cases. Wikipedia supplies the real facts. A language model picks the cases and writes the script. You tap one idea. A message crosses a small Cloudflare bridge and wakes a cloud computer. The script is checked, then an AI narrator reads it aloud. Every sentence gets its own picture. Cinematic, period-accurate stills, made for free. When a picture can't be made, stock footage fills in. FFmpeg cuts it all together with music and captions. A long video and a vertical Short come out of one script. Then it all waits for you. You watch the preview on Telegram. You can type notes, and the script is rewritten and rendered again. Or you tap Publish. The video goes to YouTube. The Short goes to YouTube Shorts and Instagram Reels. The links come back to your phone. So the machine does the building. A human still decides what goes out. Would you trust a pipeline with the story, or only the editing? Follow StoryVaultFiles for more."
+    "narration": "Nobody edits these mystery videos, and nobody records the narration. Every day at noon, three unsolved cases arrive as messages on a phone. The facts come from Wikipedia, and an AI model writes the script from them. The owner taps one idea. A small bridge in the cloud wakes a computer to start work. An AI narrator reads the finished script aloud in a calm British voice. Every sentence then gets its own picture, a cinematic still made to match the words. These stills are made for free, one at a time. If a picture can't be made, stock footage fills the gap. Software cuts everything together with music and captions. One script becomes a long video and a vertical Short. Then everything waits for a person. The preview arrives on Telegram. There, the owner can type notes and have the script rewritten. Or tap Publish, and the video goes to YouTube and the Short to Reels. The links come back to the phone. The machine does the building, but a human decides what goes out. Would you trust a pipeline with the story, or only the editing? Follow StoryVaultFiles for more."
   },
   "scenes": [],
-  "picture_salt": "v2"
+  "picture_salt": ""
 }

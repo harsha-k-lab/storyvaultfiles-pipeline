@@ -133,7 +133,7 @@
     },
     "004": {
       "case_no": 4,
-      "status": "writing",
+      "status": "awaiting_review",
       "topics": [
         {
           "wiki_title": "",
@@ -158,8 +158,7 @@
       "writer": "Claude",
       "requested_at": "2026-11-09T12:13:08-05:00",
       "recovered": true,
-      "revisions": 3,
-      "pending_notes": "voice is breaking in between and images are not good still"
+      "revisions": 4
     }
   },
   "history": [],
@@ -177,7 +176,8 @@
     "script-004-202611091503",
     "script-004-202611091503-recovered",
     "script-004-202611091658",
-    "script-004-202611091705"
+    "script-004-202611091705",
+    "script-004-202611091713"
   ],
   "review_job": "004"
 }
