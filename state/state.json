@@ -1,5 +1,5 @@
 {
-  "next_case": 2,
+  "next_case": 3,
   "jobs": {
     "001": {
       "case_no": 1,
@@ -51,6 +51,33 @@
       "topic_index": 2,
       "writer": "Gemini",
       "revisions": 1
+    },
+    "002": {
+      "case_no": 2,
+      "status": "awaiting_review",
+      "topics": [
+        {
+          "wiki_title": "",
+          "url": "",
+          "working_title": "Lost Indian civilization",
+          "hook": "",
+          "request": "lost Indian civilization"
+        }
+      ],
+      "created": "2026-11-09T17:57-05:00",
+      "kind": "custom",
+      "format": "both",
+      "topics_by": "you",
+      "topic": {
+        "wiki_title": "",
+        "url": "",
+        "working_title": "Lost Indian civilization",
+        "hook": "",
+        "request": "lost Indian civilization"
+      },
+      "topic_index": 0,
+      "writer": "Gemini",
+      "revisions": 0
     }
   },
   "history": [],
@@ -60,5 +87,6 @@
     "date": "2026-11-09",
     "count": 5
   },
-  "active_job": "001"
+  "active_job": "002",
+  "review_job": "002"
 }

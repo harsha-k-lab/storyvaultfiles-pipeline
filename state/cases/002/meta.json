@@ -1,0 +1,83 @@
+{
+  "source_url": "https://en.wikipedia.org/wiki/Lost_Civilizations_(book_series)",
+  "source_title": "Lost Civilizations (book series)",
+  "images": [],
+  "extra_sources": [
+    {
+      "title": "Lost Civilizations (book series)",
+      "url": "https://en.wikipedia.org/wiki/Lost_Civilizations_(book_series)"
+    },
+    {
+      "title": "Lost city",
+      "url": "https://en.wikipedia.org/wiki/Lost_city"
+    },
+    {
+      "title": "Cradle of civilization",
+      "url": "https://en.wikipedia.org/wiki/Cradle_of_civilization"
+    }
+  ],
+  "chapters": [
+    [
+      0.0,
+      "Intro"
+    ],
+    [
+      41.166666666666664,
+      "Cities in the Sand"
+    ],
+    [
+      93.23333333333333,
+      "The Unexcavated Outposts"
+    ],
+    [
+      136.9,
+      "Debating the Past"
+    ],
+    [
+      179.8,
+      "Beyond the Valley"
+    ],
+    [
+      216.46666666666667,
+      "Restoring the Record"
+    ]
+  ],
+  "credits": [
+    "KIMDAEJEUNG (Pixabay)",
+    "Drone_Aventura (Pixabay)",
+    "Matthias_Groeneveld (Pixabay)",
+    "NguyenHoangThach (Pixabay)",
+    "dimitrisvetsikas1969 (Pixabay)",
+    "antonlukin (Pixabay)",
+    "“Ancient Car - This car belongs to J. Fleet, the man who disc” by Nawabtanweer, CC BY-SA 4.0 — https://commons.wikimedia.org/w/index.php?curid=51058811",
+    "D-GM (Pixabay)",
+    "caelan (Pixabay)",
+    "pen_ash (Pixabay)",
+    "adege (Pixabay)",
+    "_Marion (Pixabay)",
+    "bellergy (Pixabay)",
+    "stokpic (Pixabay)",
+    "thenickmurphy (Pixabay)",
+    "NTbk (Pixabay)",
+    "Amirirani (Pixabay)",
+    "SYG_Anime (Pixabay)",
+    "jeffjacobs1990 (Pixabay)",
+    "AlexKopeykin (Pixabay)",
+    "chayka1270 (Pixabay)",
+    "Coverr-Free-Footage (Pixabay)",
+    "Vimeo-Free-Videos (Pixabay)",
+    "Mario_Krimer (Pixabay)",
+    "PaulsAdventures (Pixabay)",
+    "43015075 (Pixabay)",
+    "wastedgeneration (Pixabay)",
+    "Engin_Akyurt (Pixabay)",
+    "NickyPe (Pixabay)",
+    "webdelin (Pixabay)"
+  ],
+  "links": {
+    "short.mp4": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-002/short.mp4",
+    "thumbnail.jpg": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-002/thumbnail.jpg",
+    "video.mp4": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-002/video.mp4"
+  },
+  "minutes": 4.2
+}
