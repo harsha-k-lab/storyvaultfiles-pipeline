@@ -89,7 +89,7 @@
           "bridge night",
           "clouds"
         ],
-        "image_prompt": "wide shot of a lit steel bridge at night over still water, fine light trails rising into cloud",
+        "image_prompt": "wide shot of a glowing smartphone on a desk with a thin line of light running from it across the room to a rack of servers whose indicator lights switch on, dark room, cool light",
         "image": -1
       },
       {
@@ -98,7 +98,7 @@
           "microphone",
           "studio"
         ],
-        "image_prompt": "medium shot of a vintage ribbon microphone in an empty recording booth, warm lamp, acoustic foam walls",
+        "image_prompt": "medium shot of a vintage ribbon microphone in a recording booth beside a music stand holding a typed script page with a pencil tick on it, warm lamp, acoustic foam walls",
         "image": -1
       },
       {
@@ -107,7 +107,7 @@
           "photos wall",
           "collage"
         ],
-        "image_prompt": "medium shot of dozens of photographic prints pinned across a wall, each a different scene, string between them",
+        "image_prompt": "medium shot of a long row of different photographic prints, one beneath each line of a typed script laid out on a table, desk lamp",
         "image": -1
       },
       {
@@ -125,7 +125,7 @@
           "film reels",
           "archive shelf"
         ],
-        "image_prompt": "wide shot of a film archive shelf, rows of labelled reels, cool overhead light",
+        "image_prompt": "wide shot of a stock footage library: shelves of labelled film reels with one reel being pulled out to replace an empty gap, cool overhead light",
         "image": -1
       },
       {
@@ -143,7 +143,7 @@
           "frames wall",
           "studio"
         ],
-        "image_prompt": "medium shot of two empty frames on a studio wall, one wide, one tall, spotlights on both",
+        "image_prompt": "medium shot of one wide landscape frame and one tall vertical frame hanging side by side on a studio wall, both showing the same scene, spotlights",
         "image": -1
       },
       {
@@ -152,7 +152,7 @@
           "armchair",
           "dark room"
         ],
-        "image_prompt": "wide shot of a lone armchair facing a dark screen in a quiet room, lamp on, nobody there",
+        "image_prompt": "wide shot of a finished video paused on a laptop screen with a play triangle, an empty armchair beside the desk, quiet room, lamp on",
         "image": -1
       },
       {
@@ -188,7 +188,7 @@
           "cinema",
           "marquee"
         ],
-        "image_prompt": "wide shot of an old cinema marquee at dusk, lights glowing, empty street, wet pavement",
+        "image_prompt": "medium shot of a laptop on a desk showing a widescreen video player with a red play button, dim room, no readable text",
         "image": -1
       },
       {
@@ -197,7 +197,7 @@
           "projector",
           "light beam"
         ],
-        "image_prompt": "medium shot of a small projector throwing a tall vertical beam of light onto a dark wall",
+        "image_prompt": "close-up of a smartphone held upright showing a tall vertical video playing, two small app-style icons glowing beside it, dim room, no readable text",
         "image": -1
       },
       {
