@@ -162,7 +162,7 @@
     },
     "005": {
       "case_no": 5,
-      "status": "awaiting_review",
+      "status": "discarded",
       "topics": [
         {
           "wiki_title": "",
@@ -208,6 +208,5 @@
     "script-004-202611091713",
     "script-004-202611091721",
     "script-005-202611091924"
-  ],
-  "review_job": "005"
+  ]
 }
