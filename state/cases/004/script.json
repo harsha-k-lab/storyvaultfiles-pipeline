@@ -50,10 +50,10 @@
       {
         "text": "Every day at noon, a phone lights up with three unsolved cases.",
         "search": [
-          "phone",
-          "glow"
+          "phone notification",
+          "smartphone screen"
         ],
-        "image_prompt": "close-up of a smartphone glowing on a nightstand at midday, three faint lines of light on the screen",
+        "image_prompt": "close-up of a smartphone lying on a table in daylight, its dark screen just switched on to a lock screen showing a notification banner with three stacked message previews, no readable text, soft window light",
         "image": -1
       },
       {
@@ -69,18 +69,18 @@
         "text": "A language model picks the cases and writes the script.",
         "search": [
           "computer screen",
-          "code"
+          "typing text"
         ],
-        "image_prompt": "close-up of a green-lit terminal screen reflecting on a dark window, pages of script scrolling",
+        "image_prompt": "close-up of a computer monitor in a dark room showing lines of text being written, cool screen light",
         "image": -1
       },
       {
         "text": "You tap one idea.",
         "search": [
-          "finger tap",
-          "phone"
+          "finger tapping phone",
+          "touchscreen"
         ],
-        "image_prompt": "close-up of a thumb pressing a phone screen in a dim room, soft blue light on the skin",
+        "image_prompt": "close-up of a thumb tapping a smartphone touchscreen, the screen shows three simple option buttons, dim room, cool screen light on the hand",
         "image": -1
       },
       {
@@ -123,7 +123,7 @@
         "text": "When a picture can't be made, stock footage fills in.",
         "search": [
           "film reels",
-          "archive"
+          "archive shelf"
         ],
         "image_prompt": "wide shot of a film archive shelf, rows of labelled reels, cool overhead light",
         "image": -1
@@ -131,10 +131,10 @@
       {
         "text": "FFmpeg cuts it all together with music and captions.",
         "search": [
-          "film editing",
-          "scissors"
+          "video editing timeline",
+          "editing software"
         ],
-        "image_prompt": "close-up of a film editing bench, strips of film under a lamp, scissors resting beside them",
+        "image_prompt": "close-up of a video editing timeline on a computer monitor, colourful clips and an audio waveform in a row, a mouse cursor, dark desk",
         "image": -1
       },
       {
@@ -158,10 +158,10 @@
       {
         "text": "You watch the preview on Telegram.",
         "search": [
-          "phone video",
-          "hand"
+          "watching video phone",
+          "phone video"
         ],
-        "image_prompt": "close-up of a hand holding a phone, a small bright video preview glowing against a dark room",
+        "image_prompt": "close-up of a hand holding a smartphone playing a video preview on its screen, a play button visible, dim room",
         "image": -1
       },
       {
@@ -176,10 +176,10 @@
       {
         "text": "Or you tap Publish.",
         "search": [
-          "finger button",
-          "phone"
+          "tapping phone screen",
+          "phone button"
         ],
-        "image_prompt": "close-up of a finger hovering above a glowing phone button in a dark room",
+        "image_prompt": "close-up of a finger about to press a large green button on a smartphone screen, dim room, no readable text",
         "image": -1
       },
       {
@@ -203,10 +203,10 @@
       {
         "text": "The links come back to your phone.",
         "search": [
-          "notification",
-          "phone"
+          "phone notification",
+          "phone table"
         ],
-        "image_prompt": "close-up of a phone lighting up on a table with a small notification glow, coffee cup beside it",
+        "image_prompt": "smartphone on a wooden table, its screen switched on showing a lock screen with two link-style notification banners, coffee cup beside it, morning light, no readable text",
         "image": -1
       },
       {
@@ -250,5 +250,5 @@
     "narration": "Nobody edits these mystery videos. Nobody records the voice. Every day at noon, a phone lights up with three unsolved cases. Wikipedia supplies the real facts. A language model picks the cases and writes the script. You tap one idea. A message crosses a small Cloudflare bridge and wakes a cloud computer. The script is checked, then an AI narrator reads it aloud. Every sentence gets its own picture. Cinematic, period-accurate stills, made for free. When a picture can't be made, stock footage fills in. FFmpeg cuts it all together with music and captions. A long video and a vertical Short come out of one script. Then it all waits for you. You watch the preview on Telegram. You can type notes, and the script is rewritten and rendered again. Or you tap Publish. The video goes to YouTube. The Short goes to YouTube Shorts and Instagram Reels. The links come back to your phone. So the machine does the building. A human still decides what goes out. Would you trust a pipeline with the story, or only the editing? Follow StoryVaultFiles for more."
   },
   "scenes": [],
-  "picture_salt": "v1"
+  "picture_salt": "v2"
 }

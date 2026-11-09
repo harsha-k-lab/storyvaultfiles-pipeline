@@ -133,7 +133,7 @@
     },
     "004": {
       "case_no": 4,
-      "status": "writing",
+      "status": "awaiting_review",
       "topics": [
         {
           "wiki_title": "",
@@ -158,8 +158,7 @@
       "writer": "Claude",
       "requested_at": "2026-11-09T11:58:04-05:00",
       "recovered": true,
-      "revisions": 1,
-      "pending_notes": "pictures are not matching, for example it says phone light up and it hsould a background of phone disaply on from off position like a notification but in current video a fire background came. also I don't know why cutting nails shot in this video"
+      "revisions": 2
     }
   },
   "history": [],
@@ -175,7 +174,8 @@
     "script-003-202611090029",
     "script-003-202611090321",
     "script-004-202611091503",
-    "script-004-202611091503-recovered"
+    "script-004-202611091503-recovered",
+    "script-004-202611091658"
   ],
   "review_job": "004"
 }
