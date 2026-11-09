@@ -133,7 +133,7 @@
     },
     "004": {
       "case_no": 4,
-      "status": "awaiting_review",
+      "status": "writing",
       "topics": [
         {
           "wiki_title": "",
@@ -156,9 +156,10 @@
       },
       "topic_index": 0,
       "writer": "Claude",
-      "requested_at": "2026-11-09T12:05:05-05:00",
+      "requested_at": "2026-11-09T12:13:08-05:00",
       "recovered": true,
-      "revisions": 3
+      "revisions": 3,
+      "pending_notes": "voice is breaking in between and images are not good still"
     }
   },
   "history": [],
@@ -166,7 +167,7 @@
   "active_job": "003",
   "claude_runs": {
     "date": "2026-11-09",
-    "count": 2
+    "count": 3
   },
   "delivered": [
     "error-202611082145",
