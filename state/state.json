@@ -89,7 +89,7 @@
     },
     "003": {
       "case_no": 3,
-      "status": "writing",
+      "status": "awaiting_review",
       "topics": [
         {
           "wiki_title": "Ourang Medan",
@@ -128,19 +128,21 @@
       },
       "topic_index": 0,
       "writer": "Claude",
-      "requested_at": "2026-11-08T19:27:47-05:00"
+      "requested_at": "2026-11-08T19:27:47-05:00",
+      "revisions": 0
     }
   },
   "history": [],
   "last_topics_date": "2026-11-08",
   "active_job": "003",
-  "review_job": "001",
+  "review_job": "003",
   "claude_runs": {
     "date": "2026-11-08",
     "count": 3
   },
   "delivered": [
     "error-202611082145",
-    "topics-202611082331"
+    "topics-202611082331",
+    "script-003-202611090029"
   ]
 }
