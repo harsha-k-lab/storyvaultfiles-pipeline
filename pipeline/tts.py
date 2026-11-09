@@ -92,3 +92,46 @@ def speak(text: str, out_wav: Path) -> tuple[float, list[dict]]:
     dur = media_duration(out_wav)
     words = _attach_punctuation(text, words) if words else _even_timings(text, dur)
     return dur, words
+
+
+def speak_sentences(sentences: list[str], out_wav: Path, gap: float = 0.22) -> tuple[float, list[dict]]:
+    """Record each sentence separately, trim the long silence the voice service leaves after
+    every full stop (about 1 s), and join them with a short natural breath. Returns
+    (seconds, word timings) with "ti" counted across all sentences, like speak()."""
+    import wave
+
+    out_wav.parent.mkdir(parents=True, exist_ok=True)
+    pieces: list[Path] = []
+    words_all: list[dict] = []
+    t, ti_off = 0.0, 0
+    sents = [_clean(s) for s in sentences if _clean(s)]
+    for i, sent in enumerate(sents):
+        clip = out_wav.with_name(f"{out_wav.stem}_s{i:03d}.wav")
+        dur, words = speak(sent, clip)
+        start, end = 0.0, dur
+        if words and not FAKE:
+            start = max(0.0, words[0]["start"] - 0.05)
+            end = min(dur, words[-1]["end"] + 0.16)   # keep the last word's tail
+        seg = clip.with_name(clip.stem + "_t.wav")
+        run(["ffmpeg", "-y", "-i", clip, "-ss", f"{start:.3f}", "-to", f"{end:.3f}",
+             "-ar", "44100", "-ac", "1", "-c:a", "pcm_s16le", seg])
+        seglen = media_duration(seg)
+        words_all += [{**w, "start": w["start"] - start + t, "end": min(w["end"], end) - start + t,
+                       "ti": w.get("ti", 0) + ti_off} for w in words]
+        pieces.append(seg)
+        t += seglen
+        if i < len(sents) - 1:
+            t += gap
+        ti_off += len(sent.split())
+    # join with short silences
+    with wave.open(str(out_wav), "wb") as out:
+        out.setnchannels(1)
+        out.setsampwidth(2)
+        out.setframerate(44100)
+        silence = b"\x00\x00" * int(44100 * gap)
+        for i, p in enumerate(pieces):
+            with wave.open(str(p), "rb") as w:
+                out.writeframes(w.readframes(w.getnframes()))
+            if i < len(pieces) - 1:
+                out.writeframes(silence)
+    return media_duration(out_wav), words_all

@@ -9,7 +9,7 @@ from . import graphics
 from .core import CFG, log, media_duration, run
 from .aiimages import Images
 from .stock import Footage
-from .tts import speak
+from .tts import speak_sentences
 
 VC = CFG["video"]
 FPS = int(VC["fps"])
@@ -198,7 +198,7 @@ def render_long(script: dict, work: Path, case_no: int, photos: list[Path | None
     for i, sc in enumerate(script["scenes"]):
         log(f"Voice {i + 1}/{len(script['scenes'])}")
         wav = audio_dir / f"scene{i:03d}.wav"
-        dur, words = speak(sc["narration"], wav)
+        dur, words = speak_sentences([sh["text"] for sh in sc["shots"]], wav)
         b = {"kind": "scene", "seconds": dur + 0.25, "wav": wav, "words": words, "scene": sc}
         if sc.get("chapter") and i > 0:
             chapter_no += 1
@@ -303,7 +303,7 @@ def render_short(script: dict, work: Path, case_no: int = 0) -> dict:
     sh = script["short"]
     sdir = work / "short"
     sdir.mkdir(parents=True, exist_ok=True)
-    dur, words = speak(sh["narration"], sdir / "voice.wav")
+    dur, words = speak_sentences([x["text"] for x in sh["shots"]], sdir / "voice.wav")
     total = dur + 0.5
     frames = _frames(total)
     footage = Footage(work / "footage_v", "portrait")
