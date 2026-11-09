@@ -1,0 +1,217 @@
+{
+  "title": "3 Ideas at Noon: How StoryVaultFiles Works",
+  "thumbnail_text": "ONE TAP",
+  "description": "Nobody edits these videos by hand. Here is how StoryVaultFiles turns one tap into a video.\n\nThis Short walks through the pipeline: three daily story ideas on Telegram, an AI-written script, a narrated and illustrated edit, and publishing to YouTube and Instagram after a human approves.\n\nWould you watch a video that no person edited by hand? Tell us in the comments.",
+  "tags": [
+    "storyvaultfiles",
+    "how storyvaultfiles works",
+    "faceless youtube channel",
+    "ai video pipeline",
+    "automated youtube channel",
+    "telegram bot",
+    "ffmpeg video editing",
+    "ai narration",
+    "behind the scenes"
+  ],
+  "hashtags": [
+    "#storyvaultfiles",
+    "#behindthescenes",
+    "#aivideo",
+    "#faceless"
+  ],
+  "look": "2026, dim modern workspace with glowing screens, phone and desk objects, cool blue and warm lamp light, documentary style",
+  "title_card": {
+    "kicker": "BEHIND THE SCENES",
+    "title": "HOW A VIDEO MAKES ITSELF",
+    "subtitle": "— FROM ONE TAP TO YOUTUBE"
+  },
+  "label": {
+    "name": "STORYVAULTFILES",
+    "detail": "AN EXPLAINER · 2026"
+  },
+  "end_line": "NOW YOU KNOW.",
+  "mood": [
+    "glowing computer screen night",
+    "typing on keyboard",
+    "city skyline dusk"
+  ],
+  "short": {
+    "shots": [
+      {
+        "text": "Nobody sits at an editing desk here, yet a full video gets made.",
+        "search": [
+          "empty editing desk",
+          "desk"
+        ],
+        "image_prompt": "wide shot of an empty video editing desk with dark monitors in a quiet room, a glowing phone on the desk, cool blue light",
+        "image": -1
+      },
+      {
+        "text": "This is how StoryVaultFiles works.",
+        "search": [
+          "phone chat",
+          "phone"
+        ],
+        "image_prompt": "close-up of a smartphone on a dark wooden desk showing a chat window, soft glow, shallow depth of field",
+        "image": -1
+      },
+      {
+        "text": "Every day at noon, Toronto time, a message arrives on Telegram.",
+        "search": [
+          "clock noon",
+          "clock"
+        ],
+        "image_prompt": "medium shot of a wall clock showing twelve o'clock above a city office window, Toronto skyline haze, midday light",
+        "image": -1
+      },
+      {
+        "text": "Three mystery cases, pulled from Wikipedia and pitched by AI.",
+        "search": [
+          "case folders",
+          "folders"
+        ],
+        "image_prompt": "three old manila case folders fanned out on a desk under a green lamp, dramatic low-key lighting, close-up",
+        "image": -1
+      },
+      {
+        "text": "One tap picks the story.",
+        "search": [
+          "thumb tapping phone",
+          "tap"
+        ],
+        "image_prompt": "close-up of a thumb pressing a phone screen in a dim room, screen glow on the fingertip",
+        "image": -1
+      },
+      {
+        "text": "Claude researches it and writes the script, with Gemini as the backup.",
+        "search": [
+          "writing script screen",
+          "writing"
+        ],
+        "image_prompt": "over-the-shoulder view of a silhouetted figure at a glowing monitor full of lines of text, dark room, soft blue light",
+        "image": -1
+      },
+      {
+        "text": "A free neural voice records the narration.",
+        "search": [
+          "studio microphone",
+          "microphone"
+        ],
+        "image_prompt": "close-up of a vintage studio microphone with a pop filter, dark booth, warm rim light",
+        "image": -1
+      },
+      {
+        "text": "Then every sentence gets its own AI picture, period-accurate and photoreal.",
+        "search": [
+          "photo prints wall",
+          "photos"
+        ],
+        "image_prompt": "wide shot of a wall of black and white photographic prints pinned in a dim darkroom, red safelight, film grain",
+        "image": -1
+      },
+      {
+        "text": "Real people are never drawn as recognisable faces.",
+        "search": [
+          "silhouette window",
+          "silhouette"
+        ],
+        "image_prompt": "silhouette of a person from behind standing before a bright window, face unseen, dusty light beams",
+        "image": -1
+      },
+      {
+        "text": "If the daily picture allowance runs out, stock footage fills in.",
+        "search": [
+          "film reels shelf",
+          "reels"
+        ],
+        "image_prompt": "medium shot of a film archive shelf with labelled reels in metal canisters, dusty, low light",
+        "image": -1
+      },
+      {
+        "text": "FFmpeg cuts it all together into a long video and a vertical Short.",
+        "search": [
+          "film splicing",
+          "film strip"
+        ],
+        "image_prompt": "close-up of a film editor's hands cutting a strip of film on a splicing table, warm lamp, tight framing",
+        "image": -1
+      },
+      {
+        "text": "The preview lands back on Telegram.",
+        "search": [
+          "phone preview video",
+          "phone"
+        ],
+        "image_prompt": "close-up of a phone propped against a coffee cup showing a paused video, morning light on a table",
+        "image": -1
+      },
+      {
+        "text": "Don't like the intro? Type a note, and it rewrites and re-renders.",
+        "search": [
+          "typing notes",
+          "typing"
+        ],
+        "image_prompt": "medium shot of hands typing on a phone beside a handwritten page covered in crossed-out lines, desk lamp",
+        "image": -1
+      },
+      {
+        "text": "Happy with it? Tap Publish.",
+        "search": [
+          "finger phone button",
+          "button"
+        ],
+        "image_prompt": "extreme close-up of a finger hovering over a glowing phone screen button, dark background, shallow focus",
+        "image": -1
+      },
+      {
+        "text": "The video and Short go to YouTube, and the Short goes to Instagram.",
+        "search": [
+          "laptop and phone",
+          "video player"
+        ],
+        "image_prompt": "wide shot of a laptop and a phone side by side on a desk, both showing glowing video players, night room",
+        "image": -1
+      },
+      {
+        "text": "Every upload waits for a human's approval.",
+        "search": [
+          "approval stamp",
+          "stamp"
+        ],
+        "image_prompt": "medium shot of a hand holding a rubber stamp above a stack of papers, desk lamp, moody light",
+        "image": -1
+      },
+      {
+        "text": "The whole thing runs on free tiers.",
+        "search": [
+          "jar of coins",
+          "coins"
+        ],
+        "image_prompt": "close-up of a worn jar of coins on a windowsill, soft daylight, muted tones",
+        "image": -1
+      },
+      {
+        "text": "Would you watch a video that no person edited by hand?",
+        "search": [
+          "empty cinema",
+          "cinema"
+        ],
+        "image_prompt": "wide shot of an empty cinema with one lit screen and a single viewer seen from behind, dark, projector beam",
+        "image": -1
+      },
+      {
+        "text": "Follow StoryVaultFiles for more.",
+        "search": [
+          "archive filing cabinets",
+          "archive"
+        ],
+        "image_prompt": "slow wide shot of a dark archive room with rows of filing cabinets and one lit drawer, cinematic",
+        "image": -1
+      }
+    ],
+    "caption": "One tap on Telegram starts a video that no one edits by hand.\nHere is the whole StoryVaultFiles pipeline in under 90 seconds.\nWould you watch it?",
+    "narration": "Nobody sits at an editing desk here, yet a full video gets made. This is how StoryVaultFiles works. Every day at noon, Toronto time, a message arrives on Telegram. Three mystery cases, pulled from Wikipedia and pitched by AI. One tap picks the story. Claude researches it and writes the script, with Gemini as the backup. A free neural voice records the narration. Then every sentence gets its own AI picture, period-accurate and photoreal. Real people are never drawn as recognisable faces. If the daily picture allowance runs out, stock footage fills in. FFmpeg cuts it all together into a long video and a vertical Short. The preview lands back on Telegram. Don't like the intro? Type a note, and it rewrites and re-renders. Happy with it? Tap Publish. The video and Short go to YouTube, and the Short goes to Instagram. Every upload waits for a human's approval. The whole thing runs on free tiers. Would you watch a video that no person edited by hand? Follow StoryVaultFiles for more."
+  },
+  "scenes": [],
+  "picture_salt": ""
+}
