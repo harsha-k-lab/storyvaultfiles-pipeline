@@ -213,5 +213,5 @@
     "narration": "Nobody sits at an editing desk here, yet a full video gets made. This is how StoryVaultFiles works. Every day at noon, Toronto time, a message arrives on Telegram. Three mystery cases, pulled from Wikipedia and pitched by AI. One tap picks the story. Claude researches it and writes the script, with Gemini as the backup. A free neural voice records the narration. Then every sentence gets its own AI picture, period-accurate and photoreal. Real people are never drawn as recognisable faces. If the daily picture allowance runs out, stock footage fills in. FFmpeg cuts it all together into a long video and a vertical Short. The preview lands back on Telegram. Don't like the intro? Type a note, and it rewrites and re-renders. Happy with it? Tap Publish. The video and Short go to YouTube, and the Short goes to Instagram. Every upload waits for a human's approval. The whole thing runs on free tiers. Would you watch a video that no person edited by hand? Follow StoryVaultFiles for more."
   },
   "scenes": [],
-  "picture_salt": ""
+  "picture_salt": "v1"
 }
