@@ -39,7 +39,16 @@
   "short": {
     "shots": [
       {
-        "text": "Nobody edits these mystery videos, and nobody records the narration.",
+        "text": "Nobody edits these mystery videos.",
+        "search": [
+          "empty desk",
+          "dark room"
+        ],
+        "image_prompt": "wide shot of an empty editing desk in a dark room, one monitor glowing blue, an empty chair pushed back, no people",
+        "image": -1
+      },
+      {
+        "text": "Nobody records the narration.",
         "search": [
           "empty desk",
           "dark room"
@@ -93,7 +102,7 @@
         "image": -1
       },
       {
-        "text": "Every sentence then gets its own picture, a cinematic still made to match the words.",
+        "text": "Every sentence then gets its own picture, made to match the words.",
         "search": [
           "photo prints",
           "collage"
@@ -165,7 +174,16 @@
         "image": -1
       },
       {
-        "text": "Or tap Publish, and the video goes to YouTube and the Short to Reels.",
+        "text": "Or tap Publish.",
+        "search": [
+          "upload",
+          "screen"
+        ],
+        "image_prompt": "over-the-shoulder shot of a person's back at a desk, a monitor showing a video upload progress bar, dim room",
+        "image": -1
+      },
+      {
+        "text": "The video goes to YouTube, and the Short to Reels.",
         "search": [
           "upload",
           "screen"
@@ -183,7 +201,16 @@
         "image": -1
       },
       {
-        "text": "The machine does the building, but a human decides what goes out.",
+        "text": "The machine does the building.",
+        "search": [
+          "hand",
+          "switch"
+        ],
+        "image_prompt": "close-up of a hand hovering over a large old fashioned lever switch on a control panel, dramatic side light",
+        "image": -1
+      },
+      {
+        "text": "A human decides what goes out.",
         "search": [
           "hand",
           "switch"
@@ -211,7 +238,7 @@
       }
     ],
     "caption": "One tap starts a pipeline that researches, writes, narrates and edits a mystery video.\nA human still approves every upload.\nWould you trust a pipeline with the story?",
-    "narration": "Nobody edits these mystery videos, and nobody records the narration. Every day at noon, three unsolved cases arrive as messages on a phone. The facts come from Wikipedia, and an AI model writes the script from them. The owner taps one idea. A small bridge in the cloud wakes a computer to start work. An AI narrator reads the finished script aloud in a calm British voice. Every sentence then gets its own picture, a cinematic still made to match the words. These stills are made for free, one at a time. If a picture can't be made, stock footage fills the gap. Software cuts everything together with music and captions. One script becomes a long video and a vertical Short. Then everything waits for a person. The preview arrives on Telegram. There, the owner can type notes and have the script rewritten. Or tap Publish, and the video goes to YouTube and the Short to Reels. The links come back to the phone. The machine does the building, but a human decides what goes out. Would you trust a pipeline with the story, or only the editing? Follow StoryVaultFiles for more."
+    "narration": "Nobody edits these mystery videos. Nobody records the narration. Every day at noon, three unsolved cases arrive as messages on a phone. The facts come from Wikipedia, and an AI model writes the script from them. The owner taps one idea. A small bridge in the cloud wakes a computer to start work. An AI narrator reads the finished script aloud in a calm British voice. Every sentence then gets its own picture, made to match the words. These stills are made for free, one at a time. If a picture can't be made, stock footage fills the gap. Software cuts everything together with music and captions. One script becomes a long video and a vertical Short. Then everything waits for a person. The preview arrives on Telegram. There, the owner can type notes and have the script rewritten. Or tap Publish. The video goes to YouTube, and the Short to Reels. The links come back to the phone. The machine does the building. A human decides what goes out. Would you trust a pipeline with the story, or only the editing? Follow StoryVaultFiles for more."
   },
   "scenes": [],
   "picture_salt": ""

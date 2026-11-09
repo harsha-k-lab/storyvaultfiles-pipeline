@@ -4,15 +4,19 @@
   "images": [],
   "extra_sources": [
     {
-      "title": "StoryVaultFiles pipeline README",
+      "title": "README.md",
       "url": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/blob/main/README.md"
     },
     {
-      "title": "StoryVaultFiles setup guide",
+      "title": "SETUP.md",
       "url": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/blob/main/SETUP.md"
     },
     {
-      "title": "StoryVaultFiles config",
+      "title": "ROUTINE.md",
+      "url": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/blob/main/ROUTINE.md"
+    },
+    {
+      "title": "config.yaml",
       "url": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/blob/main/config.yaml"
     }
   ],
@@ -37,11 +41,12 @@
     "Darioguzben (Pixabay)",
     "Firmbee (Pixabay)",
     "Coverr-Free-Footage (Pixabay)",
-    "Life-Of-Vids (Pixabay)"
+    "Life-Of-Vids (Pixabay)",
+    "Nemo_Jo (Pixabay)"
   ],
   "links": {
     "short.mp4": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-004/short.mp4",
     "thumbnail.jpg": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-004/thumbnail.jpg"
   },
-  "minutes": 1.3
+  "minutes": 1.4
 }
