@@ -101,7 +101,6 @@ async function makeImage(request, env) {
   const prompt = String(body.prompt || "").slice(0, 2000);
   if (!prompt) return json({ error: "prompt is required" }, 400);
   const model = body.model || "@cf/black-forest-labs/flux-1-schnell";
-  const seed = Number.isInteger(body.seed) ? body.seed : Math.floor(Math.random() * 1e9);
   try {
     let out;
     if (model.includes("flux-2")) {            // FLUX.2 models take multipart form data
@@ -109,18 +108,18 @@ async function makeImage(request, env) {
       form.append("prompt", prompt);
       form.append("width", String(body.width || 1024));
       form.append("height", String(body.height || 1024));
-      form.append("seed", String(seed));
       const r = new Response(form);
       out = await env.AI.run(model, { multipart: { body: r.body, contentType: r.headers.get("content-type") } });
-    } else {
-      out = await env.AI.run(model, { prompt, steps: Math.min(Number(body.steps) || 4, 8), seed });
+    } else {                                    // FLUX.1 schnell accepts only prompt + steps
+      out = await env.AI.run(model, { prompt, steps: Math.min(Number(body.steps) || 4, 8) });
     }
     if (!out || !out.image) return json({ error: "model returned no image" }, 502);
-    return json({ image: out.image, model, seed });
+    return json({ image: out.image, model });
   } catch (e) {
     const msg = String(e && e.message || e);
     const daily = /neuron|allocation|quota|limit|4006|exceeded/i.test(msg);
-    return json({ error: msg.slice(0, 300), quota: daily }, daily ? 429 : 502);
+    const setup = /5006|not allowed|unevaluated|invalid input/i.test(msg);   // our request was rejected: don't retry
+    return json({ error: msg.slice(0, 300), quota: daily, setup }, daily ? 429 : setup ? 422 : 502);
   }
 }
 

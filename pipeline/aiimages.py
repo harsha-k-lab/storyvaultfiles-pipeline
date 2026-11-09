@@ -25,7 +25,8 @@ class Images:
         self.url = secret("CLOUDFLARE_WORKER_URL", required=False).rstrip("/")
         self.key = secret("WEBHOOK_SECRET", required=False)
         self.out_of_quota = False
-        self.made = self.reused = self.failed = 0
+        self.made = self.reused = self.failed = self.fails_in_a_row = 0
+        self.problem = ""
 
     @property
     def enabled(self) -> bool:
@@ -62,7 +63,7 @@ class Images:
                                     "width": IC.get("width", 1024), "height": IC.get("height", 1024)})
             if r.status_code == 429:
                 return r
-            if r.status_code >= 500 and r.status_code != 501:
+            if r.status_code >= 500 and r.status_code != 501 and "5006" not in r.text:
                 raise RuntimeError(f"image service {r.status_code}: {r.text[:200]}")
             return r
 
@@ -71,6 +72,10 @@ class Images:
         except Exception as exc:  # noqa: BLE001
             log(f"AI image failed, using stock: {exc}")
             self.failed += 1
+            self.fails_in_a_row += 1
+            if self.fails_in_a_row >= 3:
+                log("Three AI pictures failed in a row — using stock footage for the rest of this video.")
+                self.out_of_quota = True
             return None
         if r.status_code == 429:
             log("Cloudflare's free image allowance for today is used up — stock footage from here on.")
@@ -78,7 +83,8 @@ class Images:
             return None
         if r.status_code != 200:
             log(f"AI image unavailable ({r.status_code}): {r.text[:200]}")
-            if r.status_code in (403, 501):
+            self.problem = r.text[:160]
+            if r.status_code in (403, 422, 501) or "5006" in r.text:
                 self.out_of_quota = True   # not set up correctly: stop trying for this video
             self.failed += 1
             return None
@@ -89,6 +95,7 @@ class Images:
             self.failed += 1
             return None
         self.made += 1
+        self.fails_in_a_row = 0
         return path
 
     def _fake(self, path: Path, prompt: str) -> Path:
@@ -106,4 +113,5 @@ class Images:
                     "and the Workers AI binding: SETUP.md step 13")
         return (f"{self.made} new AI images, {self.reused} reused"
                 + (f", {self.failed} fell back to stock" if self.failed else "")
-                + (" — today's free image allowance ran out" if self.out_of_quota else ""))
+                + (f" — the image service refused: {self.problem}" if self.problem
+                   else " — today's free image allowance ran out" if self.out_of_quota else ""))
