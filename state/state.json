@@ -89,7 +89,7 @@
     },
     "003": {
       "case_no": 3,
-      "status": "writing",
+      "status": "awaiting_review",
       "topics": [
         {
           "wiki_title": "Ourang Medan",
@@ -129,8 +129,7 @@
       "topic_index": 0,
       "writer": "Claude",
       "requested_at": "2026-11-08T22:19:16-05:00",
-      "revisions": 0,
-      "pending_notes": "make a short video on how this pipeline works with motion graphics and easy to understand"
+      "revisions": 1
     }
   },
   "history": [],
@@ -144,6 +143,7 @@
   "delivered": [
     "error-202611082145",
     "topics-202611082331",
-    "script-003-202611090029"
+    "script-003-202611090029",
+    "script-003-202611090321"
   ]
 }
