@@ -145,9 +145,5 @@
     "script-003-202611090029",
     "script-003-202611090321",
     "script-004-202611091503"
-  ],
-  "last_failed": {
-    "kind": "command",
-    "text": "/status"
-  }
+  ]
 }
