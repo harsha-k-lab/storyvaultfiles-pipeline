@@ -59,7 +59,7 @@ def _script_schema(minutes: int, short_s: int, image_count: int) -> str:
     return f"""Return JSON with exactly these keys:
 {{
  "title": "<YouTube title under 70 chars>",
- "thumbnail_text": "<2-4 punchy words for the thumbnail, ALL CAPS>",
+ "thumbnail_text": "<2-3 punchy words for the thumbnail, ALL CAPS, not repeating the title's words>",
  "description": "<3 short paragraphs for the YouTube description: hook, what the video covers, a question for the comments. No hashtags here.>",
  "tags": ["<12-18 search tags>"],
  "hashtags": ["#unsolvedmysteries", "<3 more>"],
@@ -160,7 +160,7 @@ def fake_script(case_no: int) -> dict:
               {"chapter": "The Theories", "shots": shots[5:]}]
     return normalize({
         "title": "The Night Nine Hikers Ran Into the Snow",
-        "thumbnail_text": "WHY DID THEY RUN?",
+        "thumbnail_text": "WHY THEY RAN",
         "description": "Test description.",
         "tags": ["mystery", "unsolved"],
         "hashtags": ["#unsolvedmysteries", "#mystery"],

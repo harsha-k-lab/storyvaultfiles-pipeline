@@ -122,6 +122,8 @@ def check(path: Path) -> list[str]:
             problems.append("Short needs at least 4 shots.")
         if len(raw["title"]) > 100:
             problems.append("Title is over 100 characters.")
+        if len(str(raw["thumbnail_text"]).split()) > 3:
+            problems.append("Thumbnail text must be 3 words or fewer.")
     elif kind == "error":
         if not data.get("message"):
             problems.append('An error file needs a "message".')
