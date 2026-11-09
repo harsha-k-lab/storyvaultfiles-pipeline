@@ -577,6 +577,16 @@ def cmd_status(state: State):
 
 
 def handle(state: State, payload: dict):
+    try:
+        return _handle(state, payload)
+    except KeyError as exc:
+        if "not found" in str(exc):
+            return telegram.send("That button belongs to an older case that's been cleared. "
+                                 "Send /topics for new ideas, or /video or /short with a topic.")
+        raise
+
+
+def _handle(state: State, payload: dict):
     kind = payload.get("kind")
     if kind == "button":
         data = payload.get("data", "")
@@ -586,7 +596,7 @@ def handle(state: State, payload: dict):
             if not failed:
                 telegram.send("Nothing to retry.")
                 return
-            return handle(state, failed)
+            return _handle(state, failed)
         if action == "req":
             req = state.data.pop("pending_request", "")
             if not req:
