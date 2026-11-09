@@ -26,28 +26,56 @@
       "Intro"
     ],
     [
-      24.1,
-      "A Discovery in the Taiga"
+      71.23333333333332,
+      "The Extraterrestrial Hypothesis"
     ],
     [
-      46.2,
-      "The Search for Origins"
+      142.73333333333332,
+      "The Earth Awakens"
     ],
     [
-      73.76666666666667,
-      "Geological Evidence"
+      226.23333333333335,
+      "The Scientific Verdict"
     ],
     [
-      104.96666666666667,
-      "Unanswered Questions"
+      309.80000000000007,
+      "The Unsolved Legacy"
     ]
   ],
-  "credits": [],
+  "credits": [
+    "Jari-Lobo (Pixabay)",
+    "ghasoub (Pixabay)",
+    "Matthias_Groeneveld (Pixabay)",
+    "MabelAmber (Pixabay)",
+    "TheMarcKnight (Pixabay)",
+    "BlenderTimer (Pixabay)",
+    "Kanenori (Pixabay)",
+    "Gylfi (Pixabay)",
+    "Thamtb_MOONLIGHT (Pixabay)",
+    "chayka1270 (Pixabay)",
+    "arodsje (Pixabay)",
+    "SciQuestYT (Pixabay)",
+    "EqualStock (Pixabay)",
+    "conolan (Pixabay)",
+    "MaxMedyk (Pixabay)",
+    "wonderlandwoo (Pixabay)",
+    "Life-Of-Vids (Pixabay)",
+    "shahg22 (Pixabay)",
+    "andibreit (Pixabay)",
+    "Tumisu (Pixabay)",
+    "6696758 (Pixabay)",
+    "spaceX55 (Pixabay)",
+    "Ronin_Studio_Munich (Pixabay)",
+    "gorokhov_yura (Pixabay)",
+    "JoshuaWoroniecki (Pixabay)",
+    "gammeholton84 (Pixabay)",
+    "thenickmurphy (Pixabay)"
+  ],
   "links": {
     "short.mp4": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-001/short.mp4",
     "thumbnail.jpg": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-001/thumbnail.jpg",
     "video.mp4": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-001/video.mp4",
     "images.tar": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-001/images.tar"
   },
-  "minutes": 2.2
+  "minutes": 5.9
 }
