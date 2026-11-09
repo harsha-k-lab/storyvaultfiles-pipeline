@@ -1,5 +1,5 @@
 {
-  "next_case": 4,
+  "next_case": 5,
   "jobs": {
     "001": {
       "case_no": 1,
@@ -130,6 +130,34 @@
       "writer": "Claude",
       "requested_at": "2026-11-08T22:19:16-05:00",
       "revisions": 1
+    },
+    "004": {
+      "case_no": 4,
+      "status": "writing",
+      "topics": [
+        {
+          "wiki_title": "",
+          "url": "",
+          "working_title": "How the storyvaultfiles pipeline works",
+          "hook": "",
+          "request": "how the storyvaultfiles pipeline works"
+        }
+      ],
+      "created": "2026-11-09T10:02-05:00",
+      "kind": "custom",
+      "format": "short",
+      "topics_by": "you",
+      "topic": {
+        "wiki_title": "",
+        "url": "",
+        "working_title": "How the storyvaultfiles pipeline works",
+        "hook": "",
+        "request": "how the storyvaultfiles pipeline works"
+      },
+      "topic_index": 0,
+      "writer": "Claude",
+      "requested_at": "2026-11-09T10:02:30-05:00",
+      "recovered": true
     }
   },
   "history": [],
