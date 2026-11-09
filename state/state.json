@@ -3,7 +3,7 @@
   "jobs": {
     "001": {
       "case_no": 1,
-      "status": "awaiting_review",
+      "status": "discarded",
       "topics": [
         {
           "wiki_title": "Zodiac Killer",
@@ -60,6 +60,5 @@
     "date": "2026-11-09",
     "count": 5
   },
-  "active_job": "001",
-  "review_job": "001"
+  "active_job": "001"
 }
