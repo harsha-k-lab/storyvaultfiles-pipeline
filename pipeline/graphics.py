@@ -19,11 +19,17 @@ def font_path(kind: str = "display") -> str:
     wanted = {
         "display": ["Anton-Regular.ttf", "BebasNeue-Regular.ttf"],
         "type": ["SpecialElite-Regular.ttf"],
+        "serif": ["DMSerifDisplay-Regular.ttf"],
         "body": [],
     }[kind]
     for name in wanted:
         if (FONT_DIR / name).exists():
             return str(FONT_DIR / name)
+    if kind == "serif":
+        for p in ("/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf",
+                  "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf"):
+            if Path(p).exists():
+                return p
     for p in ("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
               "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
               "/usr/share/fonts/truetype/dejavu/DejaVuSansCondensed-Bold.ttf"):
@@ -179,14 +185,13 @@ def _ts(t: float) -> str:
 
 def write_ass(words: list[dict], out: Path, w: int, h: int, vertical: bool = False) -> Path:
     """Burned-in captions: clean lower-third for long-form, big centred words for Shorts."""
+    # Reference style: bold white ALL CAPS with a black outline, a few words at a time.
+    fontname = "DejaVu Sans"
     if vertical:
-        size, per, align, margin_v = int(h * 0.064), 3, 5, int(h * 0.10)
-        fontname = "Anton" if (FONT_DIR / "Anton-Regular.ttf").exists() else "DejaVu Sans"
-        outline, primary = 7, "&H00FFFFFF"
+        size, per, align, margin_v, outline = int(h * 0.040), 4, 2, int(h * 0.24), 5
     else:
-        size, per, align, margin_v = int(h * 0.046), 7, 2, int(h * 0.07)
-        fontname = "DejaVu Sans"
-        outline, primary = 3, "&H00F4F4F4"
+        size, per, align, margin_v, outline = int(h * 0.052), 5, 2, int(h * 0.09), 4
+    primary = "&H00FFFFFF"
     head = f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: {w}
@@ -211,9 +216,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         if next_start is not None:
             end = min(end, next_start - 0.02)
         text = " ".join(c["word"] for c in chunk)
-        if vertical:
-            text = text.upper()
-        text = text.replace("{", "(").replace("}", ")")
+        text = text.upper().replace("{", "(").replace("}", ")")
         events.append(f"Dialogue: 0,{_ts(start)},{_ts(max(end, start + 0.3))},Cap,,0,0,0,,{text}")
         chunk.clear()
 
@@ -223,7 +226,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         chunk.append(wd)
         chars = sum(len(c["word"]) + 1 for c in chunk)
         ends_sentence = wd["word"][-1:] in ".?!,;:"
-        if len(chunk) >= per or chars > (18 if vertical else 44) or (ends_sentence and len(chunk) >= 2):
+        if len(chunk) >= per or chars > (22 if vertical else 30) or wd["word"][-1:] in ".?!" or (ends_sentence and len(chunk) >= 2):
             nxt = words[i + 1]["start"] if i + 1 < len(words) else None
             flush(nxt)
     flush()
@@ -306,4 +309,82 @@ def chapter_overlay(out: Path, number: int, name: str, w: int, h: int) -> Path:
     d.text((x, y + 52 * s), name.upper(), font=f, fill=(242, 240, 232, 255),
            stroke_width=max(2, int(2 * s)), stroke_fill=(0, 0, 0, 255))
     img.save(out)
+    return out
+
+
+# ── reference-style cards (title over the first shot, name label, black end card) ─
+
+GOLD = (214, 178, 108)
+SOFT = (176, 196, 214)
+
+
+def _spaced(d: ImageDraw.ImageDraw, xy, text: str, font, fill, spacing: float, anchor_center=True):
+    widths = [d.textlength(c, font=font) for c in text]
+    total = sum(widths) + spacing * (len(text) - 1)
+    x, y = xy
+    x = x - total / 2 if anchor_center else x
+    for c, cw in zip(text, widths):
+        d.text((x, y), c, font=font, fill=fill, anchor="lm")
+        x += cw + spacing
+    return total
+
+
+def title_card_overlay(out: Path, card: dict, w: int, h: int) -> Path:
+    """Opening title, drawn over the first shot while the narration starts (no silent card)."""
+    s = min(w, h) / 1080
+    vertical = h > w
+    top, bottom = (h * 0.08, h * 0.44) if vertical else (h * 0.18, h * 0.70)
+    img = _shade(Image.new("RGBA", (w, h), (0, 0, 0, 0)), [-80, top - 120 * s, w + 80, bottom + 60 * s],
+                 165, int(80 * s))
+    d = ImageDraw.Draw(img)
+    y = top + 40 * s
+    _spaced(d, (w / 2, y), card.get("kicker", "AN UNSOLVED CASE"), _font("type", int(34 * s)),
+            GOLD + (255,), 8 * s)
+    y += 70 * s
+    for line in textwrap.wrap(card.get("title", ""), width=16 if vertical else 24)[:3]:
+        f = _fit_text(d, line, "serif", w * 0.88, int((104 if vertical else 112) * s), 40)
+        d.text((w / 2, y + f.size * 0.5), line, font=f, fill=(246, 244, 238, 255), anchor="mm")
+        y += f.size * 1.12
+    if card.get("subtitle"):
+        y += 22 * s
+        for line in textwrap.wrap(card["subtitle"], width=30 if vertical else 48)[:2]:
+            _spaced(d, (w / 2, y), line, _font("type", int(28 * s)), SOFT + (255,), 3 * s)
+            y += 40 * s
+    img.save(out)
+    return out
+
+
+def label_overlay(out: Path, top: str, name: str, detail: str, w: int, h: int) -> Path:
+    """Name label for the case, like a documentary lower third (placed high, clear of captions)."""
+    s = min(w, h) / 1080
+    vertical = h > w
+    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    x0, y0 = (w * 0.08, h * 0.12) if vertical else (w * 0.06, h * 0.10)
+    img = _shade(img, [x0 - 60 * s, y0 - 50 * s, x0 + w * (0.84 if vertical else 0.5), y0 + 200 * s], 150, int(50 * s))
+    d = ImageDraw.Draw(img)
+    d.rectangle([x0, y0, x0 + 6 * s, y0 + 150 * s], fill=GOLD + (255,))
+    x = x0 + 30 * s
+    d.text((x, y0 + 4 * s), top, font=_font("type", int(28 * s)), fill=GOLD + (255,))
+    f = _fit_text(d, name, "serif", w * (0.76 if vertical else 0.44), int(64 * s), 30)
+    d.text((x, y0 + 44 * s), name, font=f, fill=(246, 244, 238, 255))
+    if detail:
+        d.text((x, y0 + 52 * s + f.size * 1.15), detail, font=_font("type", int(26 * s)), fill=SOFT + (255,))
+    img.save(out)
+    return out
+
+
+def file_end_card(out: Path, case_no: int, line: str, w: int, h: int) -> Path:
+    """Black branded end card: channel name, the closing line, the file number, follow prompt."""
+    s = min(w, h) / 1080
+    img = Image.new("RGB", (w, h), (8, 8, 10))
+    d = ImageDraw.Draw(img)
+    cy = h / 2
+    _spaced(d, (w / 2, cy - 170 * s), CFG["channel"]["name"].upper(), _font("serif", int(52 * s)), GOLD, 6 * s)
+    for i, ln in enumerate(textwrap.wrap(line or "STILL UNSOLVED.", width=18)[:2]):
+        f = _fit_text(d, ln, "serif", w * 0.86, int(96 * s), 40)
+        d.text((w / 2, cy - 40 * s + i * f.size * 1.1), ln, font=f, fill=(246, 244, 238), anchor="mm")
+    _spaced(d, (w / 2, cy + 120 * s), f"CASE FILE No. {case_no:03d}", _font("type", int(30 * s)), SOFT, 4 * s)
+    _spaced(d, (w / 2, cy + 190 * s), CFG["channel"].get("follow_line", "FOLLOW FOR A NEW CASE EVERY DAY"),
+            _font("type", int(24 * s)), (150, 150, 150), 3 * s)
+    img.save(out, quality=95)
     return out

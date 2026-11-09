@@ -45,15 +45,24 @@ writing:
   models: ["gemini-3.5-flash", "gemini-3.6-flash", "gemini-3.1-flash-lite", "gemini-flash-latest", "gemini-2.5-flash"]
   target_minutes: 10              # long video length (8–12 works best for mysteries)
   words_per_minute: 145
-  short_seconds: 55               # Instagram Reel / YouTube Short length
+  short_seconds: 85               # Instagram Reel / YouTube Short length (the reference channel runs 70–120 s)
 
 voice:
   # Free Microsoft neural voices. Good mystery narrators:
   #   en-US-ChristopherNeural (deep, calm)   en-US-GuyNeural (warm)
   #   en-GB-RyanNeural (British, documentary) en-US-AndrewMultilingualNeural (modern)
-  name: "en-US-ChristopherNeural"
-  rate: "-6%"
+  name: "en-GB-RyanNeural"        # deep British documentary narrator, like the reference channel
+  rate: "-4%"
   pitch: "-2Hz"
+
+images:
+  # One AI picture per sentence (photoreal, period-accurate), made free by your Cloudflare
+  # Worker's Workers AI binding — SETUP.md step 13. Without it, stock footage is used.
+  enabled: true
+  model: "@cf/black-forest-labs/flux-1-schnell"   # ~170 free images/day. Sharper but ~3x the cost: "@cf/black-forest-labs/flux-2-klein-4b"
+  width: 1024
+  height: 1024                    # square, so one picture can be cropped for both 16:9 and 9:16
+  house_style: "cinematic documentary still, photorealistic, period-accurate details, muted desaturated colour grade, soft film grain, dramatic low-key lighting, shot on 35mm film, no text, no letters, no captions, no watermark, no logo"
 
 video:
   width: 1920

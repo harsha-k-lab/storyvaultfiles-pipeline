@@ -7,6 +7,7 @@ from pathlib import Path
 
 from . import graphics
 from .core import CFG, log, media_duration, run
+from .aiimages import Images
 from .stock import Footage
 from .tts import speak
 
@@ -148,12 +149,22 @@ def plan_cuts(shots: list[dict], words: list[dict], total_frames: int, lead: flo
 
 
 def _shot_clip(footage: Footage, sh: dict, part: int, photos: list, mood: list[str],
-               fcount: int, out: Path, w: int, h: int, credits: dict, blank: Path):
+               fcount: int, out: Path, w: int, h: int, credits: dict, blank: Path,
+               images: Images | None = None, look: str = "") -> Path | None:
+    """Make one clip for a sentence. Order: the case's real photo → an AI picture made for
+    this exact sentence → matching stock footage → a plain dark card. Returns the still used."""
     img_idx = sh.get("image", -1)
     photo = photos[img_idx] if isinstance(img_idx, int) and 0 <= img_idx < len(photos) else None
     if part == 0 and photo:
         shot_from_image(photo, fcount, out, w, h)
-        return None
+        log(f'  “{sh["text"][:50]}…” → real case photo')
+        return photo
+    if images is not None and sh.get("image_prompt"):
+        pic = images.get(sh["image_prompt"], look, variant=part)
+        if pic:
+            shot_from_image(pic, fcount, out, w, h)
+            log(f'  “{sh["text"][:50]}…” → AI picture')
+            return pic
     got = footage.get(sh.get("search") or [], mood)
     if not got:
         shot_from_image(blank, fcount, out, w, h)
@@ -164,8 +175,8 @@ def _shot_clip(footage: Footage, sh: dict, part: int, photos: list, mood: list[s
     else:
         shot_from_image(path, fcount, out, w, h)
     credits[item.get("credit", "")] = True
-    log(f'  “{sh["text"][:50]}…” → {item["kind"]} for “{item.get("query", "")}”')
-    return path if item["kind"] == "video" else None
+    log(f'  “{sh["text"][:50]}…” → stock {item["kind"]} for “{item.get("query", "")}”')
+    return path if item["kind"] != "video" else _frame_grab(path, out.with_suffix(".jpg"))
 
 
 # ── long-form ────────────────────────────────────────────────────────────────
@@ -177,6 +188,8 @@ def render_long(script: dict, work: Path, case_no: int, photos: list[Path | None
     for d in (shots_dir, audio_dir):
         d.mkdir(parents=True, exist_ok=True)
     footage = Footage(work / "footage", "landscape")
+    images = Images(work.parent / "images", script.get("picture_salt", ""))      # shared cache: the Short and revisions reuse pictures
+    look = script.get("look", "")
     per_shot = float(VC["seconds_per_shot"])
 
     # 1) Voice for every scene first (also tells us the timing). No silent cards:
@@ -191,7 +204,7 @@ def render_long(script: dict, work: Path, case_no: int, photos: list[Path | None
             chapter_no += 1
             b.update(chapter=sc["chapter"], chapter_no=chapter_no)
         beats.append(b)
-    beats.append({"kind": "end", "seconds": 4.0})
+    beats.append({"kind": "end", "seconds": 3.5})
 
     # where the title goes: over "This is case file number …", else the 2nd sentence
     title_at = next(((bi, si) for bi, b in enumerate(beats[:3]) if b["kind"] == "scene"
@@ -218,14 +231,20 @@ def render_long(script: dict, work: Path, case_no: int, photos: list[Path | None
                 title_k = max((k for k, i in enumerate(idxs) if i <= title_at[1] and plan[k][2] == 0), default=0)
             for k, (fcount, sh, part) in enumerate(plan):
                 out = shots_dir / f"b{bi:03d}_{k:02d}.mp4"
-                clip = _shot_clip(footage, sh, part, photos, mood, fcount, out, w, h, credits, blank)
-                if card_bg is None and clip:
-                    card_bg = _frame_grab(clip, work / "cardbg.jpg")
+                still = _shot_clip(footage, sh, part, photos, mood, fcount, out, w, h, credits, blank,
+                                   images, look)
+                if card_bg is None and still:
+                    card_bg = still
+                if bi == 0 and k == 0:
+                    _overlay(out, graphics.title_card_overlay(work / "titlecard.png", script["title_card"], w, h), 4.2)
                 if k == 0 and b.get("chapter"):
                     _overlay(out, graphics.chapter_overlay(work / f"ch{bi:03d}.png", b["chapter_no"],
                                                            b["chapter"], w, h), 3.8)
-                if k == title_k:
-                    _overlay(out, graphics.title_overlay(work / "title.png", case_no, script["title"], w, h), 4.5)
+                if k == title_k and not (bi == 0 and k == 0):
+                    lb = script["label"]
+                    _overlay(out, graphics.label_overlay(work / "label.png", f"CASE FILE No. {case_no:03d}",
+                                                         lb["name"] or script["title_card"]["title"],
+                                                         lb["detail"], w, h), 4.5)
                 shot_files.append(out)
             pad = audio_dir / f"pad{bi:03d}.wav"
             _pad_audio(b["wav"], seconds, pad, lead=0.05)
@@ -233,7 +252,7 @@ def render_long(script: dict, work: Path, case_no: int, photos: list[Path | None
                           for wd in b["words"]]
         else:
             png = work / "endcard.jpg"
-            graphics.end_card(png, w, h, card_bg)
+            graphics.file_end_card(png, case_no, script.get("end_line", ""), w, h)
             out = shots_dir / f"b{bi:03d}_end.mp4"
             shot_from_image(png, frames, out, w, h, grade=False, fade=True)
             shot_files.append(out)
@@ -252,9 +271,10 @@ def render_long(script: dict, work: Path, case_no: int, photos: list[Path | None
     final = work / "video.mp4"
     log("Final encode (long video)…")
     _finish(silent, narration, ass, final)
+    log("Images:", images.summary())
     thumb_bg = first_frame or card_bg
     thumb = graphics.thumbnail(work / "thumbnail.jpg", thumb_bg, script.get("thumbnail_text", script["title"]), case_no)
-    return {"video": final, "thumbnail": thumb, "seconds": t,
+    return {"video": final, "thumbnail": thumb, "seconds": t, "images": images.summary(),
             "chapters": _chapters(beats), "credits": [c for c in credits if c]}
 
 
@@ -277,29 +297,44 @@ def _overlay(clip: Path, png: Path, seconds: float):
 
 # ── short / reel ─────────────────────────────────────────────────────────────
 
-def render_short(script: dict, work: Path) -> dict:
+def render_short(script: dict, work: Path, case_no: int = 0) -> dict:
     w, h = 1080, 1920
     sh = script["short"]
     sdir = work / "short"
     sdir.mkdir(parents=True, exist_ok=True)
     dur, words = speak(sh["narration"], sdir / "voice.wav")
-    total = dur + 0.6
+    total = dur + 0.5
     frames = _frames(total)
     footage = Footage(work / "footage_v", "portrait")
+    images = Images(work.parent / "images", script.get("picture_salt", ""))
     blank = graphics.end_card(sdir / "blank.jpg", w, h)
-    plan = plan_cuts(sh["shots"], words, frames, lead=0.1, min_s=1.6, max_s=3.5)  # fast cuts for Shorts
-    shot_files, credits = [], {}
+    plan = plan_cuts(sh["shots"], words, frames, lead=0.05, min_s=1.6, max_s=3.8)  # a new picture every 2–4 s
+    shot_files, credits, t = [], {}, 0.0
+    label_done = False
     for k, (fc, shot, part) in enumerate(plan):
         out = sdir / f"s{k:02d}.mp4"
-        _shot_clip(footage, shot, part, [], script.get("mood") or [], fc, out, w, h, credits, blank)
+        _shot_clip(footage, shot, part, [], script.get("mood") or [], fc, out, w, h, credits, blank,
+                   images, script.get("look", ""))
+        if k == 0:
+            _overlay(out, graphics.title_card_overlay(sdir / "titlecard.png", script["title_card"], w, h), 3.6)
+        elif not label_done and t >= 6.0 and script["label"]["name"]:
+            _overlay(out, graphics.label_overlay(sdir / "label.png", f"CASE FILE No. {case_no:03d}",
+                                                 script["label"]["name"], script["label"]["detail"], w, h), 3.5)
+            label_done = True
         shot_files.append(out)
+        t += fc / FPS
+    end_frames = _frames(2.5)
+    end_png = graphics.file_end_card(sdir / "endcard.jpg", case_no, script.get("end_line", ""), w, h)
+    end_clip = sdir / "s_end.mp4"
+    shot_from_image(end_png, end_frames, end_clip, w, h, grade=False, fade=True)
+    shot_files.append(end_clip)
     silent = sdir / "silent.mp4"
     _concat(shot_files, silent)
     narration = sdir / "narration.wav"
-    _pad_audio(sdir / "voice.wav", frames / FPS, narration, lead=0.1)
-    words = [{**wd, "start": wd["start"] + 0.1, "end": wd["end"] + 0.1} for wd in words]
+    _pad_audio(sdir / "voice.wav", (frames + end_frames) / FPS, narration, lead=0.05)
+    words = [{**wd, "start": wd["start"] + 0.05, "end": wd["end"] + 0.05} for wd in words]
     ass = graphics.write_ass(words, sdir / "short.ass", w, h, vertical=True)
     final = work / "short.mp4"
-    log("Final encode (short)…")
+    log("Final encode (short)…", images.summary())
     _finish(silent, narration, ass, final, crf=22, maxrate="5M")
-    return {"video": final, "seconds": frames / FPS}
+    return {"video": final, "seconds": (frames + end_frames) / FPS}

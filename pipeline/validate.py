@@ -116,10 +116,17 @@ def check(path: Path) -> list[str]:
         if sum(1 for sc in s["scenes"] if sc.get("chapter")) < 3:
             problems.append("Mark at least 3 chapters (\"chapter\" on the first scene of each).")
         sw = len(s["short"]["narration"].split())
-        if not 70 <= sw <= 160:
-            problems.append(f"Short is {sw} words; aim for about {int(W['short_seconds'] * 2.4)}.")
-        if len(s["short"]["shots"]) < 4:
-            problems.append("Short needs at least 4 shots.")
+        target_sw = int(W["short_seconds"] * 2.3)
+        if not 0.7 * target_sw <= sw <= 1.25 * target_sw:
+            problems.append(f"Short is {sw} words; aim for about {target_sw}.")
+        if len(s["short"]["shots"]) < 12:
+            problems.append("Short needs at least 12 shots (a new picture every 2–4 seconds).")
+        all_shots = [sh for sc in s["scenes"] for sh in sc["shots"]] + s["short"]["shots"]
+        missing = sum(1 for sh in all_shots if len(sh.get("image_prompt", "")) < 25)
+        if missing:
+            problems.append(f"{missing} shots have no proper \"image_prompt\" (describe the picture for each sentence).")
+        if not raw.get("title_card") or not raw.get("label") or not raw.get("end_line") or not raw.get("look"):
+            problems.append('Fill in "look", "title_card", "label" and "end_line".')
         if len(raw["title"]) > 100:
             problems.append("Title is over 100 characters.")
         if len(str(raw["thumbnail_text"]).split()) > 3:

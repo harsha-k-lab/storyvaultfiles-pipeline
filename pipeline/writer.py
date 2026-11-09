@@ -54,26 +54,32 @@ Return JSON: {{"topics": [{{"index": <number from the list>,
 
 def _script_schema(minutes: int, short_s: int, image_count: int) -> str:
     words = minutes * W["words_per_minute"]
-    short_words = int(short_s * 2.4)
+    short_words = int(short_s * 2.3)
     img = f"0-{image_count - 1}" if image_count else "none available, always -1"
     return f"""Return JSON with exactly these keys:
 {{
- "title": "<YouTube title under 70 chars>",
+ "title": "<YouTube title under 70 chars; a date, name or number helps; subject in the first 40 chars>",
  "thumbnail_text": "<2-3 punchy words for the thumbnail, ALL CAPS, not repeating the title's words>",
  "description": "<3 short paragraphs for the YouTube description: hook, what the video covers, a question for the comments. No hashtags here.>",
- "tags": ["<12-18 search tags>"],
+ "tags": ["<up to 15 search tags>"],
  "hashtags": ["#unsolvedmysteries", "<3 more>"],
- "mood": ["<3 backup stock-footage searches that fit this whole story's world, e.g. 'airport at night', 'vintage airplane', 'empty runway'>"],
+ "look": "<the era, place and setting every picture shares, e.g. '1947, rusting Dutch cargo steamer, Strait of Malacca, tropical haze'>",
+ "title_card": {{"kicker": "AN UNSOLVED CASE", "title": "<2-5 words, ALL CAPS, e.g. 'THE DEATH SHIP'>",
+                "subtitle": "<— one short hook line, ALL CAPS, e.g. '— EVERY MAN ABOARD WAS DEAD'>"}},
+ "label": {{"name": "<the case's name, ALL CAPS, e.g. 'SS OURANG MEDAN'>", "detail": "<PLACE · YEAR, ALL CAPS>"}},
+ "end_line": "<2-4 words for the black end card, ALL CAPS, e.g. 'STILL UNSOLVED.'>",
+ "mood": ["<3 backup stock-footage searches that fit this story's world>"],
  "scenes": [
    {{"chapter": "<chapter name on the first scene of each chapter, else empty string>",
      "shots": [
        {{"text": "<ONE sentence of narration, 6-22 words>",
-         "search": ["<3-4 word stock search showing EXACTLY what this sentence says>", "<2-word simpler version>", "<1 word: the main subject>"],
-         "image": <index of a source photo that shows exactly this ({img}), or -1>}}
+         "image_prompt": "<the picture for THIS sentence — see VISUALS>",
+         "search": ["<2-3 word stock-footage backup search>", "<1 word: the main subject>"],
+         "image": <index of a real source photo that shows exactly this ({img}), or -1>}}
      ]}}
  ],
  "short": {{
-   "shots": [{{"text": "<one sentence>", "search": ["<3-4 words>", "<2 words>", "<1 word>"]}}],
+   "shots": [{{"text": "<one sentence>", "image_prompt": "<picture for it>", "search": ["<2-3 words>", "<1 word>"]}}],
    "caption": "<Instagram caption: 2 short lines + a question>"
  }}
 }}
@@ -84,21 +90,27 @@ Structure: cold open hook (no greeting), then "This is case file number <N>.", t
 the setting/people, the event, the investigation & evidence, the theories, what remains unknown.
 End with a quiet reflective line, a question for viewers to answer in the comments,
 and one short line asking them to subscribe for more case files.
-SHORT: {short_words - 15}-{short_words} words in 6-10 shots, standalone; the first shot hooks in under
-2 seconds; end on the unresolved question, then "The full case file is on {CH['name']}."
+SHORT: {short_words - 30}-{short_words + 20} words ({short_s - 15}-{short_s + 15} seconds) in 18-30 shots,
+a complete standalone story: the first shot hooks in under 2 seconds with the most striking fact;
+build through the key moments; end on the unresolved question, then
+"Tell me what you think happened." and "The full case file is on {CH['name']}."
 
-VISUALS — the picture on screen must match the words being spoken at that moment:
-- Each shot's "search" is what a film editor would type into a stock-footage site (Pixabay)
-  to find a clip of the literal subject/action of THAT sentence.
-  "The jet climbed off the runway into the night sky" → ["airplane taking off night", "airplane takeoff", "airplane"]
-  "Agents searched the forest for weeks" → ["police searching forest", "forest search", "forest"]
-  "His parachute was never found" → ["parachute falling sky", "parachute", "parachute"]
-- Abstract sentences ("No one knows why.") → show the concrete thing being talked about
-  (e.g. the plane, the empty house, the case files), never random scenery.
-- Plain common English nouns and verbs only: no names of people, airlines, companies or brands,
-  no exact places or model numbers (stock sites don't have them). Era words like "vintage" are fine.
-- Use a source photo ("image") when it shows exactly what the sentence describes,
-  roughly 1 in 8 shots; otherwise -1."""
+VISUALS — the reference style is one cinematic, photoreal, period-accurate AI picture per sentence,
+showing exactly what is being said at that moment:
+- "image_prompt" describes ONE concrete scene a camera could film: subject, action, setting, era
+  details (clothes, vehicles, equipment), lighting, framing (wide / medium / close-up).
+  "The radio operator tapped out his last message" → "close-up of a 1940s ship's radio operator's
+  hand on a brass Morse key, cramped radio room, single bulb, sweat on the wood desk"
+  "They found the crew on deck, staring at the sky" → "empty steel deck of an old cargo steamer at
+  noon, scattered sailors' caps and a fallen chair, harsh sun, eerie stillness"
+- Vary framing from sentence to sentence (wide, medium, close detail) like a film editor would.
+- Abstract sentences ("No one knows why.") → a concrete, moody image of the thing discussed.
+- REAL PEOPLE: never name a real person in a prompt and never ask for a recognisable face of one.
+  Show them from behind, in silhouette, at a distance, as hands, or through objects they used.
+  Their real photos (the "image" index) are used where they exist.
+- No gore and no visible dead bodies: imply death through empty places and left-behind objects.
+- No text, signs, newspapers with readable words or logos in pictures.
+- "search" is only a backup if the AI picture can't be made: plain common nouns, no names."""
 
 
 def write_script(topic: dict, source: dict, images: list[dict], case_no: int) -> dict:
@@ -155,7 +167,8 @@ def fake_script(case_no: int) -> dict:
         ("Tell me what you think in the comments, and subscribe for more case files.",
          ["old case files", "case files", "files"]),
     ]
-    shots = [{"text": t, "search": q, "image": -1} for t, q in lines]
+    shots = [{"text": t, "search": q, "image": -1, "image_prompt": f"{q[0]}, 1959, wide cinematic shot"}
+             for t, q in lines]
     scenes = [{"chapter": "", "shots": shots[:3]}, {"chapter": "The Expedition", "shots": shots[3:5]},
               {"chapter": "The Theories", "shots": shots[5:]}]
     return normalize({
@@ -165,6 +178,11 @@ def fake_script(case_no: int) -> dict:
         "tags": ["mystery", "unsolved"],
         "hashtags": ["#unsolvedmysteries", "#mystery"],
         "mood": ["snowy mountain night", "frozen forest", "old documents"],
+        "look": "1959, Ural mountains, deep winter",
+        "title_card": {"kicker": "AN UNSOLVED CASE", "title": "THE DYATLOV PASS",
+                       "subtitle": "— NINE HIKERS. ONE TORN TENT."},
+        "label": {"name": "DYATLOV PASS INCIDENT", "detail": "URAL MOUNTAINS · 1959"},
+        "end_line": "STILL UNSOLVED.",
         "scenes": scenes,
         "short": {"shots": [shots[0], shots[3], shots[4], shots[6],
                             {"text": f"The full case file is on {CH['name']}.",
@@ -206,6 +224,7 @@ def normalize(script: dict) -> dict:
                 continue
             img = sh.get("image", -1)
             shots.append({"text": text, "search": _clean_search(sh.get("search"), sc.get("visuals") or []),
+                          "image_prompt": str(sh.get("image_prompt") or "").strip(),
                           "image": img if isinstance(img, int) else -1})
         sc["shots"] = shots
         sc["narration"] = " ".join(s["text"] for s in shots)
@@ -216,8 +235,18 @@ def normalize(script: dict) -> dict:
         short["shots"] = [{"text": t, "search": [vis[i % len(vis)]]}
                           for i, t in enumerate(_sentences(short.get("narration", "")))]
     short["shots"] = [{"text": str(s["text"]).strip(), "search": _clean_search(s.get("search"), []),
+                       "image_prompt": str(s.get("image_prompt") or "").strip(),
                        "image": -1} for s in short["shots"] if str(s.get("text", "")).strip()]
     short["narration"] = " ".join(s["text"] for s in short["shots"])
     script["short"] = short
     script["mood"] = [m for m in (script.get("mood") or []) if isinstance(m, str)][:4]
+    script["look"] = str(script.get("look") or "").strip()
+    tc = script.get("title_card") if isinstance(script.get("title_card"), dict) else {}
+    script["title_card"] = {"kicker": str(tc.get("kicker") or "AN UNSOLVED CASE").upper(),
+                            "title": str(tc.get("title") or script.get("title", "")).upper(),
+                            "subtitle": str(tc.get("subtitle") or "").upper()}
+    lb = script.get("label") if isinstance(script.get("label"), dict) else {}
+    script["label"] = {"name": str(lb.get("name") or "").upper(), "detail": str(lb.get("detail") or "").upper()}
+    script["end_line"] = str(script.get("end_line") or "STILL UNSOLVED.").upper()
+    script["picture_salt"] = str(script.get("picture_salt") or "")
     return script

@@ -17,7 +17,7 @@ jobs:
       - name: Install
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu-core > /dev/null
-          for f in ofl/anton/Anton-Regular.ttf ofl/bebasneue/BebasNeue-Regular.ttf ofl/specialelite/SpecialElite-Regular.ttf; do
+          for f in ofl/anton/Anton-Regular.ttf ofl/bebasneue/BebasNeue-Regular.ttf apache/specialelite/SpecialElite-Regular.ttf ofl/dmserifdisplay/DMSerifDisplay-Regular.ttf; do
             curl -sSfL -o "assets/fonts/$(basename $f)" "https://github.com/google/fonts/raw/main/$f" || true
           done
           pip install -q -r requirements.txt

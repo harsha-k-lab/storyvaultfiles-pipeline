@@ -16,7 +16,7 @@ from datetime import datetime
 from pathlib import Path
 
 from . import claude, publish, render, research, telegram, writer
-from .core import CFG, FAKE, STATE_DIR, State, job_dir, load_json, log, now_local, save_json
+from .core import CFG, FAKE, STATE_DIR, WORK_DIR, State, job_dir, load_json, log, now_local, save_json
 from .stock import download_image, keywords, match
 from .telegram import esc
 
@@ -114,10 +114,17 @@ def _render_and_send(state: State, job_id: str, script: dict, images: list[dict]
     work = job_dir(job_id)
     script = writer.normalize(script)   # also upgrades drafts written in the older format
     photos = _photos(images, work)
+    pics = WORK_DIR / "images"
+    publish.restore_images(job_id, pics)          # a revision reuses pictures that didn't change
     long = render.render_long(script, work, job["case_no"], photos)
-    short = render.render_short(script, work)
+    short = render.render_short(script, work, job["case_no"])
     prev = render.preview(long["video"], work / "preview.mp4")
-    links = publish.save_draft(job_id, [long["video"], short["video"], long["thumbnail"]], script["title"])
+    files = [long["video"], short["video"], long["thumbnail"]]
+    bundle = publish.bundle_images(pics, work / "images.tar")
+    if bundle:
+        files.append(bundle)
+    links = publish.save_draft(job_id, files, script["title"])
+    note = f"{note}\n🖼 {long.get('images', '')}" if long.get("images") else note
     meta = load_json(case_dir(job_id) / "meta.json")
     meta.update({"chapters": long["chapters"], "credits": long["credits"], "links": links,
                  "minutes": round(long["seconds"] / 60, 1)})
@@ -131,7 +138,7 @@ def _render_and_send(state: State, job_id: str, script: dict, images: list[dict]
            f"Length: {meta['minutes']} min · Case #{job['case_no']:03d}\n\n"
            f"<b>Description</b>\n{esc(script['description'][:600])}")
     telegram.send_photo(long["thumbnail"], cap)
-    review_rows = [[("✅ Publish", f"pub:{job_id}"), ("🎞 New footage", f"redo:{job_id}")],
+    review_rows = [[("✅ Publish", f"pub:{job_id}"), ("🎞 New pictures", f"redo:{job_id}")],
                    [("🗑 Discard", f"drop:{job_id}")]]
     sent = telegram.send_video(prev, "▶️ Preview (small copy). Full quality is saved for upload.")
     if not sent:
@@ -239,7 +246,9 @@ def cmd_revise(state: State, job_id: str, feedback: str | None, force_gemini: bo
         save_json(case_dir(job_id) / "script.json", script)
         note = f"Revision {job['revisions']} — your notes applied (Gemini)."
     else:
-        telegram.send("🎞 Same script, fresh footage. New version in ~20–30 minutes.")
+        script["picture_salt"] = f"v{job['revisions']}"   # new AI pictures, not the cached ones
+        save_json(case_dir(job_id) / "script.json", script)
+        telegram.send("🎞 Same script, new pictures and footage. New version in ~20–30 minutes.")
         note = f"Revision {job['revisions']} — new footage."
     _render_and_send(state, job_id, script, images, note)
 

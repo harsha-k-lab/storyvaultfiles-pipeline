@@ -42,6 +42,29 @@ def load_draft(job_id: str, dest: Path) -> Path:
     return dest
 
 
+def restore_images(job_id: str, dest: Path):
+    """Bring back this case's AI pictures from its draft, so a revision only makes new ones."""
+    dest.mkdir(parents=True, exist_ok=True)
+    if FAKE:
+        return
+    tmp = dest.parent / "_restore"
+    try:
+        run(["gh", "release", "download", release_tag(job_id), "-R", REPO, "-p", "images.tar",
+             "-D", tmp, "--clobber"], timeout=600)
+        run(["tar", "-xf", tmp / "images.tar", "-C", dest])
+        log(f"Restored {len(list(dest.glob('*.jpg')))} AI pictures from the last draft")
+    except RuntimeError:
+        pass   # first draft, or no pictures yet
+
+
+def bundle_images(src: Path, out: Path) -> Path | None:
+    pics = sorted(p.name for p in src.glob("*.jpg")) if src.exists() else []
+    if not pics:
+        return None
+    run(["tar", "-cf", out, "-C", src, *pics])
+    return out
+
+
 def mark_published(job_id: str, notes: str):
     if FAKE:
         return

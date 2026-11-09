@@ -29,6 +29,7 @@ This sets up a pipeline that, **every day at 12:00 PM (Toronto time)**:
 | 9 | Google Cloud | Lets the pipeline upload to YouTube |
 | 10 | Instagram professional account + Meta developer app | Lets it post Reels |
 | 12 | Claude routine (your Claude plan) | Claude researches and writes; Gemini is the backup |
+| 13 | Workers AI on your Cloudflare Worker | Free AI picture for every sentence |
 
 ---
 
@@ -246,6 +247,28 @@ How runs add up per day: topics (1) + script (1) + each revision (1). If Claude'
 for the day are used up, Gemini writes automatically and the bot tells you.
 `/status` shows Claude's runs left today.
 
+## Step 13 — Free AI pictures for every sentence (5 min)
+
+This gives each sentence its own photoreal, period-accurate picture, in the style of the
+reference channel. It uses Cloudflare's free Workers AI allowance on the account you already
+made in step 6: about 170 pictures a day, enough for one long video plus its Short. If the
+day's allowance runs out, the rest of that video uses stock footage automatically.
+
+1. **Update the Worker code.** Open `worker/telegram-webhook.js` in your GitHub repo, click
+   **Copy raw file**, then in Cloudflare go to your Worker → **Edit code**, paste over
+   everything, and click **Deploy**.
+2. **Switch on Workers AI.** In the Worker, go to **Settings → Bindings → Add binding →
+   Workers AI**. Set **Variable name** to `AI` and click **Add binding** (then **Deploy** if asked).
+3. **Tell GitHub where the Worker is.** In GitHub → **Settings → Secrets and variables →
+   Actions**, add `CLOUDFLARE_WORKER_URL` = your Worker address, e.g.
+   `https://storyvault-bridge.yourname.workers.dev` (no slash at the end).
+4. **Check it.** Open the Worker address in your browser. The settings check should now
+   include **✅ Workers AI binding (AI) is connected**.
+
+Each draft's Telegram message says how many AI pictures were made. Real people are never
+drawn as recognisable faces: they appear from behind, in silhouette or through objects,
+and their real photos are used where Wikipedia has them.
+
 ---
 
 ## Daily use
@@ -254,7 +277,7 @@ for the day are used up, Gemini writes automatically and the bot tells you.
 |----------|---------|
 | 🗂 3 ideas at noon | Tap ✅ 1, 2 or 3 — or type your own idea ("ghost ships", "D.B. Cooper") |
 | 🎬 Preview + Short | Watch. Tap **Publish**, or **type notes** like "intro is too slow, add more about the theories" |
-| 🎞 New footage | Same script, different clips |
+| 🎞 New pictures | Same script, freshly made pictures and clips |
 | ⚠️ Something went wrong | Tap **Retry** (most errors are a free service being briefly busy) |
 
 Commands: `/topics` (new ideas now), `/status`, `/help`.

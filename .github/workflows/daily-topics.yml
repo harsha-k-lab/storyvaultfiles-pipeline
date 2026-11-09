@@ -29,7 +29,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg fonts-dejavu-core > /dev/null
-          for f in ofl/anton/Anton-Regular.ttf ofl/bebasneue/BebasNeue-Regular.ttf ofl/specialelite/SpecialElite-Regular.ttf; do
+          for f in ofl/anton/Anton-Regular.ttf ofl/bebasneue/BebasNeue-Regular.ttf apache/specialelite/SpecialElite-Regular.ttf ofl/dmserifdisplay/DMSerifDisplay-Regular.ttf; do
             curl -sSfL -o "assets/fonts/$(basename $f)" "https://github.com/google/fonts/raw/main/$f" || echo "font $f skipped"
           done
           pip install -q -r requirements.txt
@@ -41,6 +41,8 @@ jobs:
           PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
+          WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}

@@ -7,6 +7,7 @@
 //   GITHUB_TOKEN        (secret)  fine-grained GitHub token for your pipeline repo
 //   GITHUB_REPO         (text)    e.g. yourname/storyvaultfiles-pipeline
 //   TELEGRAM_CHAT_ID    (text)    leave empty at first — message your bot and it replies with it
+// and under Settings → Bindings: a "Workers AI" binding named AI (free AI images, see SETUP step 13).
 
 export default {
   async fetch(request, env) {
@@ -14,6 +15,9 @@ export default {
       return new Response(await healthCheck(env), {
         headers: { "Content-Type": "text/plain; charset=utf-8" },
       });
+    }
+    if (new URL(request.url).pathname === "/image") {
+      return makeImage(request, env);
     }
     if (request.headers.get("X-Telegram-Bot-Api-Secret-Token") !== (env.WEBHOOK_SECRET || "").trim()) {
       return new Response("forbidden", { status: 403 });
@@ -83,6 +87,43 @@ export default {
   },
 };
 
+// POST /image — the video pipeline asks for one AI picture per sentence. Uses Cloudflare's
+// free Workers AI allowance (10,000 neurons a day). Only callers with WEBHOOK_SECRET may use it.
+async function makeImage(request, env) {
+  const json = (obj, status = 200) => new Response(JSON.stringify(obj), {
+    status, headers: { "Content-Type": "application/json" } });
+  if (request.method !== "POST" || request.headers.get("X-SVF-Secret") !== (env.WEBHOOK_SECRET || "").trim()) {
+    return json({ error: "forbidden" }, 403);
+  }
+  if (!env.AI) return json({ error: "No Workers AI binding named AI on this Worker (SETUP step 13)." }, 501);
+  let body;
+  try { body = await request.json(); } catch (e) { return json({ error: "bad JSON" }, 400); }
+  const prompt = String(body.prompt || "").slice(0, 2000);
+  if (!prompt) return json({ error: "prompt is required" }, 400);
+  const model = body.model || "@cf/black-forest-labs/flux-1-schnell";
+  const seed = Number.isInteger(body.seed) ? body.seed : Math.floor(Math.random() * 1e9);
+  try {
+    let out;
+    if (model.includes("flux-2")) {            // FLUX.2 models take multipart form data
+      const form = new FormData();
+      form.append("prompt", prompt);
+      form.append("width", String(body.width || 1024));
+      form.append("height", String(body.height || 1024));
+      form.append("seed", String(seed));
+      const r = new Response(form);
+      out = await env.AI.run(model, { multipart: { body: r.body, contentType: r.headers.get("content-type") } });
+    } else {
+      out = await env.AI.run(model, { prompt, steps: Math.min(Number(body.steps) || 4, 8), seed });
+    }
+    if (!out || !out.image) return json({ error: "model returned no image" }, 502);
+    return json({ image: out.image, model, seed });
+  } catch (e) {
+    const msg = String(e && e.message || e);
+    const daily = /neuron|allocation|quota|limit|4006|exceeded/i.test(msg);
+    return json({ error: msg.slice(0, 300), quota: daily }, daily ? 429 : 502);
+  }
+}
+
 // Opening the Worker's address in a browser runs this check, so setup problems
 // show up in plain words. It never prints the secrets themselves.
 async function healthCheck(env) {
@@ -137,5 +178,8 @@ async function healthCheck(env) {
       lines.push("⚠️ Couldn't reach GitHub to test the token. Refresh in a minute.");
     }
   }
+  lines.push(env.AI
+    ? "✅ Workers AI binding (AI) is connected — free AI images are on"
+    : "ℹ️ No Workers AI binding yet — add one named AI for AI images (SETUP step 13)");
   return lines.join("\n");
 }
