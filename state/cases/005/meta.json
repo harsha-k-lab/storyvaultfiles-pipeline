@@ -21,31 +21,11 @@
     }
   ],
   "chapters": [],
-  "credits": [
-    "yyilmaz (Pixabay)",
-    "riaz-baloch (Pixabay)",
-    "xBriantcx (Pixabay)",
-    "Danil_Shostak (Pixabay)",
-    "MuhammadAhmad10 (Pixabay)",
-    "chayka1270 (Pixabay)",
-    "E_S_Mayorga (Pixabay)",
-    "HolgersFotografie (Pixabay)",
-    "blackmarketmusic (Pixabay)",
-    "Squaredone (Pixabay)",
-    "ninosouza (Pixabay)",
-    "u_mv4esujzr4 (Pixabay)",
-    "AzamKamolov (Pixabay)",
-    "Coverr-Free-Footage (Pixabay)",
-    "Natures_Embrace (Pixabay)",
-    "thenickmurphy (Pixabay)",
-    "Alessandro89 (Pixabay)",
-    "adege (Pixabay)",
-    "ARTXROOM (Pixabay)",
-    "luciusfelix (Pixabay)"
-  ],
+  "credits": [],
   "links": {
     "short.mp4": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-005/short.mp4",
-    "thumbnail.jpg": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-005/thumbnail.jpg"
+    "thumbnail.jpg": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-005/thumbnail.jpg",
+    "images.tar": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-005/images.tar"
   },
   "minutes": 1.3
 }
