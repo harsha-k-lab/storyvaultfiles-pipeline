@@ -3,7 +3,7 @@
   "jobs": {
     "001": {
       "case_no": 1,
-      "status": "awaiting_topic",
+      "status": "awaiting_review",
       "topics": [
         {
           "wiki_title": "Zodiac Killer",
@@ -37,7 +37,20 @@
         }
       ],
       "created": "2026-11-09T15:31-05:00",
-      "topics_by": "Gemini"
+      "topics_by": "Gemini",
+      "topic": {
+        "wiki_title": "Patomskiy crater",
+        "summary": "The Patomskiy crater or Patom crater (Russian: Патомский кратер, Patomskiy Krater), also known as Конус Колпакова, Konus Kolpakova \"Kolpakov cone\") is a peculiar rock formation located in the Bodaibo District of the Irkutsk region of southeastern Siberia, 360 kilometres (220 mi) from the district center Bodaibo. It is a large mound made of shattered limestone blocks on the slopes of the Patom Highlands in an area of dense taiga. Its base diameter is about 160 metres (520 ft) and its height about 40 metres (130 ft); the cone's crown is ring-shaped, and in its center there is a smaller mound with a height of about 12 metres (39 ft). The volume of the crater is estimated as 230,000–250,000 cubic metres (8.1–8.8 million cubic feet), with a weight of about one million tons.\nThe Patomskiy crater was described by Russian geologist Vadim Kolpakov in 1949, though it was known to the local population before this. Its origins have been subject of intense scientific interest, with hypotheses including meteorite, volcanic and gaseous origin, but to date no definite proof has been given. Through dendrochronology, the age of the crater is estimated to be 300 years.\n\n",
+        "url": "https://en.wikipedia.org/wiki/Patomskiy_crater",
+        "length": 8985,
+        "views": 4931,
+        "working_title": "Siberia's Unexplained Mound: The Mystery of Patomskiy Crater",
+        "hook": "Deep inside the remote Siberian taiga sits a massive cone of shattered limestone with a strange central mound that challenges conventional geology.",
+        "why_now": "Visual, remote anomaly cases perform exceptionally well among audiences fascinated by unexplained natural phenomena."
+      },
+      "topic_index": 2,
+      "writer": "Gemini",
+      "revisions": 0
     }
   },
   "history": [],
@@ -47,5 +60,6 @@
     "date": "2026-11-09",
     "count": 5
   },
-  "active_job": "001"
+  "active_job": "001",
+  "review_job": "001"
 }

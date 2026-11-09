@@ -1,0 +1,53 @@
+{
+  "source_url": "https://en.wikipedia.org/wiki/Patomskiy_crater",
+  "source_title": "Patomskiy crater",
+  "images": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/7/70/Kuznetsk_Alatau_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "page": "https://commons.wikimedia.org/wiki/File:Kuznetsk_Alatau_3.jpg",
+      "license": "CC BY-SA 3.0",
+      "artist": "Dmitry A. Mottl (photographer) & User:Tom_dl",
+      "caption": "Sunset in Kuznetsk Alatau, South Siberia.",
+      "file": "File:Kuznetsk Alatau 3.jpg"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/da/Patomsky_crater.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "page": "https://commons.wikimedia.org/wiki/File:Patomsky_crater.jpg",
+      "license": "CC BY 4.0",
+      "artist": "Dmitry Semenov",
+      "caption": "Patomsky crater – view from a helicopter",
+      "file": "File:Patomsky crater.jpg"
+    }
+  ],
+  "extra_sources": [],
+  "chapters": [
+    [
+      0.0,
+      "Intro"
+    ],
+    [
+      24.1,
+      "A Discovery in the Taiga"
+    ],
+    [
+      46.2,
+      "The Search for Origins"
+    ],
+    [
+      73.76666666666667,
+      "Geological Evidence"
+    ],
+    [
+      104.96666666666667,
+      "Unanswered Questions"
+    ]
+  ],
+  "credits": [],
+  "links": {
+    "short.mp4": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-001/short.mp4",
+    "thumbnail.jpg": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-001/thumbnail.jpg",
+    "video.mp4": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-001/video.mp4",
+    "images.tar": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-001/images.tar"
+  },
+  "minutes": 2.2
+}
