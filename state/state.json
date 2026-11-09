@@ -1,5 +1,5 @@
 {
-  "next_case": 5,
+  "next_case": 6,
   "jobs": {
     "001": {
       "case_no": 1,
@@ -159,14 +159,41 @@
       "requested_at": "2026-11-09T12:20:21-05:00",
       "recovered": true,
       "revisions": 5
+    },
+    "005": {
+      "case_no": 5,
+      "status": "writing",
+      "topics": [
+        {
+          "wiki_title": "",
+          "url": "",
+          "working_title": "How the storyvaultfiles pipeline works",
+          "hook": "",
+          "request": "how the storyvaultfiles pipeline works"
+        }
+      ],
+      "created": "2026-11-09T14:23-05:00",
+      "kind": "custom",
+      "format": "short",
+      "topics_by": "you",
+      "topic": {
+        "wiki_title": "",
+        "url": "",
+        "working_title": "How the storyvaultfiles pipeline works",
+        "hook": "",
+        "request": "how the storyvaultfiles pipeline works"
+      },
+      "topic_index": 0,
+      "writer": "Claude",
+      "requested_at": "2026-11-09T14:23:16-05:00"
     }
   },
   "history": [],
   "last_topics_date": "2026-11-08",
-  "active_job": "003",
+  "active_job": "005",
   "claude_runs": {
     "date": "2026-11-09",
-    "count": 4
+    "count": 5
   },
   "delivered": [
     "error-202611082145",
