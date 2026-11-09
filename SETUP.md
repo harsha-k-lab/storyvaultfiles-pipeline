@@ -249,8 +249,7 @@ for the day are used up, Gemini writes automatically and the bot tells you.
 
 ## Step 13 — Free AI pictures for every sentence (5 min)
 
-This gives each sentence its own photoreal, period-accurate picture, in the style of the
-reference channel. It uses Cloudflare's free Workers AI allowance on the account you already
+This gives each sentence its own photoreal, period-accurate picture. It uses Cloudflare's free Workers AI allowance on the account you already
 made in step 6: about 170 pictures a day, enough for one long video plus its Short. If the
 day's allowance runs out, the rest of that video uses stock footage automatically.
 

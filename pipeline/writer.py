@@ -95,7 +95,7 @@ a complete standalone story: the first shot hooks in under 2 seconds with the mo
 build through the key moments; end on the unresolved question, then
 "Tell me what you think happened." and "The full case file is on {CH['name']}."
 
-VISUALS — the reference style is one cinematic, photoreal, period-accurate AI picture per sentence,
+VISUALS — the channel's style is one cinematic, photoreal, period-accurate AI picture per sentence,
 showing exactly what is being said at that moment:
 - "image_prompt" describes ONE concrete scene a camera could film: subject, action, setting, era
   details (clothes, vehicles, equipment), lighting, framing (wide / medium / close-up).

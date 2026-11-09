@@ -185,7 +185,7 @@ def _ts(t: float) -> str:
 
 def write_ass(words: list[dict], out: Path, w: int, h: int, vertical: bool = False) -> Path:
     """Burned-in captions: clean lower-third for long-form, big centred words for Shorts."""
-    # Reference style: bold white ALL CAPS with a black outline, a few words at a time.
+    # Channel style: bold white ALL CAPS with a black outline, a few words at a time.
     fontname = "DejaVu Sans"
     if vertical:
         size, per, align, margin_v, outline = int(h * 0.040), 4, 2, int(h * 0.24), 5
@@ -312,7 +312,7 @@ def chapter_overlay(out: Path, number: int, name: str, w: int, h: int) -> Path:
     return out
 
 
-# ── reference-style cards (title over the first shot, name label, black end card) ─
+# ── channel cards (title over the first shot, name label, black end card) ─────────
 
 GOLD = (214, 178, 108)
 SOFT = (176, 196, 214)

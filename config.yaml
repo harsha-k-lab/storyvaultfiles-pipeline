@@ -45,13 +45,13 @@ writing:
   models: ["gemini-3.5-flash", "gemini-3.6-flash", "gemini-3.1-flash-lite", "gemini-flash-latest", "gemini-2.5-flash"]
   target_minutes: 10              # long video length (8–12 works best for mysteries)
   words_per_minute: 145
-  short_seconds: 85               # Instagram Reel / YouTube Short length (the reference channel runs 70–120 s)
+  short_seconds: 85               # Instagram Reel / YouTube Short length (70–100 s works well for story Shorts)
 
 voice:
   # Free Microsoft neural voices. Good mystery narrators:
   #   en-US-ChristopherNeural (deep, calm)   en-US-GuyNeural (warm)
   #   en-GB-RyanNeural (British, documentary) en-US-AndrewMultilingualNeural (modern)
-  name: "en-GB-RyanNeural"        # deep British documentary narrator, like the reference channel
+  name: "en-GB-RyanNeural"        # deep British documentary narrator
   rate: "-4%"
   pitch: "-2Hz"
 
