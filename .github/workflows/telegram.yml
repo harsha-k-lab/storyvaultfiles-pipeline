@@ -10,6 +10,7 @@ permissions:
 concurrency:
   group: pipeline
   cancel-in-progress: false
+  queue: max            # wait in line (up to 100) instead of dropping taps
 
 jobs:
   run:
@@ -17,6 +18,8 @@ jobs:
     timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main     # latest saved progress, not the snapshot from when this run was queued
 
       - uses: actions/setup-python@v5
         with:
@@ -59,4 +62,4 @@ jobs:
           git add state
           git diff --cached --quiet && exit 0
           git commit -qm "state: telegram action"
-          for i in 1 2 3; do git pull -q --rebase && git push -q && exit 0; sleep 5; done
+          for i in 1 2 3; do git pull -q --rebase -X theirs origin main && git push -q origin HEAD:main && exit 0; git rebase --abort 2>/dev/null; sleep 5; done; echo "::error::Could not save progress"; exit 1
