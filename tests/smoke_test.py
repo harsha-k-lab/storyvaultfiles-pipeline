@@ -96,3 +96,32 @@ desc = run.build_description(run.load_json(run.case_dir(job2) / "script.json"),
                              run.load_json(run.case_dir(job2) / "meta.json"))
 assert "Research: a — https://a" in desc
 print("OK  Claude path: topics → script → revision → Gemini fallback")
+
+# ── Custom topics: /short (Gemini), plain text → buttons, /video (Claude) ─────
+os.environ["SVF_FAKE_CLAUDE"] = "0"                      # Gemini path first
+run.handle(state, {"kind": "text", "text": "/short the history of Morse code"})
+job3 = max(state.data["jobs"])
+j3 = state.job(job3)
+assert j3["kind"] == "custom" and j3["format"] == "short" and j3["status"] == "awaiting_review", j3
+w3 = Path(os.environ["SVF_WORK_DIR"]) / f"case-{job3}"
+assert (w3 / "short.mp4").exists() and not (w3 / "video.mp4").exists(), "short-only should skip the long video"
+run.handle(state, {"kind": "button", "data": f"pub:{job3}"})
+assert state.job(job3)["status"] == "published", state.job(job3)["status"]
+assert "youtube_short" in state.job(job3)["published"] and "instagram" in state.job(job3)["published"]
+
+run.handle(state, {"kind": "text", "text": "the Bermuda triangle"})   # unclear → ask
+assert state.data.get("pending_request") == "the Bermuda triangle"
+os.environ["SVF_FAKE_CLAUDE"] = "1"
+state.data["claude_runs"] = {}                                       # fresh daily budget for the test
+run.handle(state, {"kind": "button", "data": "req:both"})
+job4 = max(state.data["jobs"])
+assert state.job(job4)["kind"] == "custom" and state.job(job4)["status"] == "writing"
+assert validate.check(drop("x.json", {"kind": "script", "id": "s4", "job": job4, "sources": [{"title": "a", "url": "u"}],
+                                      "script": {"title": "t"}})[0])  # incomplete → problems
+d4 = writer.fake_script(state.job(job4)["case_no"])
+drop("script.json", {"kind": "script", "id": f"script-{job4}", "job": job4,
+                     "sources": [{"title": "a", "url": "https://a"}], "script": d4})
+run.cmd_deliver(state, inbox)
+assert state.job(job4)["status"] == "awaiting_review"
+assert (Path(os.environ["SVF_WORK_DIR"]) / f"case-{job4}" / "video.mp4").exists()
+print("OK  custom topics: short-only, buttons, Claude custom video")

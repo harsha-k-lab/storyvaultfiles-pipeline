@@ -143,7 +143,7 @@ def end_card(out: Path, w: int, h: int, bg: Path | None = None) -> Path:
     return out
 
 
-def thumbnail(out: Path, bg: Path | None, text: str, case_no: int) -> Path:
+def thumbnail(out: Path, bg: Path | None, text: str, case_no: int, kind: str = "case") -> Path:
     w, h = 1280, 720
     if bg and bg.exists():
         img = _cover(Image.open(bg), w, h)
@@ -166,9 +166,11 @@ def thumbnail(out: Path, bg: Path | None, text: str, case_no: int) -> Path:
         color = (255, 214, 0) if i == len(lines) - 1 else (255, 255, 255)
         d.text((60, y), line, font=f, fill=color, stroke_width=6, stroke_fill=(0, 0, 0))
         y += f.size * 1.02
-    sw = int(ImageDraw.Draw(img).textlength("UNSOLVED", font=_font("display", 70))) + 110
-    _stamp(img, "UNSOLVED", (w - sw - 30, h - 200), 70, angle=-8)
-    d.text((62, h - 70), f"CASE #{case_no:03d}", font=_font("type", 38), fill=PAPER,
+    if kind == "case":
+        sw = int(ImageDraw.Draw(img).textlength("UNSOLVED", font=_font("display", 70))) + 110
+        _stamp(img, "UNSOLVED", (w - sw - 30, h - 200), 70, angle=-8)
+    d.text((62, h - 70), f"CASE #{case_no:03d}" if kind == "case" else CFG["channel"]["name"].upper(),
+           font=_font("type", 38), fill=PAPER,
            stroke_width=2, stroke_fill=(0, 0, 0))
     img.save(out, quality=92)
     return out
@@ -373,17 +375,21 @@ def label_overlay(out: Path, top: str, name: str, detail: str, w: int, h: int) -
     return out
 
 
-def file_end_card(out: Path, case_no: int, line: str, w: int, h: int) -> Path:
+def file_label(script: dict, case_no: int) -> str:
+    return f"CASE FILE No. {case_no:03d}" if script.get("kind", "case") == "case" else f"FILE No. {case_no:03d}"
+
+
+def file_end_card(out: Path, case_no: int, line: str, w: int, h: int, label: str = "") -> Path:
     """Black branded end card: channel name, the closing line, the file number, follow prompt."""
     s = min(w, h) / 1080
     img = Image.new("RGB", (w, h), (8, 8, 10))
     d = ImageDraw.Draw(img)
     cy = h / 2
     _spaced(d, (w / 2, cy - 170 * s), CFG["channel"]["name"].upper(), _font("serif", int(52 * s)), GOLD, 6 * s)
-    for i, ln in enumerate(textwrap.wrap(line or "STILL UNSOLVED.", width=18)[:2]):
+    for i, ln in enumerate(textwrap.wrap(line or "THE FILE REMAINS OPEN.", width=18)[:2]):
         f = _fit_text(d, ln, "serif", w * 0.86, int(96 * s), 40)
         d.text((w / 2, cy - 40 * s + i * f.size * 1.1), ln, font=f, fill=(246, 244, 238), anchor="mm")
-    _spaced(d, (w / 2, cy + 120 * s), f"CASE FILE No. {case_no:03d}", _font("type", int(30 * s)), SOFT, 4 * s)
+    _spaced(d, (w / 2, cy + 120 * s), label or f"CASE FILE No. {case_no:03d}", _font("type", int(30 * s)), SOFT, 4 * s)
     _spaced(d, (w / 2, cy + 190 * s), CFG["channel"].get("follow_line", "FOLLOW FOR A NEW CASE EVERY DAY"),
             _font("type", int(24 * s)), (150, 150, 150), 3 * s)
     img.save(out, quality=95)

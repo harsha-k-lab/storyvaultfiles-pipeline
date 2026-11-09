@@ -24,7 +24,7 @@ jobs:
             --data-urlencode 'allowed_updates=["message","callback_query"]' | tee result.json
           grep -q '"ok":true' result.json || { echo "::error::Telegram rejected the webhook. Check the token and URL."; exit 1; }
           curl -sS "https://api.telegram.org/bot$TOKEN/setMyCommands" \
-            --data-urlencode 'commands=[{"command":"topics","description":"3 new topic ideas now"},{"command":"status","description":"What is in progress"},{"command":"help","description":"How this bot works"}]' > /dev/null
+            --data-urlencode 'commands=[{"command":"video","description":"Video + Short on any topic"},{"command":"short","description":"Only a Short on any topic"},{"command":"topics","description":"3 new mystery case ideas now"},{"command":"status","description":"What is in progress"},{"command":"help","description":"How this bot works"}]' > /dev/null
           if [ -n "$CHAT" ]; then
             curl -sS "https://api.telegram.org/bot$TOKEN/sendMessage" --data-urlencode "chat_id=$CHAT" \
               --data-urlencode "text=✅ StoryVaultFiles is connected. Send /topics to try it now." > /dev/null

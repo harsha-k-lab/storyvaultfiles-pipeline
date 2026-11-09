@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 from .core import CFG, State
-from .writer import CH, STYLE_RULES, W, _script_schema, normalize
+from .writer import CH, W, _script_schema, normalize, style_for
 
 
 def _state() -> State:
@@ -44,8 +44,24 @@ File format:
         return
     job = st.job(job_id.zfill(3))
     topic = job.get("topic") or {}
-    print(STYLE_RULES)
-    print(f"""
+    kind, fmt = job.get("kind", "case"), job.get("format", "both")
+    print(style_for(kind))
+    if kind == "custom":
+        head = f"""
+CUSTOM VIDEO No. {job['case_no']} — the channel owner asked for this topic, so it need not be a mystery.
+OWNER'S REQUEST: {topic.get('request')}
+FORMAT: {'SHORT ONLY (no long video: leave out "scenes")' if fmt == 'short' else 'FULL VIDEO + SHORT'}
+
+RESEARCH: your run text has the sources GitHub could fetch (Wikipedia articles, and this project's
+own documentation when the request is about the channel or pipeline). Use web search for more
+reliable sources and open pages only from the search results. If the request is about this
+pipeline or channel, also read README.md, SETUP.md, ROUTINE.md, config.yaml and the pipeline/
+code in this repo, and describe only what they show it does. Never mention keys, tokens,
+passwords, secret names or private addresses. If extra sources can't be reached, write from
+what you have — don't stop. Only use facts you actually read. List every page you used in
+"sources" (for this repo's files, use the GitHub URL of the file)."""
+    else:
+        head = f"""
 CASE FILE NUMBER: {job['case_no']}
 TOPIC: {topic.get('wiki_title')}  —  {topic.get('url')}
 WORKING TITLE: {topic.get('working_title')}
@@ -56,11 +72,12 @@ environment can't reach Wikipedia). It is your main source. Then use web search 
 reliable sources (official records, established newspapers, archives) and open pages only from
 the search results. If other sources can't be reached, write from the article alone — don't stop.
 Only use facts you actually read. Where sources disagree, say so. List the Wikipedia article and
-every other page you read in "sources".
+every other page you read in "sources"."""
+    print(f"""{head}
 
-The case's real photos are matched to sentences automatically — always set "image": -1.
+Real photos are matched to sentences automatically — always set "image": -1.
 
-{_script_schema(W['target_minutes'], W['short_seconds'], 0)}
+{_script_schema(W['target_minutes'], W['short_seconds'], 0, kind, fmt)}
 
 File format: {{"kind": "script", "id": "script-{job_id.zfill(3)}-<UTC yyyymmddHHMM>", "job": "{job_id.zfill(3)}",
   "sources": [{{"title": "<page title>", "url": "<url>"}}],
@@ -95,11 +112,17 @@ def check(path: Path) -> list[str]:
         if len(data.get("sources") or []) < 1:
             problems.append('List the pages you used in "sources" (at least the Wikipedia article).')
         raw = data.get("script") or {}
-        for k in ("title", "thumbnail_text", "description", "tags", "scenes", "short"):
+        try:
+            fmt = _state().job(str(data.get("job", "")).zfill(3)).get("format", "both")
+        except KeyError:
+            fmt = "both"
+        need = ["title", "thumbnail_text", "description", "tags", "short"] + ([] if fmt == "short" else ["scenes"])
+        for k in need:
             if not raw.get(k):
                 problems.append(f'script is missing "{k}".')
         if problems:
             return problems
+        raw.setdefault("scenes", [])
         for n, sc in enumerate(raw["scenes"], 1):
             for m, sh in enumerate(sc.get("shots") or [], 1):
                 if not isinstance(sh.get("search"), list) or len(sh["search"]) < 2:
@@ -107,17 +130,18 @@ def check(path: Path) -> list[str]:
         if not all(sc.get("shots") for sc in raw["scenes"]):
             problems.append('Every scene needs a "shots" list.')
         s = normalize(json.loads(json.dumps(raw)))
-        words = sum(len(sc["narration"].split()) for sc in s["scenes"])
-        target = W["target_minutes"] * W["words_per_minute"]
-        if not 0.7 * target <= words <= 1.4 * target:
-            problems.append(f"Narration is {words} words; aim for about {target} (±30%).")
-        if len(s["scenes"]) < 3:
-            problems.append("Need at least 3 scenes.")
-        if sum(1 for sc in s["scenes"] if sc.get("chapter")) < 3:
-            problems.append("Mark at least 3 chapters (\"chapter\" on the first scene of each).")
+        if fmt != "short":
+            words = sum(len(sc["narration"].split()) for sc in s["scenes"])
+            target = W["target_minutes"] * W["words_per_minute"]
+            if not 0.7 * target <= words <= 1.4 * target:
+                problems.append(f"Narration is {words} words; aim for about {target} (±30%).")
+            if len(s["scenes"]) < 3:
+                problems.append("Need at least 3 scenes.")
+            if sum(1 for sc in s["scenes"] if sc.get("chapter")) < 3:
+                problems.append("Mark at least 3 chapters (\"chapter\" on the first scene of each).")
         sw = len(s["short"]["narration"].split())
         target_sw = int(W["short_seconds"] * 2.3)
-        if not 0.7 * target_sw <= sw <= 1.25 * target_sw:
+        if not 0.7 * target_sw <= sw <= (1.35 if fmt == "short" else 1.25) * target_sw:
             problems.append(f"Short is {sw} words; aim for about {target_sw}.")
         if len(s["short"]["shots"]) < 12:
             problems.append("Short needs at least 12 shots (a new picture every 2–4 seconds).")

@@ -28,6 +28,14 @@ Read the run text you were given. Its first line is the command:
 | `SCRIPT <job>` e.g. `SCRIPT 004` | Research and write the full script for that case (section 3). |
 | `REVISE <job>` followed by the owner's notes | Rewrite that case's script to apply the notes (section 4). |
 
+A `SCRIPT` or `REVISE` run text that contains `OWNER'S REQUEST:` is a **custom video** on any
+topic the owner chose, which may not be a mystery. Its `FORMAT:` line says **FULL VIDEO + SHORT**
+or **SHORT ONLY**. `python -m pipeline.validate --rules SCRIPT <job>` prints the right style,
+research rules and JSON format for it. For SHORT ONLY, leave out `"scenes"`: the Short is the
+whole video. If the request is about this channel or pipeline, this repository is your main
+source (README.md, SETUP.md, ROUTINE.md, config.yaml, pipeline/). Describe only what it really
+does, and never mention keys, tokens, passwords or secret names.
+
 If there's no run text, treat it as `TOPICS`.
 
 ## 2. TOPICS

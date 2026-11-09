@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import json
 import os
 import sys
@@ -109,52 +110,62 @@ def _photos(images: list[dict], work: Path) -> list[Path | None]:
     return out
 
 
+def _job_kind(job: dict) -> tuple[str, str]:
+    return job.get("kind", "case"), job.get("format", "both")
+
+
 def _render_and_send(state: State, job_id: str, script: dict, images: list[dict], note: str):
     job = state.job(job_id)
+    kind, fmt = _job_kind(job)
     work = job_dir(job_id)
     script = writer.normalize(script)   # also upgrades drafts written in the older format
+    script.update({"kind": kind, "format": fmt})
     photos = _photos(images, work)
     pics = WORK_DIR / "images"
     publish.restore_images(job_id, pics)          # a revision reuses pictures that didn't change
-    long = render.render_long(script, work, job["case_no"], photos)
+    long = render.render_long(script, work, job["case_no"], photos) if fmt != "short" else None
     short = render.render_short(script, work, job["case_no"])
-    prev = render.preview(long["video"], work / "preview.mp4")
-    files = [long["video"], short["video"], long["thumbnail"]]
+    thumb = long["thumbnail"] if long else render.short_thumbnail(script, work, job["case_no"], short)
+    files = [short["video"], thumb] + ([long["video"]] if long else [])
     bundle = publish.bundle_images(pics, work / "images.tar")
     if bundle:
         files.append(bundle)
     links = publish.save_draft(job_id, files, script["title"])
-    note = f"{note}\n🖼 {long.get('images', '')}" if long.get("images") else note
+    pics_note = (long or short).get("images")
+    note = f"{note}\n🖼 {pics_note}" if pics_note else note
     meta = load_json(case_dir(job_id) / "meta.json")
-    meta.update({"chapters": long["chapters"], "credits": long["credits"], "links": links,
-                 "minutes": round(long["seconds"] / 60, 1)})
+    meta.update({"chapters": long["chapters"] if long else [], "credits": (long or short)["credits"],
+                 "links": links, "minutes": round((long or short)["seconds"] / 60, 1)})
     save_json(case_dir(job_id) / "meta.json", meta)
     job["status"] = "awaiting_review"
     job["revisions"] = job.get("revisions", 0)
     state.data["review_job"] = job_id
     state.save()
 
+    what = "Short only" if fmt == "short" else "Video + Short"
     cap = (f"🎬 <b>{esc(script['title'])}</b>\n{note}\n"
-           f"Length: {meta['minutes']} min · Case #{job['case_no']:03d}\n\n"
+           f"{what} · {meta['minutes']} min · #{job['case_no']:03d}\n\n"
            f"<b>Description</b>\n{esc(script['description'][:600])}")
-    telegram.send_photo(long["thumbnail"], cap)
+    telegram.send_photo(thumb, cap)
     review_rows = [[("✅ Publish", f"pub:{job_id}"), ("🎞 New pictures", f"redo:{job_id}")],
                    [("🗑 Discard", f"drop:{job_id}")]]
-    sent = telegram.send_video(prev, "▶️ Preview (small copy). Full quality is saved for upload.")
-    if not sent:
-        telegram.send(f"▶️ Watch the full video: <a href=\"{links['video.mp4']}\">video.mp4</a>")
+    if long:
+        prev = render.preview(long["video"], work / "preview.mp4")
+        if not telegram.send_video(prev, "▶️ Preview (small copy). Full quality is saved for upload."):
+            telegram.send(f"▶️ Watch the full video: <a href=\"{links['video.mp4']}\">video.mp4</a>")
     short_file = short["video"]
     if short_file.stat().st_size > 48 * 1024 * 1024:
         short_file = render.preview(short_file, work / "short_preview.mp4", vertical=True)
-    if not telegram.send_video(short_file, "📱 Short / Reel version"):
+    if not telegram.send_video(short_file, "📱 Short / Reel" + (" (the whole video)" if not long else " version")):
         telegram.send(f"📱 Short / Reel: <a href=\"{links['short.mp4']}\">short.mp4</a>")
+    where = "YouTube Shorts + Instagram" if not long else "YouTube + Instagram"
+    full = (f"<a href=\"{links['video.mp4']}\">video</a> · " if long else "") + f"<a href=\"{links['short.mp4']}\">short</a>"
     telegram.send(
         "👀 <b>Your review</b>\n"
-        "• Tap <b>Publish</b> to post to YouTube + Instagram\n"
-        "• Or <b>type your changes</b> (e.g. <i>“make the intro creepier and shorten chapter 2”</i>) "
+        f"• Tap <b>Publish</b> to post to {where}\n"
+        "• Or <b>type your changes</b> (e.g. <i>“make the opening punchier and explain step 3 more simply”</i>) "
         "and I'll rewrite and re-render it\n"
-        f"• Full quality: <a href=\"{links['video.mp4']}\">video</a> · "
-        f"<a href=\"{links['short.mp4']}\">short</a>", review_rows)
+        f"• Full quality: {full}", review_rows)
 
 
 def _article_block(title: str, limit: int = 50000) -> str:
@@ -171,6 +182,19 @@ def _article_block(title: str, limit: int = 50000) -> str:
             f"ARTICLE TEXT:\n{a['text'][:limit]}")
 
 
+def _custom_material(job: dict) -> tuple[str, dict, list[dict], list[dict]]:
+    """For a custom topic: (text block for Claude, source dict for Gemini, sources, free photos)."""
+    sources = research.custom_sources(job["topic"]["request"])
+    wiki = next((x for x in sources if x.get("wiki")), None)
+    images = research.free_images(wiki["wiki_title"]) if wiki else []
+    block = research.sources_block(sources)
+    photos = "\n".join(f"- {im['caption'] or im['file']}" for im in images) or "- none"
+    text = (f"OWNER'S REQUEST: {job['topic']['request']}\nFORMAT: "
+            f"{'SHORT ONLY' if job.get('format') == 'short' else 'FULL VIDEO + SHORT'}\n"
+            f"Free photos the video will use (placed automatically):\n{photos}\n\n{block}")
+    return text, {"text": block, "url": wiki["url"] if wiki else "", "title": wiki["title"] if wiki else ""}, sources, images
+
+
 def cmd_produce(state: State, job_id: str, index: int, force_gemini: bool = False):
     job = state.job(job_id)
     allowed = {"awaiting_topic"} | ({"writing"} if force_gemini else set())
@@ -180,38 +204,50 @@ def cmd_produce(state: State, job_id: str, index: int, force_gemini: bool = Fals
     topic = job["topics"][index]
     job.update({"status": "producing", "topic": topic, "topic_index": index})
     state.save()
+    kind, fmt = _job_kind(job)
+    custom = None
+    if kind == "custom":
+        telegram.send(f"🔎 Researching <b>{esc(topic['request'])}</b>…")
+        custom = _custom_material(job)
     if not force_gemini and claude.configured():
-        link, why = claude.fire(state, f"SCRIPT {job_id}\n\n" + _article_block(topic["wiki_title"]))
+        brief = custom[0] if custom else _article_block(topic["wiki_title"])
+        link, why = claude.fire(state, f"SCRIPT {job_id}\n\n" + brief)
         if link is not None:
             job.update({"status": "writing", "writer": "Claude",
                         "requested_at": now_local().isoformat(timespec="seconds")})
             state.save()
             telegram.send(
-                f"🎬 Great choice: <b>{esc(topic['working_title'])}</b>\n"
-                "🧠 Claude is researching the case and writing the script (about 10–20 minutes). "
+                f"🎬 {'On it' if custom else 'Great choice'}: <b>{esc(topic['working_title'])}</b>\n"
+                f"🧠 Claude is researching and writing the {'Short' if fmt == 'short' else 'script'} (about 10–20 minutes). "
                 "Then the voice and video take about 25 minutes. I'll send the preview here."
                 + (f"\n<a href=\"{link}\">Watch Claude work</a>" if link else ""),
                 [[("⚡ Use Gemini instead", f"gem:{job_id}:{index}")]])
             return
         if why:
             telegram.send(f"ℹ️ {esc(why)} — Gemini will write this one.")
-    telegram.send(f"🎬 Great choice: <b>{esc(topic['working_title'])}</b>\n"
+    telegram.send(f"🎬 {'On it' if custom else 'Great choice'}: <b>{esc(topic['working_title'])}</b>\n"
                   "Researching, writing, recording the voice and editing. This usually takes "
                   "20–35 minutes — I'll send the preview here.")
     job.update({"status": "producing", "writer": "Gemini"})
-    source = research.article(topic["wiki_title"])
-    images = research.free_images(source["title"])
-    script = writer.write_script(topic, source, images, job["case_no"])
-    _check_script(script)
+    if custom:
+        _, source, sources, images = custom
+        extra = [{"title": x["title"], "url": x["url"]} for x in sources if x.get("url")]
+    else:
+        source = research.article(topic["wiki_title"])
+        images = research.free_images(source["title"])
+        extra = []
+    script = writer.write_script(topic, source, images, job["case_no"], kind, fmt)
+    _check_script(script, fmt)
     save_json(case_dir(job_id) / "script.json", script)
     save_json(case_dir(job_id) / "meta.json", {"source_url": source["url"], "source_title": source["title"],
-                                                "images": images})
+                                                "images": images, "extra_sources": extra})
     _render_and_send(state, job_id, script, images, "Here's your draft (written by Gemini).")
 
 
-def _check_script(script: dict):
-    missing = [k for k in ("title", "description", "scenes", "short") if not script.get(k)]
-    if missing or len(script["scenes"]) < 3:
+def _check_script(script: dict, fmt: str = "both"):
+    need = ["title", "description", "short"] + ([] if fmt == "short" else ["scenes"])
+    missing = [k for k in need if not script.get(k)]
+    if missing or (fmt != "short" and len(script["scenes"]) < 3) or len(script["short"].get("shots", [])) < 3:
         raise RuntimeError(f"The AI returned an incomplete script (missing {missing}). Tap Retry.")
 
 
@@ -221,8 +257,9 @@ def cmd_revise(state: State, job_id: str, feedback: str | None, force_gemini: bo
     meta = load_json(case_dir(job_id) / "meta.json")
     images = meta.get("images", [])
     if feedback and not force_gemini and claude.configured():
-        link, why = claude.fire(state, f"REVISE {job_id}\n{feedback}\n\n"
-                                       + _article_block(meta["source_title"], limit=40000))
+        brief = (_custom_material(job)[0] if job.get("kind") == "custom"
+                 else _article_block(meta["source_title"], limit=40000))
+        link, why = claude.fire(state, f"REVISE {job_id}\n{feedback}\n\n" + brief)
         if link is not None:
             job.update({"status": "writing", "writer": "Claude", "pending_notes": feedback,
                         "requested_at": now_local().isoformat(timespec="seconds")})
@@ -240,9 +277,10 @@ def cmd_revise(state: State, job_id: str, feedback: str | None, force_gemini: bo
     state.save()
     if feedback:
         telegram.send(f"✏️ Applying your notes:\n<i>{esc(feedback)}</i>\nNew version in ~20–35 minutes.")
-        source = research.article(meta["source_title"])
-        script = writer.revise_script(script, feedback, source, images)
-        _check_script(script)
+        kind, fmt = _job_kind(job)
+        source = _custom_material(job)[1] if kind == "custom" else research.article(meta["source_title"])
+        script = writer.revise_script(script, feedback, source, images, kind, fmt)
+        _check_script(script, fmt)
         save_json(case_dir(job_id) / "script.json", script)
         note = f"Revision {job['revisions']} — your notes applied (Gemini)."
     else:
@@ -326,7 +364,7 @@ def _deliver_script(state: State, data: dict):
                       f"{job['status'].replace('_', ' ')} — I kept the current version.")
         return
     script = writer.normalize(data["script"])
-    _check_script(script)
+    _check_script(script, job.get("format", "both"))
     revision = bool(job.get("pending_notes")) and (case_dir(job_id) / "script.json").exists()
     topic = job["topic"]
     if revision:
@@ -335,9 +373,10 @@ def _deliver_script(state: State, data: dict):
         job["revisions"] = job.get("revisions", 0) + 1
         note = f"Revision {job['revisions']} — your notes applied by Claude."
     else:
-        images = research.free_images(topic["wiki_title"])
-        meta = {"source_url": topic["url"], "source_title": topic["wiki_title"], "images": images}
-        note = "Here's your draft, researched and written by Claude."
+        images = research.free_images(topic["wiki_title"]) if topic.get("wiki_title") else []
+        meta = {"source_url": topic.get("url", ""), "source_title": topic.get("wiki_title", ""), "images": images}
+        note = ("Here's your Short, researched and written by Claude." if job.get("format") == "short"
+                else "Here's your draft, researched and written by Claude.")
     meta["extra_sources"] = [s for s in data.get("sources", []) if isinstance(s, dict) and s.get("url")][:12]
     auto_place_photos(script, images)
     save_json(case_dir(job_id) / "script.json", script)
@@ -367,10 +406,13 @@ def build_description(script: dict, meta: dict) -> str:
     parts = [script["description"].strip()]
     if meta.get("chapters"):
         parts.append("⏱ Chapters\n" + "\n".join(f"{_fmt_ts(t)} {n}" for t, n in meta["chapters"]))
-    src = [f"📁 Sources\nBased on the Wikipedia article “{meta['source_title']}” — {meta['source_url']} "
-           "(text licensed CC BY-SA 4.0)."]
+    src = ["📁 Sources"]
+    if meta.get("source_title") and "wikipedia.org" in meta.get("source_url", ""):
+        src.append(f"Based on the Wikipedia article “{meta['source_title']}” — {meta['source_url']} "
+                   "(text licensed CC BY-SA 4.0).")
     for x in meta.get("extra_sources", [])[:10]:
-        src.append(f"Research: {x.get('title', x['url'])} — {x['url']}")
+        if x["url"] != meta.get("source_url"):
+            src.append(f"Research: {x.get('title', x['url'])} — {x['url']}")
     for im in meta.get("images", []):
         src.append(f"Photo: {im['file'].replace('File:', '')} by {im['artist']} ({im['license']}) {im['page']}")
     if meta.get("credits"):
@@ -379,7 +421,8 @@ def build_description(script: dict, meta: dict) -> str:
         if simple:
             src.append("Stock footage: " + ", ".join(simple[:25]))
         src += [f"Image: {c}" for c in licensed[:20]]
-    src.append("Narration uses an AI voice. Theories discussed are unproven.")
+    src.append("Narration uses an AI voice; pictures are AI-generated illustrations."
+               + (" Theories discussed are unproven." if script.get("kind", "case") == "case" else ""))
     parts.append("\n".join(src))
     parts.append(" ".join(script.get("hashtags", [])))
     return "\n\n".join(parts)
@@ -388,7 +431,7 @@ def build_description(script: dict, meta: dict) -> str:
 def cmd_publish(state: State, job_id: str):
     job = state.job(job_id)
     if job["status"] == "published":
-        telegram.send("This case is already published ✅")
+        telegram.send("This one is already published ✅")
         return
     script = load_json(case_dir(job_id) / "script.json")
     meta = load_json(case_dir(job_id) / "meta.json")
@@ -399,6 +442,9 @@ def cmd_publish(state: State, job_id: str):
     drafts = publish.load_draft(job_id, job_dir(job_id) / "draft")
     report, problems = [], []
 
+    short_only = job.get("format") == "short"
+    if short_only:
+        done.setdefault("youtube", {"skipped": True})   # there is no long video
     if "youtube" not in done:
         try:
             res = publish.youtube_upload(drafts / "video.mp4", script["title"], build_description(script, meta),
@@ -407,7 +453,7 @@ def cmd_publish(state: State, job_id: str):
             state.save()
         except Exception as exc:  # noqa: BLE001
             problems.append(f"YouTube: {exc}")
-    if "youtube" in done:
+    if "youtube" in done and not short_only:
         r = done["youtube"]
         report.append(f"▶️ YouTube: {r['url']} ({r['privacy']})")
         if r.get("locked") and not done.get("locked_notice"):
@@ -423,9 +469,12 @@ def cmd_publish(state: State, job_id: str):
 
     sh = script["short"]
     hashtags = " ".join(script.get("hashtags", []))
-    if CFG["publish"]["youtube"].get("also_upload_short") and "youtube_short" not in done:
+    if (short_only or CFG["publish"]["youtube"].get("also_upload_short")) and "youtube_short" not in done:
         try:
-            desc = f"{sh['caption']}\n\nFull case file: {done.get('youtube', {}).get('url', '')}\n\n{hashtags} #shorts"
+            if short_only:
+                desc = f"{build_description(script, meta)} #shorts"
+            else:
+                desc = f"{sh['caption']}\n\nFull video: {done.get('youtube', {}).get('url', '')}\n\n{hashtags} #shorts"
             done["youtube_short"] = publish.youtube_upload(drafts / "short.mp4", f"{script['title'][:88]} #shorts",
                                                            desc, script.get("tags", []))
             state.save()
@@ -436,7 +485,8 @@ def cmd_publish(state: State, job_id: str):
 
     if CFG["publish"]["instagram"].get("enabled") and "instagram" not in done:
         try:
-            cap = f"{sh['caption']}\n\nFull story on YouTube: {CFG['channel']['handle']}\n\n{hashtags}"
+            more = "" if short_only else f"\n\nFull story on YouTube: {CFG['channel']['handle']}"
+            cap = f"{sh['caption']}{more}\n\n{hashtags}"
             done["instagram"] = publish.instagram_reel(meta["links"]["short.mp4"], cap)
             state.save()
         except Exception as exc:  # noqa: BLE001
@@ -454,20 +504,66 @@ def cmd_publish(state: State, job_id: str):
             telegram.send_video(drafts / "short.mp4", "Here's the Reel file in case you'd rather post it by hand.")
         return
     job["status"] = "published"
-    state.data["history"].append({"wiki_title": job["topic"]["wiki_title"], "title": script["title"],
+    state.data["history"].append({"wiki_title": job["topic"].get("wiki_title") or job["topic"].get("request", ""),
+                                  "title": script["title"], "kind": job.get("kind", "case"),
                                   "case_no": job["case_no"], "date": now_local().date().isoformat(),
-                                  **{k: v.get("url") for k, v in done.items()}})
+                                  **{k: v.get("url") for k, v in done.items() if isinstance(v, dict) and v.get("url")}})
     state.data.pop("review_job", None)
     state.save()
     publish.mark_published(job_id, "\n".join(report))
-    telegram.send(f"✅ <b>Case #{job['case_no']:03d} is live!</b>\n" + "\n".join(report))
+    telegram.send(f"✅ <b>#{job['case_no']:03d} is live!</b>\n" + "\n".join(report))
 
 
 # ── 4. Telegram router ───────────────────────────────────────────────────────
 
-HELP = ("<b>Commands</b>\n/topics — 3 new topic ideas now\n/status — what's in progress\n"
-        "/help — this message\n\nWhile a video is waiting for review, any message you type is treated "
-        "as change notes. Otherwise, a message is treated as a topic idea.")
+HELP = ("<b>Commands</b>\n"
+        "/video <i>topic</i> — a researched video on any topic, plus a Short\n"
+        "/short <i>topic</i> — only a Short (70–100 s) on any topic\n"
+        "/topics — 3 new mystery case ideas now\n/status — what's in progress\n/help — this message\n\n"
+        "Examples:\n<code>/video how the StoryVaultFiles pipeline works</code>\n"
+        "<code>/short the history of Morse code</code>\n\n"
+        "While a video is waiting for review, any message you type is treated as change notes. "
+        "Otherwise I'll ask what you want to make from your message.")
+
+
+REQ_PREFIX = re.compile(
+    r"^(please\s+)?(can you\s+)?(make|create|generate|produce|do|give me|i want|build)(\s+me)?\s+"
+    r"(a|an|one)?\s*(only\s+|just\s+)?(quick\s+|full\s+|long\s+)?(short|reel|video|explainer)?s?\s*"
+    r"(video\s+)?(only\s+)?(on|about|explaining|that explains|of|for)?\s*", re.I)
+
+
+def _parse_request(text: str) -> tuple[str | None, str]:
+    """('short'|'both'|None, topic). None = unclear, so ask with buttons."""
+    low = text.lower().strip()
+    for cmd, fmt in (("/short", "short"), ("/video", "both")):
+        if low.startswith(cmd):
+            return fmt, text[len(cmd):].strip(" :-")
+    m = REQ_PREFIX.match(text)
+    if m and m.group(3):
+        fmt = "short" if re.search(r"\b(shorts?|reels?)\b", low) else "both"
+        return fmt, text[m.end():].strip(" .:-") or text
+    return None, text
+
+
+def cmd_custom(state: State, request: str, fmt: str):
+    request = request.strip()
+    if len(request) < 4:
+        return telegram.send("Tell me the topic too, e.g. <code>/video how the StoryVaultFiles pipeline works</code>")
+    title = request[0].upper() + request[1:]
+    topic = {"wiki_title": "", "url": "", "working_title": title[:70], "hook": "", "request": request}
+    job_id = state.new_job([topic])
+    state.job(job_id).update({"kind": "custom", "format": fmt, "topics_by": "you"})
+    state.data.pop("pending_request", None)
+    state.save()
+    cmd_produce(state, job_id, 0)
+
+
+def _ask_what_to_make(state: State, text: str):
+    state.data["pending_request"] = text[:500]
+    state.save()
+    telegram.send(f"What should I make from <i>“{esc(text[:200])}”</i>?", [
+        [("🎬 Video + Short", "req:both"), ("📱 Short only", "req:short")],
+        [("🔎 3 mystery cases about it", "req:cases")]])
 
 
 def cmd_status(state: State):
@@ -491,6 +587,16 @@ def handle(state: State, payload: dict):
                 telegram.send("Nothing to retry.")
                 return
             return handle(state, failed)
+        if action == "req":
+            req = state.data.pop("pending_request", "")
+            if not req:
+                return telegram.send("That request has expired. Send it again, or use /video or /short.")
+            if rest == "cases":
+                pend = state.latest_job("awaiting_topic")
+                if pend:
+                    state.job(pend)["status"] = "skipped"
+                return cmd_topics(state, wish=req)
+            return cmd_custom(state, _parse_request(req)[1], "short" if rest == "short" else "both")
         job_id = rest.split(":")[0]
         if action == "pick":
             return cmd_produce(state, job_id, int(rest.split(":")[1]))
@@ -529,6 +635,9 @@ def handle(state: State, payload: dict):
         return cmd_topics(state)
     if low.startswith("/status"):
         return cmd_status(state)
+    if low.startswith(("/video", "/short")):
+        fmt, topic = _parse_request(text)
+        return cmd_custom(state, topic, fmt)
     writing = state.latest_job("writing")
     if writing:
         job = state.job(writing)
@@ -539,11 +648,12 @@ def handle(state: State, payload: dict):
     if review and state.data["jobs"].get(review, {}).get("status") == "awaiting_review":
         return cmd_revise(state, review, text)
     pending = state.latest_job("awaiting_topic")
-    if pending and low in {"1", "2", "3"}:
+    if pending and low in {"1", "2", "3"} and state.job(pending).get("kind", "case") == "case":
         return cmd_produce(state, pending, int(low) - 1)
-    if pending:
-        state.job(pending)["status"] = "skipped"
-    return cmd_topics(state, wish=text)
+    fmt, topic = _parse_request(text)
+    if fmt:
+        return cmd_custom(state, topic, fmt)
+    return _ask_what_to_make(state, text)
 
 
 def main():

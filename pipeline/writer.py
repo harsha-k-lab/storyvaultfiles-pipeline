@@ -23,6 +23,27 @@ NON-NEGOTIABLE ACCURACY AND RESPECT RULES:
 """
 
 
+STYLE_CUSTOM = f"""
+You write for "{CH['name']}", a faceless YouTube storytelling channel. This video is on a topic
+the channel owner asked for, which may not be a mystery. Tell it as a story with a documentary
+narrator: calm, clear, warm and confident. Make complex things simple through concrete details
+and examples. Short sentences for punch, longer ones for flow. No hype words, no exclamation
+marks, no emojis.
+
+NON-NEGOTIABLE ACCURACY RULES:
+- Use ONLY facts found in the SOURCES. Never invent names, dates, numbers, quotes, places,
+  features or results. If the sources don't say it, don't say it.
+- Label opinions and predictions as such.
+- If the topic is this channel's own pipeline, describe only what its documentation says it
+  does, and never mention keys, tokens, passwords, secret names or private addresses.
+- No made-up dialogue presented as real quotes.
+"""
+
+
+def style_for(kind: str) -> str:
+    return STYLE_CUSTOM if kind == "custom" else STYLE_RULES
+
+
 def pitch_topics(cands: list[dict], recent_titles: list[str], wish: str | None = None):
     listing = "\n\n".join(
         f"[{i}] {c['wiki_title']} (Wikipedia views last 60 days: {c.get('views', 0)})\n{c['summary'][:700]}"
@@ -52,23 +73,33 @@ Return JSON: {{"topics": [{{"index": <number from the list>,
     return topics
 
 
-def _script_schema(minutes: int, short_s: int, image_count: int) -> str:
+def _script_schema(minutes: int, short_s: int, image_count: int, kind: str = "case", fmt: str = "both") -> str:
     words = minutes * W["words_per_minute"]
     short_words = int(short_s * 2.3)
     img = f"0-{image_count - 1}" if image_count else "none available, always -1"
-    return f"""Return JSON with exactly these keys:
-{{
- "title": "<YouTube title under 70 chars; a date, name or number helps; subject in the first 40 chars>",
- "thumbnail_text": "<2-3 punchy words for the thumbnail, ALL CAPS, not repeating the title's words>",
- "description": "<3 short paragraphs for the YouTube description: hook, what the video covers, a question for the comments. No hashtags here.>",
- "tags": ["<up to 15 search tags>"],
- "hashtags": ["#unsolvedmysteries", "<3 more>"],
- "look": "<the era, place and setting every picture shares, e.g. '1947, rusting Dutch cargo steamer, Strait of Malacca, tropical haze'>",
- "title_card": {{"kicker": "AN UNSOLVED CASE", "title": "<2-5 words, ALL CAPS, e.g. 'THE DEATH SHIP'>",
-                "subtitle": "<— one short hook line, ALL CAPS, e.g. '— EVERY MAN ABOARD WAS DEAD'>"}},
- "label": {{"name": "<the case's name, ALL CAPS, e.g. 'SS OURANG MEDAN'>", "detail": "<PLACE · YEAR, ALL CAPS>"}},
- "end_line": "<2-4 words for the black end card, ALL CAPS, e.g. 'STILL UNSOLVED.'>",
- "mood": ["<3 backup stock-footage searches that fit this story's world>"],
+    if kind == "custom":
+        kicker = "<2-4 words, ALL CAPS, e.g. 'BEHIND THE SCENES' or 'A TRUE STORY'>"
+        title_eg, sub_eg = "HOW A VIDEO MAKES ITSELF", "— FROM ONE IDEA TO YOUTUBE"
+        label = '{"name": "<the subject, ALL CAPS>", "detail": "<a short descriptor, ALL CAPS, e.g. \'AN EXPLAINER · 2026\'>"}'
+        end_eg, tag0 = "NOW YOU KNOW.", "#storyvaultfiles"
+        arc = (f"Structure: a cold-open hook that makes the viewer need the answer (no greeting), then 3-6\n"
+               f"chapters that suit the topic, each building on the last, then the payoff stated clearly.\n"
+               f"End with a quiet closing line, a question for the comments, and one short line asking them\n"
+               f"to subscribe to {CH['name']}.")
+        short_end = f'end on the payoff or an open question, then "The full story is on {CH["name"]}."'
+    else:
+        kicker = "AN UNSOLVED CASE"
+        title_eg, sub_eg = "THE DEATH SHIP", "— EVERY MAN ABOARD WAS DEAD"
+        label = '{"name": "<the case\'s name, ALL CAPS, e.g. \'SS OURANG MEDAN\'>", "detail": "<PLACE · YEAR, ALL CAPS>"}'
+        end_eg, tag0 = "STILL UNSOLVED.", "#unsolvedmysteries"
+        arc = ('Structure: cold open hook (no greeting), then "This is case file number <N>.", then chapters:\n'
+               "the setting/people, the event, the investigation & evidence, the theories, what remains unknown.\n"
+               "End with a quiet reflective line, a question for viewers to answer in the comments,\n"
+               "and one short line asking them to subscribe for more case files.")
+        short_end = ('end on the unresolved question, then "Tell me what you think happened." and '
+                     f'"The full case file is on {CH["name"]}."')
+
+    scenes = "" if fmt == "short" else f"""
  "scenes": [
    {{"chapter": "<chapter name on the first scene of each chapter, else empty string>",
      "shots": [
@@ -77,23 +108,41 @@ def _script_schema(minutes: int, short_s: int, image_count: int) -> str:
          "search": ["<2-3 word stock-footage backup search>", "<1 word: the main subject>"],
          "image": <index of a real source photo that shows exactly this ({img}), or -1>}}
      ]}}
- ],
+ ],"""
+    if fmt == "short":
+        structure = f"""ONLY A SHORT: there is no long video. Leave out "scenes" — "short" is the whole video.
+SHORT: {short_words - 30}-{short_words + 30} words ({short_s - 15}-{short_s + 20} seconds) in 18-32 shots,
+a complete standalone story: the first shot hooks in under 2 seconds with the most striking fact;
+build through the key moments to a clear payoff; end with a question for the comments, then
+"Follow {CH['name']} for more." """
+    else:
+        structure = f"""NARRATION: the narration is the shots' "text" read in order — there is no other narration.
+Total about {words} words ({minutes} minutes) across 4-6 chapters, 3-8 shots per scene.
+{arc}
+SHORT: {short_words - 30}-{short_words + 20} words ({short_s - 15}-{short_s + 15} seconds) in 18-30 shots,
+a complete standalone story: the first shot hooks in under 2 seconds with the most striking fact;
+build through the key moments; {short_end}"""
+
+    return f"""Return JSON with exactly these keys:
+{{
+ "title": "<YouTube title under 70 chars; a date, name or number helps; subject in the first 40 chars>",
+ "thumbnail_text": "<2-3 punchy words for the thumbnail, ALL CAPS, not repeating the title's words>",
+ "description": "<3 short paragraphs for the YouTube description: hook, what the video covers, a question for the comments. No hashtags here.>",
+ "tags": ["<up to 15 search tags>"],
+ "hashtags": ["{tag0}", "<3 more>"],
+ "look": "<the era, place and setting every picture shares, e.g. '1947, rusting Dutch cargo steamer, Strait of Malacca, tropical haze'>",
+ "title_card": {{"kicker": "{kicker}", "title": "<2-5 words, ALL CAPS, e.g. '{title_eg}'>",
+                "subtitle": "<— one short hook line, ALL CAPS, e.g. '{sub_eg}'>"}},
+ "label": {label},
+ "end_line": "<2-4 words for the black end card, ALL CAPS, e.g. '{end_eg}'>",
+ "mood": ["<3 backup stock-footage searches that fit this story's world>"],{scenes}
  "short": {{
    "shots": [{{"text": "<one sentence>", "image_prompt": "<picture for it>", "search": ["<2-3 words>", "<1 word>"]}}],
    "caption": "<Instagram caption: 2 short lines + a question>"
  }}
 }}
 
-NARRATION: the narration is the shots' "text" read in order — there is no other narration.
-Total about {words} words ({minutes} minutes) across 4-6 chapters, 3-8 shots per scene.
-Structure: cold open hook (no greeting), then "This is case file number <N>.", then chapters:
-the setting/people, the event, the investigation & evidence, the theories, what remains unknown.
-End with a quiet reflective line, a question for viewers to answer in the comments,
-and one short line asking them to subscribe for more case files.
-SHORT: {short_words - 30}-{short_words + 20} words ({short_s - 15}-{short_s + 15} seconds) in 18-30 shots,
-a complete standalone story: the first shot hooks in under 2 seconds with the most striking fact;
-build through the key moments; end on the unresolved question, then
-"Tell me what you think happened." and "The full case file is on {CH['name']}."
+{structure}
 
 VISUALS — the channel's style is one cinematic, photoreal, period-accurate AI picture per sentence,
 showing exactly what is being said at that moment:
@@ -113,25 +162,32 @@ showing exactly what is being said at that moment:
 - "search" is only a backup if the AI picture can't be made: plain common nouns, no names."""
 
 
-def write_script(topic: dict, source: dict, images: list[dict], case_no: int) -> dict:
+def write_script(topic: dict, source: dict, images: list[dict], case_no: int,
+                 kind: str = "case", fmt: str = "both") -> dict:
     img_list = "\n".join(f"[{i}] {im['caption'] or im['file']}" for i, im in enumerate(images)) or "(none)"
-    prompt = f"""Write the full story video script for case file number {case_no}.
+    what = (f"a video the channel owner asked for: \"{topic.get('request') or topic.get('working_title')}\""
+            if kind == "custom" else f"case file number {case_no}")
+    prompt = f"""Write the full {'Short' if fmt == 'short' else 'story video'} script for {what}.
 
-TOPIC: {topic['wiki_title']}
+TOPIC: {topic.get('wiki_title') or topic.get('working_title')}
 WORKING TITLE: {topic.get('working_title', '')}
 ANGLE: {topic.get('hook', '')}
 
 SOURCE PHOTOS AVAILABLE:
 {img_list}
 
-SOURCE (Wikipedia, the only facts you may use):
+SOURCES (the only facts you may use):
 \"\"\"{source['text']}\"\"\"
 
-{_script_schema(W['target_minutes'], W['short_seconds'], len(images))}"""
-    return normalize(ask_json(STYLE_RULES, prompt, temperature=0.85, fake_response=fake_script(case_no)))
+{_script_schema(W['target_minutes'], W['short_seconds'], len(images), kind, fmt)}"""
+    fake = fake_script(case_no)
+    if fmt == "short":
+        fake["scenes"] = []
+    return normalize(ask_json(style_for(kind), prompt, temperature=0.85, fake_response=fake))
 
 
-def revise_script(script: dict, feedback: str, source: dict, images: list[dict]) -> dict:
+def revise_script(script: dict, feedback: str, source: dict, images: list[dict],
+                  kind: str = "case", fmt: str = "both") -> dict:
     import json
     prompt = f"""The channel owner reviewed this video and asked for changes:
 
@@ -142,11 +198,11 @@ Apply the feedback faithfully. Keep everything else that works. Keep all accurac
 CURRENT SCRIPT JSON:
 {json.dumps(script, ensure_ascii=False)}
 
-SOURCE (only facts you may use):
+SOURCES (only facts you may use):
 \"\"\"{source['text'][:40000]}\"\"\"
 
-{_script_schema(W['target_minutes'], W['short_seconds'], len(images))}"""
-    return normalize(ask_json(STYLE_RULES, prompt, temperature=0.7, fake_response=script))
+{_script_schema(W['target_minutes'], W['short_seconds'], len(images), kind, fmt)}"""
+    return normalize(ask_json(style_for(kind), prompt, temperature=0.7, fake_response=script))
 
 
 def fake_script(case_no: int) -> dict:

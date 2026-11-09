@@ -175,3 +175,77 @@ def free_images(title: str, limit: int = 8) -> list[dict]:
                 "file": p["title"],
             })
     return out[:limit]
+
+
+# ── any topic the owner asks for ─────────────────────────────────────────────
+
+SELF_WORDS = ("pipeline", "storyvault", "this channel", "this bot", "how you work", "how this works",
+              "how it works", "automation", "behind the scenes", "how the videos are made", "how we make")
+
+
+def is_about_this_project(request: str) -> bool:
+    low = request.lower()
+    return any(w in low for w in SELF_WORDS)
+
+
+def project_docs(limit: int = 30000) -> dict:
+    """The pipeline's own documentation, for videos about how the channel works.
+    Only documentation and settings — no keys or secrets live in these files."""
+    from .core import ROOT
+    parts = []
+    for name in ("README.md", "SETUP.md", "ROUTINE.md", "config.yaml"):
+        p = ROOT / name
+        if p.exists():
+            parts.append(f"===== {name} =====\n{p.read_text(encoding='utf-8')}")
+    return {"title": "StoryVaultFiles pipeline documentation (this project)", "url": "",
+            "text": "\n\n".join(parts)[:limit], "wiki": False}
+
+
+def custom_sources(request: str, max_articles: int = 3) -> list[dict]:
+    """Sources for a video on any topic: the project's docs if it's about the channel itself,
+    plus the most relevant Wikipedia articles."""
+    if FAKE:
+        return [{"title": "Fake source", "url": "https://example.com", "text": "Fake source text. " * 50,
+                 "wiki": True, "wiki_title": "Fake source"}]
+    out = []
+    if is_about_this_project(request):
+        out.append(project_docs())
+    try:
+        titles = search_pages_plain(request, 8)
+    except Exception as exc:  # noqa: BLE001
+        log("Wikipedia search failed:", exc)
+        titles = []
+    kws = {w for w in re.findall(r"[a-z]{4,}", request.lower())}
+    scored = []
+    for t in titles:
+        overlap = len(kws & set(re.findall(r"[a-z]{4,}", t.lower())))
+        scored.append((overlap, t))
+    scored.sort(key=lambda x: -x[0])
+    for _, t in scored[:max_articles]:
+        try:
+            a = article(t)
+        except Exception as exc:  # noqa: BLE001
+            log(f"Article {t} skipped: {exc}")
+            continue
+        if len(a["text"]) > 1500:
+            out.append({"title": a["title"], "url": a["url"], "text": a["text"][:25000],
+                        "wiki": True, "wiki_title": a["title"]})
+    return out
+
+
+def search_pages_plain(query: str, limit: int = 10) -> list[str]:
+    data = _get(WIKI, {"action": "query", "list": "search", "srsearch": query, "srlimit": str(limit)})
+    return [s["title"] for s in data.get("query", {}).get("search", [])]
+
+
+def sources_block(sources: list[dict], limit: int = 50000) -> str:
+    """Sources as one text block (for Claude's run text or Gemini's prompt)."""
+    chunks, used = [], 0
+    for s in sources:
+        head = f"SOURCE: {s['title']}" + (f" — {s['url']}" if s.get("url") else "")
+        body = s["text"][: max(0, limit - used - len(head) - 10)]
+        if not body:
+            break
+        chunks.append(f"{head}\n{body}")
+        used += len(head) + len(body) + 4
+    return "\n\n".join(chunks) or "(no sources could be fetched — research with web search)"

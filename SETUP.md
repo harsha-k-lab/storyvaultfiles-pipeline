@@ -279,7 +279,23 @@ and their real photos are used where Wikipedia has them.
 | 🎞 New pictures | Same script, freshly made pictures and clips |
 | ⚠️ Something went wrong | Tap **Retry** (most errors are a free service being briefly busy) |
 
-Commands: `/topics` (new ideas now), `/status`, `/help`.
+Commands: `/video <topic>`, `/short <topic>`, `/topics` (new mystery ideas now), `/status`, `/help`.
+
+### Videos on any topic
+
+The daily ideas are mystery cases, but you can ask for a video on anything:
+
+| You send | You get |
+|---|---|
+| `/video how the StoryVaultFiles pipeline works` | A researched 8–12 minute video **plus** a Short |
+| `/short the history of Morse code` | **Only** a 70–100 second Short (no long video) |
+| "make a short video about black holes" | Same as `/short` (the word "short" or "reel" means Short only) |
+| Just a topic, like "the Bermuda Triangle" | Buttons: 🎬 Video + Short · 📱 Short only · 🔎 3 mystery cases |
+
+The pipeline researches the topic itself (Wikipedia, and Claude's web search). For videos about
+the channel or pipeline, it uses this project's own documentation. Review, notes and Publish
+work the same way. A Short-only video is posted to YouTube Shorts and Instagram Reels.
+To see `/video` and `/short` in Telegram's command menu, run **Connect Telegram** once more.
 
 ## Changing things
 

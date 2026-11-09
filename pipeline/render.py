@@ -242,7 +242,7 @@ def render_long(script: dict, work: Path, case_no: int, photos: list[Path | None
                                                            b["chapter"], w, h), 3.8)
                 if k == title_k and not (bi == 0 and k == 0):
                     lb = script["label"]
-                    _overlay(out, graphics.label_overlay(work / "label.png", f"CASE FILE No. {case_no:03d}",
+                    _overlay(out, graphics.label_overlay(work / "label.png", graphics.file_label(script, case_no),
                                                          lb["name"] or script["title_card"]["title"],
                                                          lb["detail"], w, h), 4.5)
                 shot_files.append(out)
@@ -252,7 +252,7 @@ def render_long(script: dict, work: Path, case_no: int, photos: list[Path | None
                           for wd in b["words"]]
         else:
             png = work / "endcard.jpg"
-            graphics.file_end_card(png, case_no, script.get("end_line", ""), w, h)
+            graphics.file_end_card(png, case_no, script.get("end_line", ""), w, h, graphics.file_label(script, case_no))
             out = shots_dir / f"b{bi:03d}_end.mp4"
             shot_from_image(png, frames, out, w, h, grade=False, fade=True)
             shot_files.append(out)
@@ -273,7 +273,8 @@ def render_long(script: dict, work: Path, case_no: int, photos: list[Path | None
     _finish(silent, narration, ass, final)
     log("Images:", images.summary())
     thumb_bg = first_frame or card_bg
-    thumb = graphics.thumbnail(work / "thumbnail.jpg", thumb_bg, script.get("thumbnail_text", script["title"]), case_no)
+    thumb = graphics.thumbnail(work / "thumbnail.jpg", thumb_bg, script.get("thumbnail_text", script["title"]), case_no,
+                               script.get("kind", "case"))
     return {"video": final, "thumbnail": thumb, "seconds": t, "images": images.summary(),
             "chapters": _chapters(beats), "credits": [c for c in credits if c]}
 
@@ -310,21 +311,23 @@ def render_short(script: dict, work: Path, case_no: int = 0) -> dict:
     blank = graphics.end_card(sdir / "blank.jpg", w, h)
     plan = plan_cuts(sh["shots"], words, frames, lead=0.05, min_s=1.6, max_s=3.8)  # a new picture every 2–4 s
     shot_files, credits, t = [], {}, 0.0
-    label_done = False
+    label_done, first_still = False, None
     for k, (fc, shot, part) in enumerate(plan):
         out = sdir / f"s{k:02d}.mp4"
-        _shot_clip(footage, shot, part, [], script.get("mood") or [], fc, out, w, h, credits, blank,
-                   images, script.get("look", ""))
+        still = _shot_clip(footage, shot, part, [], script.get("mood") or [], fc, out, w, h, credits, blank,
+                           images, script.get("look", ""))
+        first_still = first_still or still
         if k == 0:
             _overlay(out, graphics.title_card_overlay(sdir / "titlecard.png", script["title_card"], w, h), 3.6)
         elif not label_done and t >= 6.0 and script["label"]["name"]:
-            _overlay(out, graphics.label_overlay(sdir / "label.png", f"CASE FILE No. {case_no:03d}",
+            _overlay(out, graphics.label_overlay(sdir / "label.png", graphics.file_label(script, case_no),
                                                  script["label"]["name"], script["label"]["detail"], w, h), 3.5)
             label_done = True
         shot_files.append(out)
         t += fc / FPS
     end_frames = _frames(2.5)
-    end_png = graphics.file_end_card(sdir / "endcard.jpg", case_no, script.get("end_line", ""), w, h)
+    end_png = graphics.file_end_card(sdir / "endcard.jpg", case_no, script.get("end_line", ""), w, h,
+                                     graphics.file_label(script, case_no))
     end_clip = sdir / "s_end.mp4"
     shot_from_image(end_png, end_frames, end_clip, w, h, grade=False, fade=True)
     shot_files.append(end_clip)
@@ -337,4 +340,11 @@ def render_short(script: dict, work: Path, case_no: int = 0) -> dict:
     final = work / "short.mp4"
     log("Final encode (short)…", images.summary())
     _finish(silent, narration, ass, final, crf=22, maxrate="5M")
-    return {"video": final, "seconds": (frames + end_frames) / FPS}
+    return {"video": final, "seconds": (frames + end_frames) / FPS, "still": first_still,
+            "images": images.summary(), "credits": [c for c in credits if c]}
+
+
+def short_thumbnail(script: dict, work: Path, case_no: int, short: dict) -> Path:
+    """Cover image for a Short-only video (used in Telegram and as the YouTube thumbnail)."""
+    return graphics.thumbnail(work / "thumbnail.jpg", short.get("still"),
+                              script.get("thumbnail_text") or script["title"], case_no, script.get("kind", "case"))
