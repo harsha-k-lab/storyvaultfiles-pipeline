@@ -101,6 +101,9 @@ class Images:
         return path
 
     def summary(self) -> str:
+        if not FAKE and not (self.url and self.key):
+            return ("AI pictures are off (stock footage used) — add the CLOUDFLARE_WORKER_URL secret "
+                    "and the Workers AI binding: SETUP.md step 13")
         return (f"{self.made} new AI images, {self.reused} reused"
                 + (f", {self.failed} fell back to stock" if self.failed else "")
                 + (" — today's free image allowance ran out" if self.out_of_quota else ""))
