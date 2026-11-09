@@ -1,0 +1,51 @@
+{
+  "source_url": "",
+  "source_title": "",
+  "images": [],
+  "extra_sources": [
+    {
+      "title": "README.md",
+      "url": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/blob/main/README.md"
+    },
+    {
+      "title": "SETUP.md",
+      "url": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/blob/main/SETUP.md"
+    },
+    {
+      "title": "ROUTINE.md",
+      "url": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/blob/main/ROUTINE.md"
+    },
+    {
+      "title": "config.yaml",
+      "url": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/blob/main/config.yaml"
+    }
+  ],
+  "chapters": [],
+  "credits": [
+    "Matthias_Groeneveld (Pixabay)",
+    "Christopher_OToole_Images (Pixabay)",
+    "NickyPe (Pixabay)",
+    "klimkin (Pixabay)",
+    "voltamax (Pixabay)",
+    "Natures_Embrace (Pixabay)",
+    "16179491 (Pixabay)",
+    "Bastien86 (Pixabay)",
+    "StefWithAnF (Pixabay)",
+    "Coverr-Free-Footage (Pixabay)",
+    "MuhammadAhmad10 (Pixabay)",
+    "jaumeps99 (Pixabay)",
+    "ilbellodelweb (Pixabay)",
+    "ForgacsBogi (Pixabay)",
+    "crew_jak (Pixabay)",
+    "wonderlandwoo (Pixabay)",
+    "mephala1980 (Pixabay)",
+    "jimkuehnel (Pixabay)",
+    "MilanWulf (Pixabay)",
+    "VirtualZero (Pixabay)"
+  ],
+  "links": {
+    "short.mp4": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-004/short.mp4",
+    "thumbnail.jpg": "https://github.com/harsha-k-lab/storyvaultfiles-pipeline/releases/download/case-004/thumbnail.jpg"
+  },
+  "minutes": 1.4
+}
