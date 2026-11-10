@@ -81,7 +81,7 @@
     },
     "003": {
       "case_no": 3,
-      "status": "awaiting_topic",
+      "status": "writing",
       "topics": [
         {
           "wiki_title": "Voynich manuscript",
@@ -109,7 +109,18 @@
         }
       ],
       "created": "2026-11-10T13:16-05:00",
-      "topics_by": "Claude"
+      "topics_by": "Claude",
+      "topic": {
+        "wiki_title": "Voynich manuscript",
+        "url": "https://en.wikipedia.org/wiki/Voynich_manuscript",
+        "working_title": "The Voynich Manuscript: 600 Years and No One Can Read It",
+        "hook": "A 15th-century book of strange plants, star charts and bathing women, written in a script no codebreaker, linguist or computer has ever read.",
+        "why_now": "Famous anchor case with over 315,000 Wikipedia views in 60 days and lasting search demand.",
+        "summary": ""
+      },
+      "topic_index": 0,
+      "writer": "Claude",
+      "requested_at": "2026-11-10T14:47:14-05:00"
     }
   },
   "history": [],
@@ -119,7 +130,7 @@
   ],
   "claude_runs": {
     "date": "2026-11-10",
-    "count": 1
+    "count": 2
   },
   "active_job": "003"
 }
