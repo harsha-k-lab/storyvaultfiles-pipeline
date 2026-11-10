@@ -1,0 +1,39 @@
+{
+ "A_old_render": [
+  [
+   3.29,
+   2.94
+  ],
+  [
+   31.1,
+   3.36
+  ],
+  [
+   35.14,
+   3.97
+  ]
+ ],
+ "narration_wav_s": 54.666689,
+ "B_audio_only_old_graph": {
+  "holes": [],
+  "dur": 54.7
+ },
+ "C_audio_only_no_loudnorm": {
+  "holes": [],
+  "dur": 54.667
+ },
+ "D_audio_only_loudnorm_resampled": {
+  "holes": [],
+  "dur": 54.7
+ },
+ "E_voice_only_loudnorm": {
+  "holes": [],
+  "dur": 54.7
+ },
+ "F_no_duck_loudnorm": {
+  "holes": [],
+  "dur": 54.7
+ },
+ "G_new_finish": [],
+ "ffmpeg": "ffmpeg version 8.0.1-3ubuntu2 Copyright (c) 2000-2025 the FFmpeg developers"
+}
