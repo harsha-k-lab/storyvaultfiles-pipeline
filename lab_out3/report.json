@@ -1,0 +1,605 @@
+{
+ "short": {
+  "script_words": 129,
+  "heard_words": 115,
+  "match_ratio": 0.787,
+  "differences": [
+   {
+    "at": 0.32,
+    "op": "replace",
+    "script": "indogangetic",
+    "heard": "indo gangetic"
+   },
+   {
+    "at": 3.22,
+    "op": "replace",
+    "script": "six independent cradles of human civilization around",
+    "heard": "6th indip"
+   },
+   {
+    "at": 4.84,
+    "op": "replace",
+    "script": "early protowriting emerged at sites like harappa",
+    "heard": "rapper"
+   },
+   {
+    "at": 6.72,
+    "op": "replace",
+    "script": "rakhigarhi in haryana settlements date back to 4600",
+    "heard": "1600"
+   },
+   {
+    "at": 11.34,
+    "op": "replace",
+    "script": "mohenjodaro",
+    "heard": "mohenjo daro"
+   },
+   {
+    "at": 12.26,
+    "op": "replace",
+    "script": "sindh",
+    "heard": "sin"
+   },
+   {
+    "at": 19.44,
+    "op": "replace",
+    "script": "bakedbrick",
+    "heard": "baked brick"
+   },
+   {
+    "at": 23.16,
+    "op": "replace",
+    "script": "ganweriwal",
+    "heard": "ganwariwal"
+   },
+   {
+    "at": 24.16,
+    "op": "replace",
+    "script": "cholistan",
+    "heard": "colloston"
+   },
+   {
+    "at": 28.9,
+    "op": "replace",
+    "script": "naga puram",
+    "heard": "nogapuram"
+   },
+   {
+    "at": 30.04,
+    "op": "replace",
+    "script": "ghaghara",
+    "heard": "gagara"
+   },
+   {
+    "at": 36.7,
+    "op": "replace",
+    "script": "managed",
+    "heard": "manage"
+   },
+   {
+    "at": 41.34,
+    "op": "replace",
+    "script": "storyvaultfiles",
+    "heard": "story vault files"
+   }
+  ],
+  "long_gaps": [
+   {
+    "at": 10.58,
+    "gap_s": 0.76,
+    "between": "site. | Mohenjo"
+   },
+   {
+    "at": 15.72,
+    "gap_s": 0.7,
+    "between": "centers. | In"
+   },
+   {
+    "at": 16.8,
+    "gap_s": 0.6,
+    "between": "Gujarat, | the"
+   },
+   {
+    "at": 21.66,
+    "gap_s": 0.7,
+    "between": "trade. | Other"
+   },
+   {
+    "at": 32.98,
+    "gap_s": 0.72,
+    "between": "science. | Modern"
+   },
+   {
+    "at": 39.54,
+    "gap_s": 0.74,
+    "between": "architecture. | The"
+   }
+  ],
+  "unclear_words": [
+   [
+    "6th",
+    3.22,
+    3.62,
+    0.44
+   ],
+   [
+    "rapper",
+    4.84,
+    5.04,
+    0.07
+   ],
+   [
+    "valley",
+    5.74,
+    6.02,
+    0.3
+   ],
+   [
+    "at",
+    6.02,
+    6.72,
+    0.28
+   ],
+   [
+    "baked",
+    19.44,
+    19.78,
+    0.38
+   ],
+   [
+    "and",
+    27.26,
+    28.02,
+    0.43
+   ],
+   [
+    "river",
+    30.44,
+    30.68,
+    0.29
+   ],
+   [
+    "manage",
+    36.7,
+    37.06,
+    0.37
+   ]
+  ]
+ },
+ "video": {
+  "script_words": 604,
+  "heard_words": 560,
+  "match_ratio": 0.911,
+  "differences": [
+   {
+    "at": 8.98,
+    "op": "replace",
+    "script": "indogangetic",
+    "heard": "indo gangetic"
+   },
+   {
+    "at": 21.12,
+    "op": "delete",
+    "script": "by around 3300 bc early",
+    "heard": ""
+   },
+   {
+    "at": 21.32,
+    "op": "replace",
+    "script": "protowriting",
+    "heard": "proto writing"
+   },
+   {
+    "at": 24.94,
+    "op": "replace",
+    "script": "rakhigarhi",
+    "heard": "rakhigari"
+   },
+   {
+    "at": 32.86,
+    "op": "replace",
+    "script": "rakhigarhi",
+    "heard": "rakhigari"
+   },
+   {
+    "at": 44.54,
+    "op": "replace",
+    "script": "mohenjodaro",
+    "heard": "mohenjo daro"
+   },
+   {
+    "at": 48.52,
+    "op": "delete",
+    "script": "into one of the earliest major urban centers in world",
+    "heard": ""
+   },
+   {
+    "at": 51.9,
+    "op": "replace",
+    "script": "gridlike",
+    "heard": "grid like"
+   },
+   {
+    "at": 60.08,
+    "op": "replace",
+    "script": "dholavira",
+    "heard": "dolavira"
+   },
+   {
+    "at": 67.54,
+    "op": "replace",
+    "script": "surkotada",
+    "heard": "surkata"
+   },
+   {
+    "at": 76.28,
+    "op": "replace",
+    "script": "kalibangan",
+    "heard": "kalabangan"
+   },
+   {
+    "at": 82.46,
+    "op": "replace",
+    "script": "mehrgarh",
+    "heard": "mergai"
+   },
+   {
+    "at": 88.0,
+    "op": "delete",
+    "script": "famous urban centers lay dozens of towns scattered across",
+    "heard": ""
+   },
+   {
+    "at": 90.02,
+    "op": "delete",
+    "script": "in the cholistan desert of punjab pakistan the",
+    "heard": ""
+   },
+   {
+    "at": 90.74,
+    "op": "replace",
+    "script": "ganweriwal",
+    "heard": "ganwariwal"
+   },
+   {
+    "at": 93.62,
+    "op": "replace",
+    "script": "in sindh settlements like chanhudaro and kot diji",
+    "heard": "kotdiji"
+   },
+   {
+    "at": 98.24,
+    "op": "replace",
+    "script": "near the dasht river the small coastal outpost of sutkagan dor",
+    "heard": "nganndor"
+   },
+   {
+    "at": 101.44,
+    "op": "replace",
+    "script": "sokhta koh",
+    "heard": "sokhtikor"
+   },
+   {
+    "at": 114.66,
+    "op": "replace",
+    "script": "naga puram",
+    "heard": "nogapuram"
+   },
+   {
+    "at": 117.78,
+    "op": "replace",
+    "script": "ghaghara",
+    "heard": "gagara"
+   },
+   {
+    "at": 129.94,
+    "op": "replace",
+    "script": "reaktion",
+    "heard": "reaction"
+   },
+   {
+    "at": 172.52,
+    "op": "replace",
+    "script": "dvrak",
+    "heard": "dvaraka"
+   },
+   {
+    "at": 174.52,
+    "op": "replace",
+    "script": "identify dvrak",
+    "heard": "identified dvaraka"
+   },
+   {
+    "at": 180.32,
+    "op": "replace",
+    "script": "cranganore",
+    "heard": "kranganur"
+   },
+   {
+    "at": 183.22,
+    "op": "replace",
+    "script": "muziris",
+    "heard": "musiris"
+   },
+   {
+    "at": 229.4,
+    "op": "replace",
+    "script": "storyvaultfiles",
+    "heard": "store of alt files"
+   }
+  ],
+  "long_gaps": [
+   {
+    "at": 7.0,
+    "gap_s": 1.0,
+    "between": "region. | Scholarship"
+   },
+   {
+    "at": 13.82,
+    "gap_s": 0.76,
+    "between": "independently. | In"
+   },
+   {
+    "at": 20.46,
+    "gap_s": 0.66,
+    "between": "settlements. | Forms"
+   },
+   {
+    "at": 31.86,
+    "gap_s": 1.0,
+    "between": "BCE. | Rakhigari"
+   },
+   {
+    "at": 37.84,
+    "gap_s": 0.64,
+    "between": "far. | For"
+   },
+   {
+    "at": 43.68,
+    "gap_s": 0.86,
+    "between": "sand. | Mohenjo"
+   },
+   {
+    "at": 54.86,
+    "gap_s": 0.7,
+    "between": "architecture. | In"
+   },
+   {
+    "at": 56.86,
+    "gap_s": 0.66,
+    "between": "Gujarat, | archaeologists"
+   },
+   {
+    "at": 60.68,
+    "gap_s": 0.68,
+    "between": "Dolavira. | Nearby,"
+   },
+   {
+    "at": 66.74,
+    "gap_s": 0.68,
+    "between": "commerce. | At"
+   },
+   {
+    "at": 69.44,
+    "gap_s": 0.56,
+    "between": "Gujarat, | excavations"
+   },
+   {
+    "at": 80.22,
+    "gap_s": 0.62,
+    "between": "planning. | Deep"
+   },
+   {
+    "at": 86.86,
+    "gap_s": 0.74,
+    "between": "cities. | Beyond"
+   },
+   {
+    "at": 97.46,
+    "gap_s": 0.78,
+    "between": "walls. | Nganndor"
+   },
+   {
+    "at": 100.72,
+    "gap_s": 0.72,
+    "between": "culture. | Sokhtikor,"
+   },
+   {
+    "at": 101.88,
+    "gap_s": 0.6,
+    "between": "Sokhtikor, | located"
+   },
+   {
+    "at": 106.46,
+    "gap_s": 0.76,
+    "between": "settlement. | Some"
+   },
+   {
+    "at": 112.5,
+    "gap_s": 0.88,
+    "between": "archaeologists. | Among"
+   },
+   {
+    "at": 118.44,
+    "gap_s": 0.7,
+    "between": "River. | In"
+   },
+   {
+    "at": 124.56,
+    "gap_s": 0.92,
+    "between": "public. | Author"
+   },
+   {
+    "at": 130.84,
+    "gap_s": 1.02,
+    "between": "Books. | Scholars"
+   },
+   {
+    "at": 136.76,
+    "gap_s": 0.7,
+    "between": "way. | Archaeologist"
+   },
+   {
+    "at": 148.76,
+    "gap_s": 0.96,
+    "between": "conflict. | Writer"
+   },
+   {
+    "at": 154.66,
+    "gap_s": 0.6,
+    "between": "warfare. | However,"
+   },
+   {
+    "at": 161.34,
+    "gap_s": 0.72,
+    "between": "conflict. | The"
+   },
+   {
+    "at": 167.04,
+    "gap_s": 0.66,
+    "between": "well. | Off"
+   },
+   {
+    "at": 168.82,
+    "gap_s": 0.56,
+    "between": "Gujarat, | marine"
+   },
+   {
+    "at": 172.98,
+    "gap_s": 0.98,
+    "between": "Dvaraka. | Traditional"
+   },
+   {
+    "at": 178.48,
+    "gap_s": 0.68,
+    "between": "Mahabharata. | In"
+   },
+   {
+    "at": 184.86,
+    "gap_s": 0.64,
+    "between": "undiscovered. | Across"
+   },
+   {
+    "at": 191.94,
+    "gap_s": 0.7,
+    "between": "shifts. | When"
+   },
+   {
+    "at": 198.1,
+    "gap_s": 0.58,
+    "between": "them. | The"
+   },
+   {
+    "at": 203.9,
+    "gap_s": 0.72,
+    "between": "worlds. | Techniques"
+   },
+   {
+    "at": 209.8,
+    "gap_s": 0.82,
+    "between": "underground. | Each"
+   },
+   {
+    "at": 216.58,
+    "gap_s": 0.68,
+    "between": "life. | Though"
+   },
+   {
+    "at": 223.9,
+    "gap_s": 0.8,
+    "between": "cradles. | Which"
+   },
+   {
+    "at": 227.7,
+    "gap_s": 0.8,
+    "between": "fascinating? | Please"
+   }
+  ],
+  "unclear_words": [
+   [
+    "proto",
+    21.32,
+    21.56,
+    0.41
+   ],
+   [
+    "Further",
+    49.04,
+    49.84,
+    0.23
+   ],
+   [
+    "Surkata,",
+    67.54,
+    67.92,
+    0.42
+   ],
+   [
+    "In",
+    74.63,
+    74.96,
+    0.27
+   ],
+   [
+    "Mergai",
+    82.46,
+    82.7,
+    0.4
+   ],
+   [
+    "large",
+    90.02,
+    90.24,
+    0.43
+   ],
+   [
+    "Nganndor",
+    98.24,
+    98.54,
+    0.29
+   ],
+   [
+    "Sokhtikor,",
+    101.44,
+    101.88,
+    0.36
+   ],
+   [
+    "Pasni,",
+    103.7,
+    104.1,
+    0.43
+   ],
+   [
+    "the",
+    126.7,
+    126.9,
+    0.42
+   ],
+   [
+    "Books.",
+    130.42,
+    130.84,
+    0.0
+   ],
+   [
+    "valley",
+    146.14,
+    146.34,
+    0.11
+   ],
+   [
+    "and",
+    212.7,
+    213.12,
+    0.31
+   ],
+   [
+    "of",
+    229.66,
+    229.8,
+    0.32
+   ]
+  ]
+ }
+}
