@@ -1,0 +1,20 @@
+{
+ "short": {
+  "holes": [],
+  "stream_s": 54.666667,
+  "decoded_s": 54.68,
+  "match_ratio": 0.893,
+  "script_words": 129,
+  "heard_words": 133,
+  "missing_3plus_words": []
+ },
+ "video": {
+  "holes": [],
+  "stream_s": 253.6,
+  "decoded_s": 253.61,
+  "match_ratio": 0.954,
+  "script_words": 604,
+  "heard_words": 606,
+  "missing_3plus_words": []
+ }
+}
