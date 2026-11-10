@@ -1,0 +1,1175 @@
+{
+  "title": "The Voynich Manuscript: 600 Years and No One Can Read It",
+  "thumbnail_text": "UNBROKEN CODE",
+  "description": "The Voynich manuscript is a 15th-century book of strange plants, star charts and bathing women, written in a script that no codebreaker, linguist or computer has ever read. Here is the full story of the world's most mysterious manuscript.\n\nWe follow the book from its carbon-dated calfskin pages (1404 to 1438), through the Prague alchemist Georg Baresch, Athanasius Kircher, the story of Emperor Rudolf's 600 ducats, the Jesuits of Rome and the book dealer Wilfrid Voynich, to Yale's Beinecke Library, where it is MS 408. Then the evidence: the statistics, the scribes, the World War codebreakers who failed, and the main theories, from cipher and lost language to hoax.\n\nCipher, lost language, or beautiful nonsense: what do you think the Voynich manuscript really is? Tell me in the comments.",
+  "tags": [
+    "voynich manuscript",
+    "voynich",
+    "voynich manuscript mystery",
+    "voynich manuscript explained",
+    "voynichese",
+    "beinecke ms 408",
+    "undeciphered manuscript",
+    "unreadable book",
+    "mysterious book",
+    "wilfrid voynich",
+    "georg baresch",
+    "athanasius kircher",
+    "william friedman",
+    "roger bacon",
+    "unsolved mysteries"
+  ],
+  "hashtags": [
+    "#unsolvedmysteries",
+    "#voynichmanuscript",
+    "#historymystery",
+    "#storyvaultfiles"
+  ],
+  "look": "early 15th-century Europe and later archives: worn calfskin vellum codex, iron gall ink, crude azurite blue and ochre paint, candlelit studies, dusty Jesuit libraries, 1940s codebreaking offices",
+  "title_card": {
+    "kicker": "AN UNSOLVED CASE",
+    "title": "THE UNREADABLE BOOK",
+    "subtitle": "— 600 YEARS, NOT ONE WORD READ"
+  },
+  "label": {
+    "name": "THE VOYNICH MANUSCRIPT",
+    "detail": "EUROPE · 1404–1438"
+  },
+  "end_line": "STILL UNREAD.",
+  "mood": [
+    "old manuscript pages candlelight",
+    "medieval library dust",
+    "ancient handwriting close up"
+  ],
+  "scenes": [
+    {
+      "chapter": "The Unreadable Book",
+      "shots": [
+        {
+          "text": "What would you do with a 600-year-old book you could hold in your hands, but never read?",
+          "search": [
+            "old manuscript pages",
+            "manuscript"
+          ],
+          "image_prompt": "close-up of two gloved hands holding open a small worn medieval vellum codex in a dim reading room, single desk lamp, page full of looping unknown script and a painted plant",
+          "image": -1
+        },
+        {
+          "text": "Its pages are calfskin, its ink is iron gall, and every single page carries writing.",
+          "search": [
+            "ink on parchment",
+            "parchment"
+          ],
+          "image_prompt": "extreme close-up of brown iron gall ink letters on cream calfskin parchment, quill strokes visible, soft raking light",
+          "image": -1
+        },
+        {
+          "text": "Around 38,000 words, in a script that no one has ever identified.",
+          "search": [
+            "ancient handwriting",
+            "script"
+          ],
+          "image_prompt": "slow pan across a dense page of small looping unknown handwritten symbols on aged vellum, no recognisable letters, warm candlelight",
+          "image": -1
+        },
+        {
+          "text": "Codebreakers from both world wars studied it, and every one of them failed.",
+          "search": [
+            "vintage office desk lamp",
+            "codebreaker"
+          ],
+          "image_prompt": "1940s office at night, silhouette of a codebreaker from behind at a wooden desk covered in papers and a magnifying glass, green desk lamp",
+          "image": -1
+        },
+        {
+          "text": "Linguists, statisticians and computers have tried since, and none has demonstrably read a single word.",
+          "search": [
+            "computer screen data",
+            "computer"
+          ],
+          "image_prompt": "dark modern lab, computer monitor glowing with a scanned medieval manuscript page and abstract frequency bar charts, empty chair",
+          "image": -1
+        },
+        {
+          "text": "Today it rests in a rare book library at Yale, and every page can be seen online.",
+          "search": [
+            "rare book library",
+            "library"
+          ],
+          "image_prompt": "wide shot of a hushed rare book library at night, glowing marble-like translucent walls, rows of old books behind glass, nobody present",
+          "image": -1
+        },
+        {
+          "text": "Look as long as you like, because the book still keeps its secret.",
+          "search": [
+            "old closed book",
+            "book"
+          ],
+          "image_prompt": "medium shot of a closed small leather-bound medieval book on a wooden table, dust in a shaft of light, deep shadows",
+          "image": -1
+        },
+        {
+          "text": "This is case file number 3.",
+          "search": [
+            "case file folder",
+            "file"
+          ],
+          "image_prompt": "close-up of a worn manila case file folder on a dark desk under a single lamp, blank label, moody shadows",
+          "image": -1
+        }
+      ],
+      "narration": "What would you do with a 600-year-old book you could hold in your hands, but never read? Its pages are calfskin, its ink is iron gall, and every single page carries writing. Around 38,000 words, in a script that no one has ever identified. Codebreakers from both world wars studied it, and every one of them failed. Linguists, statisticians and computers have tried since, and none has demonstrably read a single word. Today it rests in a rare book library at Yale, and every page can be seen online. Look as long as you like, because the book still keeps its secret. This is case file number 3."
+    },
+    {
+      "chapter": "A Book From Nowhere",
+      "shots": [
+        {
+          "text": "The book is small, about twenty-three centimetres tall and roughly five centimetres thick.",
+          "search": [
+            "small antique book",
+            "book"
+          ],
+          "image_prompt": "medium shot of a small thick medieval codex beside a brass ruler on a museum table, neutral grey background, soft studio light",
+          "image": -1
+        },
+        {
+          "text": "Around 240 pages survive, some unfolding into large sheets of varying sizes.",
+          "search": [
+            "unfolding old map",
+            "parchment"
+          ],
+          "image_prompt": "overhead shot of a large folded parchment sheet being opened out from a small medieval book, circular painted diagrams, gloved hands",
+          "image": -1
+        },
+        {
+          "text": "Gaps in the old page numbering show that at least twenty-eight pages have gone missing.",
+          "search": [
+            "old book binding",
+            "binding"
+          ],
+          "image_prompt": "close-up of the edge of a medieval book's binding with a visible gap where leaves were cut away, loose threads, low light",
+          "image": -1
+        },
+        {
+          "text": "In 2009, scientists at the University of Arizona carbon-dated its vellum to between 1404 and 1438.",
+          "search": [
+            "laboratory sample analysis",
+            "laboratory"
+          ],
+          "image_prompt": "laboratory bench with a tiny parchment sample in a glass dish beside scientific equipment, white coat sleeve, cool clinical light",
+          "image": -1
+        },
+        {
+          "text": "The parchment came from at least fourteen or fifteen whole calfskins, never written on before.",
+          "search": [
+            "parchment making",
+            "calfskin"
+          ],
+          "image_prompt": "medieval parchment maker's workshop, stretched calfskins drying on wooden frames, morning light through a small window",
+          "image": -1
+        },
+        {
+          "text": "Its colours were cheap ones: ground azurite blue, red ochre, and a green made from copper.",
+          "search": [
+            "pigment powder",
+            "pigment"
+          ],
+          "image_prompt": "close-up of small piles of blue azurite powder, red ochre and green pigment on a wooden board beside a medieval brush and shells",
+          "image": -1
+        },
+        {
+          "text": "There is no gold leaf, nothing luxurious, and the pages are soft from heavy handling.",
+          "search": [
+            "worn parchment edge",
+            "page"
+          ],
+          "image_prompt": "extreme close-up of a thumb-worn soft parchment corner with small holes and stains, crude green and blue paint nearby",
+          "image": -1
+        },
+        {
+          "text": "One medievalist reads that softness as a sign of a working book, consulted often, perhaps like a medical manual.",
+          "search": [
+            "medieval apothecary",
+            "herbs"
+          ],
+          "image_prompt": "fifteenth-century apothecary's workroom, an open small book beside clay jars and dried herbs, figure seen from behind, candlelight",
+          "image": -1
+        }
+      ],
+      "narration": "The book is small, about twenty-three centimetres tall and roughly five centimetres thick. Around 240 pages survive, some unfolding into large sheets of varying sizes. Gaps in the old page numbering show that at least twenty-eight pages have gone missing. In 2009, scientists at the University of Arizona carbon-dated its vellum to between 1404 and 1438. The parchment came from at least fourteen or fifteen whole calfskins, never written on before. Its colours were cheap ones: ground azurite blue, red ochre, and a green made from copper. There is no gold leaf, nothing luxurious, and the pages are soft from heavy handling. One medievalist reads that softness as a sign of a working book, consulted often, perhaps like a medical manual."
+    },
+    {
+      "chapter": "",
+      "shots": [
+        {
+          "text": "Because no one can read the text, scholars sort the book by its pictures.",
+          "search": [
+            "manuscript illustrations",
+            "illustration"
+          ],
+          "image_prompt": "slow tracking shot across a long table of open medieval manuscript pages showing plants, star wheels and figures, dim archive",
+          "image": -1
+        },
+        {
+          "text": "The largest section, 126 pages long, shows plants, one or two to a page, beside paragraphs of writing.",
+          "search": [
+            "botanical drawing",
+            "plant"
+          ],
+          "image_prompt": "close-up of a crudely coloured hand-drawn plant with swollen roots and broad green leaves on vellum, unknown script around it",
+          "image": -1
+        },
+        {
+          "text": "Almost none can be identified, and some seem assembled from different species: roots of one, leaves of another.",
+          "search": [
+            "strange plant drawing",
+            "roots"
+          ],
+          "image_prompt": "medium close-up of a strange composite plant drawing on old parchment, mismatched roots, leaves and flower, faded paint",
+          "image": -1
+        },
+        {
+          "text": "Next come circular diagrams with suns, moons, stars and the familiar signs of the zodiac.",
+          "search": [
+            "astrological chart",
+            "zodiac"
+          ],
+          "image_prompt": "overhead shot of a hand-painted circular medieval astrological diagram on parchment with sun, moon and star symbols, candlelight",
+          "image": -1
+        },
+        {
+          "text": "Around them sit rings of small female figures, most partly nude, each seeming to hold a star.",
+          "search": [
+            "medieval star diagram",
+            "stars"
+          ],
+          "image_prompt": "close-up of concentric rings of tiny painted figures holding stars on a medieval circular diagram, faded blue and red paint",
+          "image": -1
+        },
+        {
+          "text": "In another section, small women bathe in pools and tubs joined by a strange network of pipes.",
+          "search": [
+            "medieval drawing water",
+            "pipes"
+          ],
+          "image_prompt": "detail of a medieval ink drawing of green pools and tubs connected by curving pipes, small figures in water, faded colours",
+          "image": -1
+        },
+        {
+          "text": "One six-page foldout shows nine circular rosettes linked by causeways, with what may be castles and a volcano.",
+          "search": [
+            "old map unfolding",
+            "rosettes"
+          ],
+          "image_prompt": "wide overhead shot of a huge unfolded parchment sheet covered in nine painted circular rosettes joined by paths, tiny castles",
+          "image": -1
+        },
+        {
+          "text": "Then come pages of jars and plant parts, and dense paragraphs, each marked with a small star.",
+          "search": [
+            "apothecary jars",
+            "jars"
+          ],
+          "image_prompt": "close-up of painted apothecary jars and roots drawn on vellum, followed by a margin of small ink stars beside dense text",
+          "image": -1
+        }
+      ],
+      "narration": "Because no one can read the text, scholars sort the book by its pictures. The largest section, 126 pages long, shows plants, one or two to a page, beside paragraphs of writing. Almost none can be identified, and some seem assembled from different species: roots of one, leaves of another. Next come circular diagrams with suns, moons, stars and the familiar signs of the zodiac. Around them sit rings of small female figures, most partly nude, each seeming to hold a star. In another section, small women bathe in pools and tubs joined by a strange network of pipes. One six-page foldout shows nine circular rosettes linked by causeways, with what may be castles and a volcano. Then come pages of jars and plant parts, and dense paragraphs, each marked with a small star."
+    },
+    {
+      "chapter": "The Writing",
+      "shots": [
+        {
+          "text": "The script itself runs from left to right, in smooth and unhurried strokes.",
+          "search": [
+            "quill writing",
+            "quill"
+          ],
+          "image_prompt": "macro shot of a quill pen tip writing flowing loops of unknown script on parchment, iron gall ink glistening, warm light",
+          "image": -1
+        },
+        {
+          "text": "Twenty to twenty-five characters account for almost all of it, and there is no obvious punctuation.",
+          "search": [
+            "handwritten symbols",
+            "letters"
+          ],
+          "image_prompt": "extreme close-up of repeated looping characters on vellum, no punctuation, slow focus pull, soft shadows",
+          "image": -1
+        },
+        {
+          "text": "The hand never seems to pause, as if the writer was not decoding letter by letter at all.",
+          "search": [
+            "medieval scribe writing",
+            "scribe"
+          ],
+          "image_prompt": "medium shot from behind of a fifteenth-century scribe in a dark wool robe writing steadily at a slanted desk, candlelight",
+          "image": -1
+        },
+        {
+          "text": "Yet a few words are in Latin letters, including the names of ten months, from March to December.",
+          "search": [
+            "faded handwriting",
+            "months"
+          ],
+          "image_prompt": "close-up of tiny faded handwritten Latin-style words at the edge of a circular painted diagram, unreadable at distance, raking light",
+          "image": -1
+        },
+        {
+          "text": "On the first page, a faded signature can still be made out under ultraviolet light.",
+          "search": [
+            "ultraviolet light",
+            "signature"
+          ],
+          "image_prompt": "dark room, violet ultraviolet lamp glowing over the bottom margin of an old parchment page, faint marks emerging, gloved hand",
+          "image": -1
+        },
+        {
+          "text": "And on the final page, four lines in a distorted Latin-like script make no sense in any language.",
+          "search": [
+            "last page old book",
+            "page"
+          ],
+          "image_prompt": "close-up of the last page of an old codex, a few lines of cramped faded writing at the top, mostly blank parchment, low light",
+          "image": -1
+        }
+      ],
+      "narration": "The script itself runs from left to right, in smooth and unhurried strokes. Twenty to twenty-five characters account for almost all of it, and there is no obvious punctuation. The hand never seems to pause, as if the writer was not decoding letter by letter at all. Yet a few words are in Latin letters, including the names of ten months, from March to December. On the first page, a faded signature can still be made out under ultraviolet light. And on the final page, four lines in a distorted Latin-like script make no sense in any language."
+    },
+    {
+      "chapter": "The Sphinx",
+      "shots": [
+        {
+          "text": "The first owner we can confirm was Georg Baresch, an alchemist in seventeenth-century Prague.",
+          "search": [
+            "alchemist laboratory",
+            "alchemist"
+          ],
+          "image_prompt": "seventeenth-century alchemist's study in Prague, glass flasks, furnace glow, a robed man seen from behind beside a shelf of books",
+          "image": -1
+        },
+        {
+          "text": "To Baresch it was a Sphinx, one that had been taking up space uselessly in his library for years.",
+          "search": [
+            "dusty bookshelf",
+            "shelf"
+          ],
+          "image_prompt": "close-up of a small medieval book lying sideways on a dusty seventeenth-century wooden library shelf, cobwebs, dim window light",
+          "image": -1
+        },
+        {
+          "text": "In Rome, the Jesuit scholar Athanasius Kircher claimed to have deciphered Egyptian hieroglyphs.",
+          "search": [
+            "old scholar study",
+            "hieroglyphs"
+          ],
+          "image_prompt": "seventeenth-century Roman scholar's study, papers with hieroglyph sketches, globe and books, figure in black cassock from behind",
+          "image": -1
+        },
+        {
+          "text": "So Baresch twice sent Kircher a copied sample of the script, asking for clues.",
+          "search": [
+            "wax seal letter",
+            "letter"
+          ],
+          "image_prompt": "close-up of a hand sealing a folded seventeenth-century letter with red wax, quill and copied sheets of strange script nearby",
+          "image": -1
+        },
+        {
+          "text": "His letter of 1639 is the earliest confirmed mention of the manuscript.",
+          "search": [
+            "old letter candle",
+            "letter"
+          ],
+          "image_prompt": "aged folded letter with unreadable cursive handwriting on a wooden desk, candle flickering, deep shadows",
+          "image": -1
+        },
+        {
+          "text": "Kircher, it seems, wanted the book itself, but Baresch refused to let it go.",
+          "search": [
+            "hands holding book",
+            "book"
+          ],
+          "image_prompt": "medium shot of a man's hands closing a small book and holding it against his chest, seventeenth-century sleeves, dim room",
+          "image": -1
+        },
+        {
+          "text": "When Baresch died, the book passed to his friend Jan Marek Marci, rector of Charles University in Prague.",
+          "search": [
+            "prague old town",
+            "prague"
+          ],
+          "image_prompt": "old Prague rooftops and spires at dusk in the seventeenth century, misty river, soft orange light",
+          "image": -1
+        }
+      ],
+      "narration": "The first owner we can confirm was Georg Baresch, an alchemist in seventeenth-century Prague. To Baresch it was a Sphinx, one that had been taking up space uselessly in his library for years. In Rome, the Jesuit scholar Athanasius Kircher claimed to have deciphered Egyptian hieroglyphs. So Baresch twice sent Kircher a copied sample of the script, asking for clues. His letter of 1639 is the earliest confirmed mention of the manuscript. Kircher, it seems, wanted the book itself, but Baresch refused to let it go. When Baresch died, the book passed to his friend Jan Marek Marci, rector of Charles University in Prague."
+    },
+    {
+      "chapter": "",
+      "shots": [
+        {
+          "text": "In 1665 or 1666, Marci sent the book to Kircher, with a letter still attached centuries later.",
+          "search": [
+            "old parcel letter",
+            "parcel"
+          ],
+          "image_prompt": "a small book wrapped with a folded letter tied by string, resting in a wooden travel chest, seventeenth-century, warm light",
+          "image": -1
+        },
+        {
+          "text": "Its former owner, Marci wrote, had toiled to decipher it, and gave up hope only with his life.",
+          "search": [
+            "empty desk candle",
+            "papers"
+          ],
+          "image_prompt": "empty seventeenth-century study at night, cold candle stub beside scattered papers of copied symbols and an empty chair",
+          "image": -1
+        },
+        {
+          "text": "Then Marci passed on a story he had heard from a tutor at the royal court.",
+          "search": [
+            "palace corridor",
+            "court"
+          ],
+          "image_prompt": "dim corridor of a Baroque palace, two robed figures talking quietly in the distance, candlelit sconces",
+          "image": -1
+        },
+        {
+          "text": "The book, the tutor said, had once belonged to Emperor Rudolf, who paid 600 ducats for it.",
+          "search": [
+            "gold coins",
+            "ducats"
+          ],
+          "image_prompt": "close-up of gold ducat coins spilling across a dark velvet cloth beside a small book, candlelight glinting",
+          "image": -1
+        },
+        {
+          "text": "That is roughly two kilograms of gold, for a book nobody could read.",
+          "search": [
+            "pile of gold",
+            "gold"
+          ],
+          "image_prompt": "slow push-in on a heap of old gold coins on a wooden table, small unopened book beside it, shadows",
+          "image": -1
+        },
+        {
+          "text": "The tutor believed the author was Roger Bacon, the thirteenth-century English friar.",
+          "search": [
+            "medieval monk window",
+            "friar"
+          ],
+          "image_prompt": "silhouette of a medieval friar in a hooded robe at a window with scientific instruments, thirteenth-century monastery, dusk",
+          "image": -1
+        },
+        {
+          "text": "Marci was careful, and on this point, he wrote, he would suspend judgement.",
+          "search": [
+            "quill set down",
+            "quill"
+          ],
+          "image_prompt": "close-up of a quill being set down beside a finished letter, ink drying, seventeenth-century desk, candle light",
+          "image": -1
+        }
+      ],
+      "narration": "In 1665 or 1666, Marci sent the book to Kircher, with a letter still attached centuries later. Its former owner, Marci wrote, had toiled to decipher it, and gave up hope only with his life. Then Marci passed on a story he had heard from a tutor at the royal court. The book, the tutor said, had once belonged to Emperor Rudolf, who paid 600 ducats for it. That is roughly two kilograms of gold, for a book nobody could read. The tutor believed the author was Roger Bacon, the thirteenth-century English friar. Marci was careful, and on this point, he wrote, he would suspend judgement."
+    },
+    {
+      "chapter": "",
+      "shots": [
+        {
+          "text": "After that, no record of the book has been found for around two hundred years.",
+          "search": [
+            "old library corridor",
+            "library"
+          ],
+          "image_prompt": "long dark corridor of an old Jesuit library, endless shelves, dust in a beam of light, nobody present",
+          "image": -1
+        },
+        {
+          "text": "It most likely sat among Kircher's letters in the library of the Collegio Romano.",
+          "search": [
+            "bundled letters",
+            "archive"
+          ],
+          "image_prompt": "stacks of bundled old letters and books on high wooden shelves in a Roman college library, faded light",
+          "image": -1
+        },
+        {
+          "text": "In 1870, Italian troops captured Rome, and the new government began seizing Church property.",
+          "search": [
+            "soldiers marching",
+            "rome"
+          ],
+          "image_prompt": "nineteenth-century soldiers in Italian uniforms marching through a Roman street at dawn, wide shot, smoke and dust",
+          "image": -1
+        },
+        {
+          "text": "Many books were hastily moved into the private libraries of the college's staff, beyond the reach of confiscation.",
+          "search": [
+            "carrying books lantern",
+            "books"
+          ],
+          "image_prompt": "night, figures in black cassocks carrying crates of books down a stone staircase by lantern light, seen from behind",
+          "image": -1
+        },
+        {
+          "text": "The manuscript still bears the bookplate of Petrus Beckx, then head of the Jesuit order.",
+          "search": [
+            "old bookplate",
+            "bookplate"
+          ],
+          "image_prompt": "close-up of an old bookplate pasted inside a goatskin cover, decorative border, no readable words, soft light",
+          "image": -1
+        },
+        {
+          "text": "His library was moved to the Villa Mondragone, a large country palace near Rome.",
+          "search": [
+            "italian villa",
+            "villa"
+          ],
+          "image_prompt": "wide shot of a grand Italian country villa on a hillside near Rome at golden hour, cypress trees, nineteenth century",
+          "image": -1
+        }
+      ],
+      "narration": "After that, no record of the book has been found for around two hundred years. It most likely sat among Kircher's letters in the library of the Collegio Romano. In 1870, Italian troops captured Rome, and the new government began seizing Church property. Many books were hastily moved into the private libraries of the college's staff, beyond the reach of confiscation. The manuscript still bears the bookplate of Petrus Beckx, then head of the Jesuit order. His library was moved to the Villa Mondragone, a large country palace near Rome."
+    },
+    {
+      "chapter": "The Book Dealer",
+      "shots": [
+        {
+          "text": "Short of money, the Jesuits decided to sell some of their manuscripts, and in 1912 the sale went ahead.",
+          "search": [
+            "antique manuscripts table",
+            "manuscripts"
+          ],
+          "image_prompt": "medium shot of old manuscripts laid out on a long table in a palace room, a buyer's hands turning pages, 1910s, window light",
+          "image": 7
+        },
+        {
+          "text": "A Polish book dealer named Wilfrid Voynich bought thirty of them, and one would come to carry his name.",
+          "search": [
+            "antique book dealer",
+            "dealer"
+          ],
+          "image_prompt": "1910s antiquarian book dealer seen from behind in a dark suit, holding a small old codex up to window light",
+          "image": 6
+        },
+        {
+          "text": "He spent the next seven years trying to interest scholars in deciphering its script.",
+          "search": [
+            "vintage photographs desk",
+            "photographs"
+          ],
+          "image_prompt": "1910s study with photographs of manuscript pages spread on a desk, magnifying glass, letters and envelopes, lamp light",
+          "image": -1
+        },
+        {
+          "text": "He took the Roger Bacon story seriously, and did his best to confirm it.",
+          "search": [
+            "reading old book",
+            "research"
+          ],
+          "image_prompt": "close-up of a 1910s hand underlining text in an old reference book with a pencil, piles of books, dim lamp",
+          "image": -1
+        },
+        {
+          "text": "When he died in 1930, the book passed to his widow Ethel, a novelist and daughter of mathematician George Boole.",
+          "search": [
+            "typewriter desk",
+            "typewriter"
+          ],
+          "image_prompt": "1930s writing desk with a typewriter and manuscript pages, a small old codex beside them, autumn window light",
+          "image": -1
+        },
+        {
+          "text": "After her death in 1960, it went to her friend Anne Nill, who sold it to dealer Hans Kraus in 1961.",
+          "search": [
+            "rare book shop",
+            "bookshop"
+          ],
+          "image_prompt": "early 1960s rare book shop interior, glass cases of antique books, quiet afternoon light, empty",
+          "image": -1
+        },
+        {
+          "text": "Kraus could not find a buyer, so in 1969 he gave it to Yale, where it became MS 408.",
+          "search": [
+            "archive storage box",
+            "archive"
+          ],
+          "image_prompt": "archival storage box being slid onto a shelf in a modern rare book vault, white gloves, cool light",
+          "image": -1
+        }
+      ],
+      "narration": "Short of money, the Jesuits decided to sell some of their manuscripts, and in 1912 the sale went ahead. A Polish book dealer named Wilfrid Voynich bought thirty of them, and one would come to carry his name. He spent the next seven years trying to interest scholars in deciphering its script. He took the Roger Bacon story seriously, and did his best to confirm it. When he died in 1930, the book passed to his widow Ethel, a novelist and daughter of mathematician George Boole. After her death in 1960, it went to her friend Anne Nill, who sold it to dealer Hans Kraus in 1961. Kraus could not find a buyer, so in 1969 he gave it to Yale, where it became MS 408."
+    },
+    {
+      "chapter": "The Codebreakers",
+      "shots": [
+        {
+          "text": "The twentieth century brought some of its best codebreakers to the problem.",
+          "search": [
+            "vintage office workers",
+            "cryptography"
+          ],
+          "image_prompt": "1940s cryptography office, rows of desks with papers and slide rules, figures bent over work from behind, overhead lamps",
+          "image": -1
+        },
+        {
+          "text": "In the 1940s, William Friedman's study group copied every line of the manuscript onto IBM punch cards.",
+          "search": [
+            "punch cards",
+            "punchcard"
+          ],
+          "image_prompt": "close-up of a stack of 1940s IBM punch cards being fed into a tabulating machine, mechanical whirr, harsh light",
+          "image": 5
+        },
+        {
+          "text": "William Friedman, Elizebeth Friedman, John Tiltman and Prescott Currier all studied it, and none succeeded.",
+          "search": [
+            "old papers desk",
+            "papers"
+          ],
+          "image_prompt": "1940s desk covered in handwritten frequency tables and photostat pages of strange script, empty chair, lamp still on",
+          "image": -1
+        },
+        {
+          "text": "In 1962, Elizebeth Friedman called such statistical analyses doomed to utter frustration.",
+          "search": [
+            "crossed out notes",
+            "pencil"
+          ],
+          "image_prompt": "close-up of a pencil lying across a page of crossed-out tally marks and counts, 1960s desk, lamp light",
+          "image": -1
+        },
+        {
+          "text": "The trouble is that the text behaves both like a language and unlike one.",
+          "search": [
+            "manuscript shadow",
+            "page"
+          ],
+          "image_prompt": "split light on an old manuscript page, half in warm light half in shadow, unknown script, slow push-in",
+          "image": -1
+        },
+        {
+          "text": "Its word frequencies follow Zipf's law, a pattern found in real human languages.",
+          "search": [
+            "bar chart data",
+            "chart"
+          ],
+          "image_prompt": "dark screen showing a smooth descending bar chart of word frequencies, glowing blue, abstract data graphic, no text",
+          "image": -1
+        },
+        {
+          "text": "And, like the chapters of an ordinary book, its different sections favour different words.",
+          "search": [
+            "flipping book pages",
+            "pages"
+          ],
+          "image_prompt": "close-up of page tabs in an old book separating sections, fingers flicking between plant pages and star pages",
+          "image": -1
+        },
+        {
+          "text": "But its letters are far more predictable than in any known language, and words repeat up to five times in a row.",
+          "search": [
+            "repeating pattern",
+            "words"
+          ],
+          "image_prompt": "macro shot of the same looping word written several times in a row on vellum, faded ink, shallow focus",
+          "image": -1
+        }
+      ],
+      "narration": "The twentieth century brought some of its best codebreakers to the problem. In the 1940s, William Friedman's study group copied every line of the manuscript onto IBM punch cards. William Friedman, Elizebeth Friedman, John Tiltman and Prescott Currier all studied it, and none succeeded. In 1962, Elizebeth Friedman called such statistical analyses doomed to utter frustration. The trouble is that the text behaves both like a language and unlike one. Its word frequencies follow Zipf's law, a pattern found in real human languages. And, like the chapters of an ordinary book, its different sections favour different words. But its letters are far more predictable than in any known language, and words repeat up to five times in a row."
+    },
+    {
+      "chapter": "",
+      "shots": [
+        {
+          "text": "Some letters only ever begin a word, and others only ever end one.",
+          "search": [
+            "handwriting detail",
+            "letters"
+          ],
+          "image_prompt": "extreme close-up of the first and last characters of handwritten words on parchment, focus shifting between them",
+          "image": -1
+        },
+        {
+          "text": "A medievalist studying the handwriting found small differences between sections, but not within them.",
+          "search": [
+            "magnifying glass manuscript",
+            "magnifier"
+          ],
+          "image_prompt": "gloved hand holding a magnifying glass over looping ink letters on old vellum, soft focus, archive light",
+          "image": -1
+        },
+        {
+          "text": "She believes five different scribes worked on the book.",
+          "search": [
+            "medieval scriptorium",
+            "scriptorium"
+          ],
+          "image_prompt": "five empty medieval scribe desks in a row in a stone room, each with a quill and inkpot, candlelight",
+          "image": -1
+        },
+        {
+          "text": "If she is right, it was the work of a community, not one lonely mind.",
+          "search": [
+            "medieval monks writing",
+            "community"
+          ],
+          "image_prompt": "wide shot of a candlelit fifteenth-century room with several robed figures writing at desks, seen from behind, warm haze",
+          "image": -1
+        }
+      ],
+      "narration": "Some letters only ever begin a word, and others only ever end one. A medievalist studying the handwriting found small differences between sections, but not within them. She believes five different scribes worked on the book. If she is right, it was the work of a community, not one lonely mind."
+    },
+    {
+      "chapter": "The Theories",
+      "shots": [
+        {
+          "text": "So what is it? There are many theories, and none has been proven.",
+          "search": [
+            "open book darkness",
+            "book"
+          ],
+          "image_prompt": "close-up of a small medieval book lying open in the dark, a single beam of light falling on unreadable script",
+          "image": -1
+        },
+        {
+          "text": "One theory says it is a cipher, a real European language hidden behind invented letters.",
+          "search": [
+            "cipher wheel",
+            "cipher"
+          ],
+          "image_prompt": "close-up of an old brass cipher disk on a wooden desk beside a parchment page of strange symbols, candlelight",
+          "image": -1
+        },
+        {
+          "text": "But almost all ciphers known from that era produce text that looks nothing like this.",
+          "search": [
+            "old cipher tables",
+            "code"
+          ],
+          "image_prompt": "old cipher tables on yellowed paper spread beside an unknown script page, comparison, dim light",
+          "image": -1
+        },
+        {
+          "text": "In 2025, one researcher showed a cipher possible with fifteenth-century tools could produce similar text, but only as a proof of concept.",
+          "search": [
+            "dice and cards",
+            "dice"
+          ],
+          "image_prompt": "modern desk with playing-card-like paper slips, dice and a page of handwritten strange script, daylight, hands from above",
+          "image": -1
+        },
+        {
+          "text": "Another theory says it is a natural language, written plainly in an alphabet invented for it.",
+          "search": [
+            "old travel journal",
+            "journal"
+          ],
+          "image_prompt": "medieval traveller's journal open on a rough table, unknown alphabet script, ink pot, quiet inn interior, candlelight",
+          "image": -1
+        },
+        {
+          "text": "Others suggest a constructed language, an idea William Friedman himself came to suspect.",
+          "search": [
+            "index cards wall",
+            "cards"
+          ],
+          "image_prompt": "1950s study, a man seen from behind looking at a wall of pinned index cards with symbols, cigarette smoke, lamp",
+          "image": -1
+        },
+        {
+          "text": "Authors have been proposed from Roger Bacon and John Dee to an Italian engineer, and even Voynich himself.",
+          "search": [
+            "portrait gallery dark",
+            "portraits"
+          ],
+          "image_prompt": "row of shadowy portraits in heavy gilt frames hanging in a dim gallery, faces lost in darkness",
+          "image": 4
+        },
+        {
+          "text": "But the carbon date makes a modern forgery hard to believe, and Bacon lived long before the vellum was made.",
+          "search": [
+            "laboratory equipment",
+            "science"
+          ],
+          "image_prompt": "close-up of a radiocarbon lab readout screen glowing beside a tiny parchment fragment in a sealed bag, no text",
+          "image": -1
+        }
+      ],
+      "narration": "So what is it? There are many theories, and none has been proven. One theory says it is a cipher, a real European language hidden behind invented letters. But almost all ciphers known from that era produce text that looks nothing like this. In 2025, one researcher showed a cipher possible with fifteenth-century tools could produce similar text, but only as a proof of concept. Another theory says it is a natural language, written plainly in an alphabet invented for it. Others suggest a constructed language, an idea William Friedman himself came to suspect. Authors have been proposed from Roger Bacon and John Dee to an Italian engineer, and even Voynich himself. But the carbon date makes a modern forgery hard to believe, and Bacon lived long before the vellum was made."
+    },
+    {
+      "chapter": "",
+      "shots": [
+        {
+          "text": "And then there is the simplest possibility, that the text means nothing at all.",
+          "search": [
+            "blank parchment",
+            "parchment"
+          ],
+          "image_prompt": "slow push-in on a blank stretch of parchment between lines of unknown writing, dust motes, deep shadow",
+          "image": -1
+        },
+        {
+          "text": "In 2003, computer scientist Gordon Rugg showed similar text could be made with a table of word parts and a card grille.",
+          "search": [
+            "paper grille",
+            "grille"
+          ],
+          "image_prompt": "overhead shot of a paper card with cut-out holes laid over a grid of handwritten syllables on parchment, desk lamp",
+          "image": -1
+        },
+        {
+          "text": "Others found clusters of meaning that, they argue, a medieval hoaxer would never have known to fake.",
+          "search": [
+            "network graph",
+            "network"
+          ],
+          "image_prompt": "abstract glowing network graph of connected word nodes on a dark screen, clusters forming, blue light, no text",
+          "image": -1
+        },
+        {
+          "text": "Then, in 2022, researchers at Yale asked people to write deliberate nonsense by hand.",
+          "search": [
+            "people writing table",
+            "writing"
+          ],
+          "image_prompt": "modern university room, several people seen from behind writing invented symbols on paper at a long table, daylight",
+          "image": -1
+        },
+        {
+          "text": "Their gibberish turned out to share many of the manuscript's strange statistical habits.",
+          "search": [
+            "handwritten pages",
+            "comparison"
+          ],
+          "image_prompt": "side-by-side sheets of modern handwritten nonsense script and a medieval vellum page on a table, overhead view",
+          "image": 3
+        },
+        {
+          "text": "Many people have also claimed to have read it, but none of their readings has been independently verified.",
+          "search": [
+            "crumpled papers",
+            "papers"
+          ],
+          "image_prompt": "pile of discarded typed and handwritten translation attempts on a desk, crossed out lines, cold lamp light",
+          "image": -1
+        },
+        {
+          "text": "In 1921, one professor said microscopic marks inside each letter proved Bacon wrote it, but his method was later dismissed.",
+          "search": [
+            "vintage microscope",
+            "microscope"
+          ],
+          "image_prompt": "1920s brass microscope over a parchment fragment, scholar's hand adjusting the focus, dark study, single lamp",
+          "image": -1
+        },
+        {
+          "text": "Every argument has an answer, and every answer has an objection.",
+          "search": [
+            "books shadows",
+            "books"
+          ],
+          "image_prompt": "two old books facing each other on a table under crossed lamp beams, long shadows, still life",
+          "image": -1
+        }
+      ],
+      "narration": "And then there is the simplest possibility, that the text means nothing at all. In 2003, computer scientist Gordon Rugg showed similar text could be made with a table of word parts and a card grille. Others found clusters of meaning that, they argue, a medieval hoaxer would never have known to fake. Then, in 2022, researchers at Yale asked people to write deliberate nonsense by hand. Their gibberish turned out to share many of the manuscript's strange statistical habits. Many people have also claimed to have read it, but none of their readings has been independently verified. In 1921, one professor said microscopic marks inside each letter proved Bacon wrote it, but his method was later dismissed. Every argument has an answer, and every answer has an objection."
+    },
+    {
+      "chapter": "What Remains",
+      "shots": [
+        {
+          "text": "Here is what we know.",
+          "search": [
+            "museum display case",
+            "manuscript"
+          ],
+          "image_prompt": "slow wide shot of a small medieval book resting alone in a glass case in a dark gallery, single spotlight",
+          "image": -1
+        },
+        {
+          "text": "Calves were skinned in the early 1400s, and someone, perhaps several people, filled their parchment with flowing script.",
+          "search": [
+            "quills inkpot",
+            "quill"
+          ],
+          "image_prompt": "fifteenth-century candlelit room, several quills in inkpots beside a half-written parchment page of unknown script",
+          "image": -1
+        },
+        {
+          "text": "They drew plants no one can name, and women bathing in pools joined by pipes.",
+          "search": [
+            "old painted manuscript",
+            "illustration"
+          ],
+          "image_prompt": "slow pan across faded painted plants and tiny bathing figures on old vellum, warm light fading to shadow",
+          "image": -1
+        },
+        {
+          "text": "And the book was handled so often that its pages grew soft.",
+          "search": [
+            "turning old page",
+            "page"
+          ],
+          "image_prompt": "close-up of an old thumb-worn page corner curling gently as it is turned, soft parchment, warm light",
+          "image": -1
+        },
+        {
+          "text": "An alchemist, a rector, Jesuits, a book dealer and wartime codebreakers have all held it, and put it down unread.",
+          "search": [
+            "empty table chairs",
+            "table"
+          ],
+          "image_prompt": "medium shot of a closed small codex on a long empty table, a row of empty chairs, dust and late light",
+          "image": -1
+        },
+        {
+          "text": "Maybe it is a lost language, maybe a cipher, maybe a patient and beautiful nonsense.",
+          "search": [
+            "star diagram",
+            "stars"
+          ],
+          "image_prompt": "close-up of a painted circular star diagram on vellum slowly going out of focus, candle flicker",
+          "image": -1
+        },
+        {
+          "text": "Somewhere in those 38,000 words, a meaning may be waiting, or there may be nothing there at all.",
+          "search": [
+            "ancient text close up",
+            "text"
+          ],
+          "image_prompt": "macro slow drift over lines of unknown looping script on vellum, light fading to near darkness",
+          "image": -1
+        },
+        {
+          "text": "The file remains open.",
+          "search": [
+            "closing folder",
+            "file"
+          ],
+          "image_prompt": "manila case file folder slowly closing on a dark desk, lamp switching off, darkness",
+          "image": -1
+        },
+        {
+          "text": "What do you think the Voynich manuscript really is? Tell me in the comments.",
+          "search": [
+            "candle and book",
+            "candle"
+          ],
+          "image_prompt": "small medieval book on a desk beside a lit candle at night, flame steady, deep shadows, still",
+          "image": 2
+        },
+        {
+          "text": "Subscribe for more case files.",
+          "search": [
+            "stack of files",
+            "files"
+          ],
+          "image_prompt": "stack of worn manila case files on a dark desk under a single lamp, blank labels, moody",
+          "image": -1
+        }
+      ],
+      "narration": "Here is what we know. Calves were skinned in the early 1400s, and someone, perhaps several people, filled their parchment with flowing script. They drew plants no one can name, and women bathing in pools joined by pipes. And the book was handled so often that its pages grew soft. An alchemist, a rector, Jesuits, a book dealer and wartime codebreakers have all held it, and put it down unread. Maybe it is a lost language, maybe a cipher, maybe a patient and beautiful nonsense. Somewhere in those 38,000 words, a meaning may be waiting, or there may be nothing there at all. The file remains open. What do you think the Voynich manuscript really is? Tell me in the comments. Subscribe for more case files."
+    }
+  ],
+  "short": {
+    "shots": [
+      {
+        "text": "What would you do with 240 pages you could never read, not even one word?",
+        "search": [
+          "old manuscript",
+          "manuscript"
+        ],
+        "image_prompt": "close-up of gloved hands opening a small medieval vellum codex filled with unknown looping script, dim lamp",
+        "image": -1
+      },
+      {
+        "text": "This book is called the Voynich manuscript.",
+        "search": [
+          "museum book",
+          "book"
+        ],
+        "image_prompt": "medium shot of a small worn leather-bound medieval book resting in a glass case under a spotlight",
+        "image": -1
+      },
+      {
+        "text": "Its calfskin pages were carbon-dated to between 1404 and 1438.",
+        "search": [
+          "laboratory sample",
+          "lab"
+        ],
+        "image_prompt": "laboratory bench with a tiny parchment sample in a dish beside scientific equipment, cool light",
+        "image": -1
+      },
+      {
+        "text": "Every page carries writing, in a script no one has ever identified.",
+        "search": [
+          "ancient handwriting",
+          "script"
+        ],
+        "image_prompt": "macro pan across dense looping unknown handwritten symbols on aged vellum, warm light",
+        "image": -1
+      },
+      {
+        "text": "There are plants no one can name, and wheels of stars.",
+        "search": [
+          "botanical drawing",
+          "plant"
+        ],
+        "image_prompt": "close-up of a crudely painted strange plant and a circular star diagram on parchment",
+        "image": -1
+      },
+      {
+        "text": "There are small women bathing in pools joined by pipes.",
+        "search": [
+          "medieval drawing",
+          "pools"
+        ],
+        "image_prompt": "detail of a medieval drawing of green pools connected by curving pipes with small bathing figures",
+        "image": -1
+      },
+      {
+        "text": "In 1639, a Prague alchemist sent a sample to a scholar in Rome, asking for help.",
+        "search": [
+          "wax seal letter",
+          "letter"
+        ],
+        "image_prompt": "hand sealing a folded seventeenth-century letter with red wax beside copied strange script",
+        "image": -1
+      },
+      {
+        "text": "He called the book a Sphinx.",
+        "search": [
+          "dusty bookshelf",
+          "shelf"
+        ],
+        "image_prompt": "close-up of a small old book on a dusty seventeenth-century shelf, dim window light",
+        "image": -1
+      },
+      {
+        "text": "A later letter says he gave up hope only with his life.",
+        "search": [
+          "empty desk candle",
+          "papers"
+        ],
+        "image_prompt": "empty seventeenth-century study at night, cold candle stub, scattered papers of copied symbols",
+        "image": -1
+      },
+      {
+        "text": "In 1912, a book dealer named Wilfrid Voynich bought it, and it took his name.",
+        "search": [
+          "antique book dealer",
+          "dealer"
+        ],
+        "image_prompt": "1910s book dealer seen from behind holding a small codex up to window light",
+        "image": -1
+      },
+      {
+        "text": "Codebreakers from both world wars studied it.",
+        "search": [
+          "vintage office",
+          "codebreaker"
+        ],
+        "image_prompt": "1940s office, codebreaker from behind at a desk of papers under a green lamp",
+        "image": -1
+      },
+      {
+        "text": "Every one of them failed to read it.",
+        "search": [
+          "old papers desk",
+          "papers"
+        ],
+        "image_prompt": "empty 1940s desk with crossed-out frequency tables and an empty chair, lamp still on",
+        "image": -1
+      },
+      {
+        "text": "Its word patterns look like those of a real human language.",
+        "search": [
+          "bar chart",
+          "data"
+        ],
+        "image_prompt": "glowing descending bar chart of word frequencies on a dark screen, no text",
+        "image": -1
+      },
+      {
+        "text": "But its letters repeat in ways no known language does.",
+        "search": [
+          "repeating pattern",
+          "words"
+        ],
+        "image_prompt": "macro of the same looping word written several times in a row on vellum",
+        "image": -1
+      },
+      {
+        "text": "Some say it hides a cipher, some a lost language.",
+        "search": [
+          "cipher wheel",
+          "cipher"
+        ],
+        "image_prompt": "old brass cipher disk on a desk beside a parchment page of strange symbols",
+        "image": -1
+      },
+      {
+        "text": "Others call it a careful hoax that means nothing.",
+        "search": [
+          "paper grille",
+          "grille"
+        ],
+        "image_prompt": "overhead shot of a paper grille with cut-out holes over handwritten syllables",
+        "image": -1
+      },
+      {
+        "text": "Today it sits at Yale, and every page is online.",
+        "search": [
+          "rare book library",
+          "library"
+        ],
+        "image_prompt": "wide shot of a hushed rare book library at night, books behind glass, nobody present",
+        "image": -1
+      },
+      {
+        "text": "Around 38,000 words, still waiting for a reader.",
+        "search": [
+          "ancient text",
+          "text"
+        ],
+        "image_prompt": "slow drift over lines of unknown script on vellum, light fading to darkness",
+        "image": -1
+      },
+      {
+        "text": "So is there a message in those pages, or nothing at all?",
+        "search": [
+          "candle book",
+          "candle"
+        ],
+        "image_prompt": "small medieval book beside a lit candle at night, flame steady, deep shadows",
+        "image": -1
+      },
+      {
+        "text": "Tell me what you think happened.",
+        "search": [
+          "case file",
+          "file"
+        ],
+        "image_prompt": "manila case file on a dark desk under a single lamp, blank label",
+        "image": -1
+      },
+      {
+        "text": "The full case file is on StoryVaultFiles.",
+        "search": [
+          "stack of files",
+          "files"
+        ],
+        "image_prompt": "stack of worn manila case files on a dark desk, single lamp, moody",
+        "image": -1
+      }
+    ],
+    "caption": "A 600-year-old book, 240 pages, and not one word anyone can read.\nCodebreakers from both world wars tried and failed.\nCipher, lost language or hoax: what do you think it is?",
+    "narration": "What would you do with 240 pages you could never read, not even one word? This book is called the Voynich manuscript. Its calfskin pages were carbon-dated to between 1404 and 1438. Every page carries writing, in a script no one has ever identified. There are plants no one can name, and wheels of stars. There are small women bathing in pools joined by pipes. In 1639, a Prague alchemist sent a sample to a scholar in Rome, asking for help. He called the book a Sphinx. A later letter says he gave up hope only with his life. In 1912, a book dealer named Wilfrid Voynich bought it, and it took his name. Codebreakers from both world wars studied it. Every one of them failed to read it. Its word patterns look like those of a real human language. But its letters repeat in ways no known language does. Some say it hides a cipher, some a lost language. Others call it a careful hoax that means nothing. Today it sits at Yale, and every page is online. Around 38,000 words, still waiting for a reader. So is there a message in those pages, or nothing at all? Tell me what you think happened. The full case file is on StoryVaultFiles."
+  },
+  "picture_salt": ""
+}
