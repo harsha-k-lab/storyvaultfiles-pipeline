@@ -2,10 +2,13 @@ name: Voice lab
 on:
   push:
     branches: ["lab/**"]
+permissions:
+  contents: write
 jobs:
   lab:
+    if: "!contains(github.event.head_commit.message, 'lab results')"
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -14,9 +17,9 @@ jobs:
       - run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
           pip install -q -r requirements.txt
-      - run: python lab/voice_lab.py
-      - uses: actions/upload-artifact@v4
+      - run: python lab/voice_lab2.py
+      - name: Save results to this branch
         if: always()
-        with:
-          name: voice-lab
-          path: lab_out/
+        run: |
+          git config user.name "voice-lab"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f lab_out2 && git commit -qm "lab results" && git push -q
