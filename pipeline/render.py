@@ -83,16 +83,15 @@ def audio_holes(path: Path) -> list[tuple[float, float]]:
     proc = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "a:0", "-show_entries",
                            "packet=pts_time,duration_time", "-of", "csv=p=0", str(path)],
                           capture_output=True, text=True)
-    holes = []
+    packets = []
     for line in proc.stdout.split():
         parts = line.split(",")
         try:
-            at, d = float(parts[0]), float(parts[1])
+            packets.append((float(parts[0]), float(parts[1])))
         except (IndexError, ValueError):
             continue
-        if d > 0.1:
-            holes.append((round(at, 2), round(d, 2)))
-    return holes
+    # the very last packet carries the encoder's end padding, so it is often longer: skip it
+    return [(round(at, 2), round(d, 2)) for at, d in packets[:-1] if d > 0.1]
 
 
 def _check_sound(path: Path, what: str):
