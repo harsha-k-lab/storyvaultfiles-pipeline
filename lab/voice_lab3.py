@@ -13,7 +13,10 @@ summary = {}
 for name in ("short", "video"):
     subprocess.run(["gh", "release", "download", "case-002", "-p", f"{name}.mp4", "-D", "dl", "--clobber"], check=True)
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", f"dl/{name}.mp4", "-ac", "1", "-ar", "16000", f"{name}.wav"], check=True)
-    segs, _ = model.transcribe(f"{name}.wav", word_timestamps=True, vad_filter=False, beam_size=5)
+    import wave, numpy as np
+    with wave.open(f"{name}.wav") as wf:
+        audio = np.frombuffer(wf.readframes(wf.getnframes()), dtype=np.int16).astype(np.float32) / 32768.0
+    segs, _ = model.transcribe(audio, word_timestamps=True, vad_filter=False, beam_size=5)
     heard = [(w.word.strip(), round(w.start, 2), round(w.end, 2), round(w.probability, 2)) for s in segs for w in s.words]
     ref = [norm(w) for w in texts[name].split() if norm(w)]
     hyp = [norm(w[0]) for w in heard]
