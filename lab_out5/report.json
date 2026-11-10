@@ -1,0 +1,17 @@
+{
+ "ffmpeg": "ffmpeg version 8.0.1-3ubuntu2 Copyright (c) 2000-2025 the FFmpeg developers",
+ "old": {
+  "seconds_to_encode": 289.6,
+  "error": "",
+  "holes": [],
+  "decoded_audio_s": 250.01,
+  "expected_s": 250
+ },
+ "new": {
+  "seconds_to_encode": 292.2,
+  "error": "",
+  "holes": [],
+  "decoded_audio_s": 250.01,
+  "expected_s": 250
+ }
+}
