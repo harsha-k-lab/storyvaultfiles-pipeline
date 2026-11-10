@@ -1,5 +1,5 @@
 {
-  "next_case": 3,
+  "next_case": 4,
   "jobs": {
     "001": {
       "case_no": 1,
@@ -78,20 +78,48 @@
       "topic_index": 0,
       "writer": "Gemini",
       "revisions": 0
+    },
+    "003": {
+      "case_no": 3,
+      "status": "awaiting_topic",
+      "topics": [
+        {
+          "wiki_title": "Voynich manuscript",
+          "url": "https://en.wikipedia.org/wiki/Voynich_manuscript",
+          "working_title": "The Voynich Manuscript: 600 Years and No One Can Read It",
+          "hook": "A 15th-century book of strange plants, star charts and bathing women, written in a script no codebreaker, linguist or computer has ever read.",
+          "why_now": "Famous anchor case with over 315,000 Wikipedia views in 60 days and lasting search demand.",
+          "summary": ""
+        },
+        {
+          "wiki_title": "Peter Bergmann case",
+          "url": "https://en.wikipedia.org/wiki/Peter_Bergmann_case",
+          "working_title": "Peter Bergmann: The Man Who Erased Himself in Sligo",
+          "hook": "In 2009 a man checked into an Irish hotel under a false name and fake Vienna address, spent four days on CCTV quietly getting rid of his belongings, and was found dead on a beach with every label cut from his clothes.",
+          "why_now": "Lesser-known case with nearly 20,000 views in 60 days, CCTV-driven visuals, and still unidentified.",
+          "summary": ""
+        },
+        {
+          "wiki_title": "The Secret (treasure hunt)",
+          "url": "https://en.wikipedia.org/wiki/The_Secret_(treasure_hunt)",
+          "working_title": "The Secret: 12 Buried Treasures, Only 3 Ever Found",
+          "hook": "In 1982 Byron Preiss buried twelve casques across North America and hid the clues in a book of paintings and riddles; he died in 2005, and most of them are still in the ground.",
+          "why_now": "Advertiser-friendly puzzle mystery that viewers can still try to solve themselves, with over 16,000 views in 60 days.",
+          "summary": ""
+        }
+      ],
+      "created": "2026-11-10T13:16-05:00",
+      "topics_by": "Claude"
     }
   },
   "history": [],
-  "last_topics_date": "2026-11-09",
-  "delivered": [],
+  "last_topics_date": "2026-11-10",
+  "delivered": [
+    "topics-202611101815"
+  ],
   "claude_runs": {
     "date": "2026-11-10",
     "count": 1
   },
-  "active_job": "002",
-  "claude_pending": {
-    "kind": "topics",
-    "date": "2026-11-10",
-    "wish": "",
-    "at": "2026-11-10T13:15:01-05:00"
-  }
+  "active_job": "003"
 }
