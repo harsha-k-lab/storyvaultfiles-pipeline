@@ -1,0 +1,1382 @@
+[
+ {
+  "k": 0,
+  "try": 0,
+  "text": "By around 3300 BC, early forms of proto-writing began to appear at sites like Harappa.",
+  "tokens": 15,
+  "events": 15,
+  "first": 0.1,
+  "last": 6.32,
+  "dur": 7.22,
+  "energy": [
+   0.24,
+   6.37
+  ],
+  "words": [
+   [
+    "By",
+    0.1
+   ],
+   [
+    "around",
+    0.33
+   ],
+   [
+    "3300",
+    0.7
+   ],
+   [
+    "BC,",
+    1.66
+   ],
+   [
+    "sites",
+    5.15
+   ],
+   [
+    "like",
+    5.56
+   ],
+   [
+    "Harappa.",
+    5.8
+   ]
+  ],
+  "raw_heard": "By around 3300 BC, early forms of proto-writing began to appear at sites like Harappa.",
+  "trim_heard": "By around 3300 BC, early forms of proto-writing began to appear at sites like Harappa."
+ },
+ {
+  "k": 0,
+  "try": 1,
+  "text": "By around 3300 BC, early forms of proto-writing began to appear at sites like Harappa.",
+  "tokens": 15,
+  "events": 15,
+  "first": 0.1,
+  "last": 6.32,
+  "dur": 7.22,
+  "energy": [
+   0.24,
+   6.37
+  ],
+  "words": [
+   [
+    "By",
+    0.1
+   ],
+   [
+    "around",
+    0.33
+   ],
+   [
+    "3300",
+    0.7
+   ],
+   [
+    "BC,",
+    1.66
+   ],
+   [
+    "sites",
+    5.15
+   ],
+   [
+    "like",
+    5.56
+   ],
+   [
+    "Harappa.",
+    5.8
+   ]
+  ],
+  "raw_heard": "By around 3300 BC, early forms of proto-writing began to appear at sites like Harappa.",
+  "trim_heard": "By around 3300 BC, early forms of proto-writing began to appear at sites like Harappa."
+ },
+ {
+  "k": 0,
+  "try": 2,
+  "text": "By around 3300 BC, early forms of proto-writing began to appear at sites like Harappa.",
+  "tokens": 15,
+  "events": 15,
+  "first": 0.1,
+  "last": 6.32,
+  "dur": 7.22,
+  "energy": [
+   0.24,
+   6.37
+  ],
+  "words": [
+   [
+    "By",
+    0.1
+   ],
+   [
+    "around",
+    0.33
+   ],
+   [
+    "3300",
+    0.7
+   ],
+   [
+    "BC,",
+    1.66
+   ],
+   [
+    "sites",
+    5.15
+   ],
+   [
+    "like",
+    5.56
+   ],
+   [
+    "Harappa.",
+    5.8
+   ]
+  ],
+  "raw_heard": "By around 3300 BC, early forms of proto-writing began to appear at sites like Harappa.",
+  "trim_heard": "By around 3300 BC, early forms of proto-writing began to appear at sites like Harappa."
+ },
+ {
+  "k": 1,
+  "try": 0,
+  "text": "Mohenjo-daro, located in modern Sindh, Pakistan, developed into one of the earliest major urban centers in world history.",
+  "tokens": 18,
+  "events": 18,
+  "first": 0.1,
+  "last": 7.83,
+  "dur": 8.74,
+  "energy": [
+   0.24,
+   7.91
+  ],
+  "words": [
+   [
+    "Mohenjo-daro,",
+    0.1
+   ],
+   [
+    "located",
+    1.34
+   ],
+   [
+    "in",
+    1.88
+   ],
+   [
+    "modern",
+    2.01
+   ],
+   [
+    "in",
+    6.83
+   ],
+   [
+    "world",
+    7.01
+   ],
+   [
+    "history.",
+    7.34
+   ]
+  ],
+  "raw_heard": "Mohenjo-daro, located in modern Sindh, Pakistan, developed into one of the earliest major urban centers in world history.",
+  "trim_heard": "Mohenjo-Daro, located in modern Sindh, Pakistan, developed into one of the earliest major urban centers in world history."
+ },
+ {
+  "k": 1,
+  "try": 1,
+  "text": "Mohenjo-daro, located in modern Sindh, Pakistan, developed into one of the earliest major urban centers in world history.",
+  "tokens": 18,
+  "events": 18,
+  "first": 0.1,
+  "last": 7.83,
+  "dur": 8.74,
+  "energy": [
+   0.24,
+   7.91
+  ],
+  "words": [
+   [
+    "Mohenjo-daro,",
+    0.1
+   ],
+   [
+    "located",
+    1.34
+   ],
+   [
+    "in",
+    1.88
+   ],
+   [
+    "modern",
+    2.01
+   ],
+   [
+    "in",
+    6.83
+   ],
+   [
+    "world",
+    7.01
+   ],
+   [
+    "history.",
+    7.34
+   ]
+  ],
+  "raw_heard": "Mohenjo-Daro, located in modern Sindh, Pakistan, developed into one of the earliest major urban centers in world history.",
+  "trim_heard": "Mohenjo-Daro, located in modern Sindh, Pakistan, developed into one of the earliest major urban centers in world history."
+ },
+ {
+  "k": 1,
+  "try": 2,
+  "text": "Mohenjo-daro, located in modern Sindh, Pakistan, developed into one of the earliest major urban centers in world history.",
+  "tokens": 18,
+  "events": 18,
+  "first": 0.1,
+  "last": 7.83,
+  "dur": 8.74,
+  "energy": [
+   0.24,
+   7.91
+  ],
+  "words": [
+   [
+    "Mohenjo-daro,",
+    0.1
+   ],
+   [
+    "located",
+    1.34
+   ],
+   [
+    "in",
+    1.88
+   ],
+   [
+    "modern",
+    2.01
+   ],
+   [
+    "in",
+    6.83
+   ],
+   [
+    "world",
+    7.01
+   ],
+   [
+    "history.",
+    7.34
+   ]
+  ],
+  "raw_heard": "Mohenjo-Daro, located in modern Sindh, Pakistan, developed into one of the earliest major urban centers in world history.",
+  "trim_heard": "Mohenjo-Daro, located in modern Sindh, Pakistan, developed into one of the earliest major urban centers in world history."
+ },
+ {
+  "k": 2,
+  "try": 0,
+  "text": "Beyond the famous urban centers lay dozens of towns scattered across desert margins and trade routes.",
+  "tokens": 16,
+  "events": 16,
+  "first": 0.1,
+  "last": 5.41,
+  "dur": 6.31,
+  "energy": [
+   0.27,
+   5.44
+  ],
+  "words": [
+   [
+    "Beyond",
+    0.1
+   ],
+   [
+    "the",
+    0.52
+   ],
+   [
+    "famous",
+    0.61
+   ],
+   [
+    "urban",
+    1.05
+   ],
+   [
+    "and",
+    4.46
+   ],
+   [
+    "trade",
+    4.59
+   ],
+   [
+    "routes.",
+    4.92
+   ]
+  ],
+  "raw_heard": "Beyond the famous urban centres lay dozens of towns scattered across desert margins and trade routes.",
+  "trim_heard": "Beyond the famous urban centers lay dozens of towns scattered across desert margins and trade routes."
+ },
+ {
+  "k": 2,
+  "try": 1,
+  "text": "Beyond the famous urban centers lay dozens of towns scattered across desert margins and trade routes.",
+  "tokens": 16,
+  "events": 16,
+  "first": 0.1,
+  "last": 5.41,
+  "dur": 6.31,
+  "energy": [
+   0.27,
+   5.44
+  ],
+  "words": [
+   [
+    "Beyond",
+    0.1
+   ],
+   [
+    "the",
+    0.52
+   ],
+   [
+    "famous",
+    0.61
+   ],
+   [
+    "urban",
+    1.05
+   ],
+   [
+    "and",
+    4.46
+   ],
+   [
+    "trade",
+    4.59
+   ],
+   [
+    "routes.",
+    4.92
+   ]
+  ],
+  "raw_heard": "Beyond the famous urban centres lay dozens of towns scattered across desert margins and trade routes.",
+  "trim_heard": "Beyond the famous urban centers lay dozens of towns scattered across desert margins and trade routes."
+ },
+ {
+  "k": 2,
+  "try": 2,
+  "text": "Beyond the famous urban centers lay dozens of towns scattered across desert margins and trade routes.",
+  "tokens": 16,
+  "events": 16,
+  "first": 0.1,
+  "last": 5.41,
+  "dur": 6.31,
+  "energy": [
+   0.27,
+   5.44
+  ],
+  "words": [
+   [
+    "Beyond",
+    0.1
+   ],
+   [
+    "the",
+    0.52
+   ],
+   [
+    "famous",
+    0.61
+   ],
+   [
+    "urban",
+    1.05
+   ],
+   [
+    "and",
+    4.46
+   ],
+   [
+    "trade",
+    4.59
+   ],
+   [
+    "routes.",
+    4.92
+   ]
+  ],
+  "raw_heard": "Beyond the famous urban centres lay dozens of towns scattered across desert margins and trade routes.",
+  "trim_heard": "Beyond the famous urban centers lay dozens of towns scattered across desert margins and trade routes."
+ },
+ {
+  "k": 3,
+  "try": 0,
+  "text": "In the Cholistan Desert of Punjab, Pakistan, the large town of Ganweriwal remains completely unexcavated.",
+  "tokens": 15,
+  "events": 15,
+  "first": 0.1,
+  "last": 6.47,
+  "dur": 7.37,
+  "energy": [
+   0.23,
+   6.49
+  ],
+  "words": [
+   [
+    "In",
+    0.1
+   ],
+   [
+    "the",
+    0.28
+   ],
+   [
+    "Cholistan",
+    0.37
+   ],
+   [
+    "Desert",
+    0.86
+   ],
+   [
+    "remains",
+    4.55
+   ],
+   [
+    "completely",
+    5.01
+   ],
+   [
+    "unexcavated.",
+    5.53
+   ]
+  ],
+  "raw_heard": "In the Coluston desert of Punjab, Pakistan, the large town of Ganwariwal remains completely unexcavated.",
+  "trim_heard": "In the Coluston desert of Punjab, Pakistan, the large town of Ganwariwal remains completely unexcavated."
+ },
+ {
+  "k": 3,
+  "try": 1,
+  "text": "In the Cholistan Desert of Punjab, Pakistan, the large town of Ganweriwal remains completely unexcavated.",
+  "tokens": 15,
+  "events": 15,
+  "first": 0.1,
+  "last": 6.47,
+  "dur": 7.37,
+  "energy": [
+   0.23,
+   6.49
+  ],
+  "words": [
+   [
+    "In",
+    0.1
+   ],
+   [
+    "the",
+    0.28
+   ],
+   [
+    "Cholistan",
+    0.37
+   ],
+   [
+    "Desert",
+    0.86
+   ],
+   [
+    "remains",
+    4.55
+   ],
+   [
+    "completely",
+    5.01
+   ],
+   [
+    "unexcavated.",
+    5.53
+   ]
+  ],
+  "raw_heard": "In the Coluston desert of Punjab, Pakistan, the large town of Ganwariwal remains completely unexcavated.",
+  "trim_heard": "In the Coluston desert of Punjab, Pakistan, the large town of Ganwariwal remains completely unexcavated."
+ },
+ {
+  "k": 3,
+  "try": 2,
+  "text": "In the Cholistan Desert of Punjab, Pakistan, the large town of Ganweriwal remains completely unexcavated.",
+  "tokens": 15,
+  "events": 15,
+  "first": 0.1,
+  "last": 6.47,
+  "dur": 7.37,
+  "energy": [
+   0.23,
+   6.49
+  ],
+  "words": [
+   [
+    "In",
+    0.1
+   ],
+   [
+    "the",
+    0.28
+   ],
+   [
+    "Cholistan",
+    0.37
+   ],
+   [
+    "Desert",
+    0.86
+   ],
+   [
+    "remains",
+    4.55
+   ],
+   [
+    "completely",
+    5.01
+   ],
+   [
+    "unexcavated.",
+    5.53
+   ]
+  ],
+  "raw_heard": "In the Coluston desert of Punjab, Pakistan, the large town of Ganwariwal remains completely unexcavated.",
+  "trim_heard": "In the Coluston desert of Punjab, Pakistan, the large town of Ganweriwal remains completely unexcavated."
+ },
+ {
+  "k": 4,
+  "try": 0,
+  "text": "In Sindh, settlements like Chanhudaro and Kot Diji yielded specialized craft workshops and early defensive walls.",
+  "tokens": 16,
+  "events": 16,
+  "first": 0.1,
+  "last": 6.87,
+  "dur": 7.78,
+  "energy": [
+   0.24,
+   6.88
+  ],
+  "words": [
+   [
+    "In",
+    0.1
+   ],
+   [
+    "Sindh,",
+    0.35
+   ],
+   [
+    "settlements",
+    0.96
+   ],
+   [
+    "like",
+    1.49
+   ],
+   [
+    "early",
+    5.56
+   ],
+   [
+    "defensive",
+    5.8
+   ],
+   [
+    "walls.",
+    6.32
+   ]
+  ],
+  "raw_heard": "In Sindh, settlements like Chanhudaro and Kotdiji yielded specialised craft workshops and early defensive walls.",
+  "trim_heard": "In Sindh, settlements like Chanhudaro and Kotdiji yielded specialized craft workshops and early defensive walls."
+ },
+ {
+  "k": 4,
+  "try": 1,
+  "text": "In Sindh, settlements like Chanhudaro and Kot Diji yielded specialized craft workshops and early defensive walls.",
+  "tokens": 16,
+  "events": 16,
+  "first": 0.1,
+  "last": 6.87,
+  "dur": 7.78,
+  "energy": [
+   0.24,
+   6.88
+  ],
+  "words": [
+   [
+    "In",
+    0.1
+   ],
+   [
+    "Sindh,",
+    0.35
+   ],
+   [
+    "settlements",
+    0.96
+   ],
+   [
+    "like",
+    1.49
+   ],
+   [
+    "early",
+    5.56
+   ],
+   [
+    "defensive",
+    5.8
+   ],
+   [
+    "walls.",
+    6.32
+   ]
+  ],
+  "raw_heard": "In Sindh, settlements like Chanhudaro and Kotdiji yielded specialised craft workshops and early defensive walls.",
+  "trim_heard": "In Sindh, settlements like Chanhudaro and Kotdiji yielded specialized craft workshops and early defensive walls."
+ },
+ {
+  "k": 4,
+  "try": 2,
+  "text": "In Sindh, settlements like Chanhudaro and Kot Diji yielded specialized craft workshops and early defensive walls.",
+  "tokens": 16,
+  "events": 16,
+  "first": 0.1,
+  "last": 6.87,
+  "dur": 7.78,
+  "energy": [
+   0.24,
+   6.88
+  ],
+  "words": [
+   [
+    "In",
+    0.1
+   ],
+   [
+    "Sindh,",
+    0.35
+   ],
+   [
+    "settlements",
+    0.96
+   ],
+   [
+    "like",
+    1.49
+   ],
+   [
+    "early",
+    5.56
+   ],
+   [
+    "defensive",
+    5.8
+   ],
+   [
+    "walls.",
+    6.32
+   ]
+  ],
+  "raw_heard": "In Sindh, settlements like Chanhudaro and Kotdiji yielded specialised craft workshops and early defensive walls.",
+  "trim_heard": "In Sindh, settlements like Chanhudaro and Kotdiji yielded specialized craft workshops and early defensive walls."
+ },
+ {
+  "k": 5,
+  "try": 0,
+  "text": "Near the Dasht River, the small coastal outpost of Sutkagan Dor marked the far western border of the culture.",
+  "tokens": 19,
+  "events": 19,
+  "first": 0.1,
+  "last": 5.79,
+  "dur": 6.7,
+  "energy": [
+   0.23,
+   5.82
+  ],
+  "words": [
+   [
+    "Near",
+    0.1
+   ],
+   [
+    "the",
+    0.39
+   ],
+   [
+    "Dasht",
+    0.5
+   ],
+   [
+    "River,",
+    0.87
+   ],
+   [
+    "of",
+    5.1
+   ],
+   [
+    "the",
+    5.18
+   ],
+   [
+    "culture.",
+    5.26
+   ]
+  ],
+  "raw_heard": "Near the Dast River, the small coastal outpost of Sukagundur marked the far western border of the culture.",
+  "trim_heard": "Near the dashed river, the small coastal outpost of Sukagundur marked the far western border of the culture."
+ },
+ {
+  "k": 5,
+  "try": 1,
+  "text": "Near the Dasht River, the small coastal outpost of Sutkagan Dor marked the far western border of the culture.",
+  "tokens": 19,
+  "events": 19,
+  "first": 0.1,
+  "last": 5.79,
+  "dur": 6.7,
+  "energy": [
+   0.23,
+   5.82
+  ],
+  "words": [
+   [
+    "Near",
+    0.1
+   ],
+   [
+    "the",
+    0.39
+   ],
+   [
+    "Dasht",
+    0.5
+   ],
+   [
+    "River,",
+    0.87
+   ],
+   [
+    "of",
+    5.1
+   ],
+   [
+    "the",
+    5.18
+   ],
+   [
+    "culture.",
+    5.26
+   ]
+  ],
+  "raw_heard": "Near the Dast River, the small coastal outpost of Sukagundur marked the far western border of the culture.",
+  "trim_heard": "Near the dashed river, the small coastal outpost of Sukagundur marked the far western border of the culture."
+ },
+ {
+  "k": 5,
+  "try": 2,
+  "text": "Near the Dasht River, the small coastal outpost of Sutkagan Dor marked the far western border of the culture.",
+  "tokens": 19,
+  "events": 19,
+  "first": 0.1,
+  "last": 5.79,
+  "dur": 6.7,
+  "energy": [
+   0.23,
+   5.82
+  ],
+  "words": [
+   [
+    "Near",
+    0.1
+   ],
+   [
+    "the",
+    0.39
+   ],
+   [
+    "Dasht",
+    0.5
+   ],
+   [
+    "River,",
+    0.87
+   ],
+   [
+    "of",
+    5.1
+   ],
+   [
+    "the",
+    5.18
+   ],
+   [
+    "culture.",
+    5.26
+   ]
+  ],
+  "raw_heard": "Near the Dast River, the small coastal outpost of Sukagundur marked the far western border of the culture.",
+  "trim_heard": "Near the Dast River, the small coastal outpost of Sukagundur marked the far western border of the culture."
+ },
+ {
+  "k": 6,
+  "try": 0,
+  "text": "The Indo-Gangetic Plain is recognized as one of Earth's six independent cradles of human civilization.",
+  "tokens": 15,
+  "events": 15,
+  "first": 0.1,
+  "last": 5.86,
+  "dur": 6.77,
+  "energy": [
+   0.23,
+   5.89
+  ],
+  "words": [
+   [
+    "The",
+    0.1
+   ],
+   [
+    "Indo-Gangetic",
+    0.26
+   ],
+   [
+    "Plain",
+    1.17
+   ],
+   [
+    "is",
+    1.51
+   ],
+   [
+    "of",
+    4.49
+   ],
+   [
+    "human",
+    4.58
+   ],
+   [
+    "civilization.",
+    4.96
+   ]
+  ],
+  "raw_heard": "The Indo-Gangetic plane is recognized as one of Earth's six independent cradles of human civilization.",
+  "trim_heard": "The Indo-Gangetic plane is recognized as one of Earth's six independent cradles of human civilization."
+ },
+ {
+  "k": 6,
+  "try": 1,
+  "text": "The Indo-Gangetic Plain is recognized as one of Earth's six independent cradles of human civilization.",
+  "tokens": 15,
+  "events": 15,
+  "first": 0.1,
+  "last": 5.86,
+  "dur": 6.77,
+  "energy": [
+   0.23,
+   5.89
+  ],
+  "words": [
+   [
+    "The",
+    0.1
+   ],
+   [
+    "Indo-Gangetic",
+    0.26
+   ],
+   [
+    "Plain",
+    1.17
+   ],
+   [
+    "is",
+    1.51
+   ],
+   [
+    "of",
+    4.49
+   ],
+   [
+    "human",
+    4.58
+   ],
+   [
+    "civilization.",
+    4.96
+   ]
+  ],
+  "raw_heard": "The Indo-Gangetic plane is recognized as one of Earth's six independent cradles of human civilization.",
+  "trim_heard": "The Indo-Gangetic plane is recognized as one of Earth's six independent cradles of human civilization."
+ },
+ {
+  "k": 6,
+  "try": 2,
+  "text": "The Indo-Gangetic Plain is recognized as one of Earth's six independent cradles of human civilization.",
+  "tokens": 15,
+  "events": 15,
+  "first": 0.1,
+  "last": 5.86,
+  "dur": 6.77,
+  "energy": [
+   0.23,
+   5.89
+  ],
+  "words": [
+   [
+    "The",
+    0.1
+   ],
+   [
+    "Indo-Gangetic",
+    0.26
+   ],
+   [
+    "Plain",
+    1.17
+   ],
+   [
+    "is",
+    1.51
+   ],
+   [
+    "of",
+    4.49
+   ],
+   [
+    "human",
+    4.58
+   ],
+   [
+    "civilization.",
+    4.96
+   ]
+  ],
+  "raw_heard": "The Indo-Gangetic plane is recognized as one of Earth's six independent cradles of human civilization.",
+  "trim_heard": "The Indo-Gangetic plane is recognized as one of Earth's six independent cradles of human civilization."
+ },
+ {
+  "k": 7,
+  "try": 0,
+  "text": "Around 3300 BC, early proto-writing emerged at sites like Harappa in the Indus Valley.",
+  "tokens": 14,
+  "events": 14,
+  "first": 0.1,
+  "last": 5.91,
+  "dur": 6.82,
+  "energy": [
+   0.23,
+   6.0
+  ],
+  "words": [
+   [
+    "Around",
+    0.1
+   ],
+   [
+    "3300",
+    0.56
+   ],
+   [
+    "BC,",
+    1.52
+   ],
+   [
+    "early",
+    2.39
+   ],
+   [
+    "the",
+    5.14
+   ],
+   [
+    "Indus",
+    5.24
+   ],
+   [
+    "Valley.",
+    5.57
+   ]
+  ],
+  "raw_heard": "Around 3300 BC, early proto-writing emerged at sites like Harappa in the Indus Valley.",
+  "trim_heard": "Around 3300 BC, early proto-writing emerged at sites like Harappa in the Indus Valley."
+ },
+ {
+  "k": 7,
+  "try": 1,
+  "text": "Around 3300 BC, early proto-writing emerged at sites like Harappa in the Indus Valley.",
+  "tokens": 14,
+  "events": 14,
+  "first": 0.1,
+  "last": 5.91,
+  "dur": 6.82,
+  "energy": [
+   0.23,
+   6.0
+  ],
+  "words": [
+   [
+    "Around",
+    0.1
+   ],
+   [
+    "3300",
+    0.56
+   ],
+   [
+    "BC,",
+    1.52
+   ],
+   [
+    "early",
+    2.39
+   ],
+   [
+    "the",
+    5.14
+   ],
+   [
+    "Indus",
+    5.24
+   ],
+   [
+    "Valley.",
+    5.57
+   ]
+  ],
+  "raw_heard": "Around 3300 BC, early proto-writing emerged at sites like Harappa in the Indus Valley.",
+  "trim_heard": "Around 3300 BC, early proto-writing emerged at sites like Harappa in the Indus Valley."
+ },
+ {
+  "k": 7,
+  "try": 2,
+  "text": "Around 3300 BC, early proto-writing emerged at sites like Harappa in the Indus Valley.",
+  "tokens": 14,
+  "events": 14,
+  "first": 0.1,
+  "last": 5.91,
+  "dur": 6.82,
+  "energy": [
+   0.23,
+   6.0
+  ],
+  "words": [
+   [
+    "Around",
+    0.1
+   ],
+   [
+    "3300",
+    0.56
+   ],
+   [
+    "BC,",
+    1.52
+   ],
+   [
+    "early",
+    2.39
+   ],
+   [
+    "the",
+    5.14
+   ],
+   [
+    "Indus",
+    5.24
+   ],
+   [
+    "Valley.",
+    5.57
+   ]
+  ],
+  "raw_heard": "Around 3300 BC, early proto-writing emerged at sites like Harappa in the Indus Valley.",
+  "trim_heard": "Around 3300 BC, early proto-writing emerged at sites like Harappa in the Indus Valley."
+ },
+ {
+  "k": 8,
+  "try": 0,
+  "text": "Long before modern borders defined South Asia, complex urban societies emerged along the fertile river plains of the region.",
+  "tokens": 19,
+  "events": 19,
+  "first": 0.1,
+  "last": 7.04,
+  "dur": 7.94,
+  "energy": [
+   0.23,
+   7.06
+  ],
+  "words": [
+   [
+    "Long",
+    0.1
+   ],
+   [
+    "before",
+    0.4
+   ],
+   [
+    "modern",
+    0.72
+   ],
+   [
+    "borders",
+    1.09
+   ],
+   [
+    "of",
+    6.34
+   ],
+   [
+    "the",
+    6.44
+   ],
+   [
+    "region.",
+    6.55
+   ]
+  ],
+  "raw_heard": "Long before modern borders defined South Asia, complex urban societies emerged along the fertile river plains of the region.",
+  "trim_heard": "Long before modern borders defined South Asia, complex urban societies emerged along the fertile river plains of the region."
+ },
+ {
+  "k": 8,
+  "try": 1,
+  "text": "Long before modern borders defined South Asia, complex urban societies emerged along the fertile river plains of the region.",
+  "tokens": 19,
+  "events": 19,
+  "first": 0.1,
+  "last": 7.04,
+  "dur": 7.94,
+  "energy": [
+   0.23,
+   7.06
+  ],
+  "words": [
+   [
+    "Long",
+    0.1
+   ],
+   [
+    "before",
+    0.4
+   ],
+   [
+    "modern",
+    0.72
+   ],
+   [
+    "borders",
+    1.09
+   ],
+   [
+    "of",
+    6.34
+   ],
+   [
+    "the",
+    6.44
+   ],
+   [
+    "region.",
+    6.55
+   ]
+  ],
+  "raw_heard": "Long before modern borders defined South Asia, complex urban societies emerged along the fertile river plains of the region.",
+  "trim_heard": "Long before modern borders defined South Asia, complex urban societies emerged along the fertile river plains of the region."
+ },
+ {
+  "k": 8,
+  "try": 2,
+  "text": "Long before modern borders defined South Asia, complex urban societies emerged along the fertile river plains of the region.",
+  "tokens": 19,
+  "events": 19,
+  "first": 0.1,
+  "last": 7.04,
+  "dur": 7.94,
+  "energy": [
+   0.23,
+   7.06
+  ],
+  "words": [
+   [
+    "Long",
+    0.1
+   ],
+   [
+    "before",
+    0.4
+   ],
+   [
+    "modern",
+    0.72
+   ],
+   [
+    "borders",
+    1.09
+   ],
+   [
+    "of",
+    6.34
+   ],
+   [
+    "the",
+    6.44
+   ],
+   [
+    "region.",
+    6.55
+   ]
+  ],
+  "raw_heard": "Long before modern borders defined South Asia, complex urban societies emerged along the fertile river plains of the region.",
+  "trim_heard": "Long before modern borders defined South Asia, complex urban societies emerged along the fertile river plains of the region."
+ },
+ {
+  "k": 9,
+  "try": 0,
+  "text": "Scholarship identifies the Indo-Gangetic Plain as one of six places on Earth where civilization arose independently.",
+  "tokens": 16,
+  "events": 16,
+  "first": 0.1,
+  "last": 6.65,
+  "dur": 7.56,
+  "energy": [
+   0.24,
+   6.73
+  ],
+  "words": [
+   [
+    "Scholarship",
+    0.1
+   ],
+   [
+    "identifies",
+    0.71
+   ],
+   [
+    "the",
+    1.42
+   ],
+   [
+    "Indo-Gangetic",
+    1.55
+   ],
+   [
+    "civilization",
+    4.66
+   ],
+   [
+    "arose",
+    5.5
+   ],
+   [
+    "independently.",
+    5.89
+   ]
+  ],
+  "raw_heard": "Scholarship identifies the Indo-Gangetic plain as one of six places on Earth where civilization arose independently.",
+  "trim_heard": "Scholarship identifies the Indo-Gangetic plain as one of six places on Earth where civilization arose independently."
+ },
+ {
+  "k": 9,
+  "try": 1,
+  "text": "Scholarship identifies the Indo-Gangetic Plain as one of six places on Earth where civilization arose independently.",
+  "tokens": 16,
+  "events": 16,
+  "first": 0.1,
+  "last": 6.65,
+  "dur": 7.56,
+  "energy": [
+   0.24,
+   6.73
+  ],
+  "words": [
+   [
+    "Scholarship",
+    0.1
+   ],
+   [
+    "identifies",
+    0.71
+   ],
+   [
+    "the",
+    1.42
+   ],
+   [
+    "Indo-Gangetic",
+    1.55
+   ],
+   [
+    "civilization",
+    4.66
+   ],
+   [
+    "arose",
+    5.5
+   ],
+   [
+    "independently.",
+    5.89
+   ]
+  ],
+  "raw_heard": "Scholarship identifies the Indo-Gangetic plane as one of six places on Earth where civilization arose independently.",
+  "trim_heard": "Scholarship identifies the Indo-Gangetic plain as one of six places on Earth where civilization arose independently."
+ },
+ {
+  "k": 9,
+  "try": 2,
+  "text": "Scholarship identifies the Indo-Gangetic Plain as one of six places on Earth where civilization arose independently.",
+  "tokens": 16,
+  "events": 16,
+  "first": 0.1,
+  "last": 6.65,
+  "dur": 7.56,
+  "energy": [
+   0.24,
+   6.73
+  ],
+  "words": [
+   [
+    "Scholarship",
+    0.1
+   ],
+   [
+    "identifies",
+    0.71
+   ],
+   [
+    "the",
+    1.42
+   ],
+   [
+    "Indo-Gangetic",
+    1.55
+   ],
+   [
+    "civilization",
+    4.66
+   ],
+   [
+    "arose",
+    5.5
+   ],
+   [
+    "independently.",
+    5.89
+   ]
+  ],
+  "raw_heard": "Scholarship identifies the Indo-Gangetic plane as one of six places on Earth where civilization arose independently.",
+  "trim_heard": "Scholarship identifies the Indo-Gangetic plain as one of six places on Earth where civilization arose independently."
+ }
+]
