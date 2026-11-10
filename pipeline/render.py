@@ -104,26 +104,38 @@ def _check_sound(path: Path, what: str):
 def _finish(silent: Path, narration: Path, ass: Path, out: Path, crf: int = 21, maxrate: str = "8M"):
     """Burn captions, mix voice + music, and join them into the final file.
 
-    The sound and the picture are encoded separately and then copied together. Encoding them in
-    one ffmpeg run with -shortest made ffmpeg 6.1 (the version on GitHub's machines) throw away
-    whole seconds of narration whenever the slower video encode fell behind: the 'voice going
-    off' in earlier videos."""
+    The sound and the picture are made separately and then copied together. Encoding them in one
+    ffmpeg run with -shortest made ffmpeg on GitHub's machines throw away ~3-second chunks of
+    narration (tested: 3–6 holes per video): the 'voice going off' in earlier videos."""
+    import wave
+
     vdur = media_duration(silent)
     mv = float(VC["music_volume"])
     music = out.parent / (out.stem + "-music.wav")
     graphics.ambient_music(music, vdur)
 
-    # 1) Sound only: voice + ducked music, loudness-normalised, exactly as long as the picture.
-    sound = out.parent / (out.stem + "-sound.m4a")
+    # 1) Sound only: voice + ducked music, loudness-normalised, written as plain samples (a WAV
+    #    can't contain a gap), then cut or padded to exactly the picture's length.
+    mixed = out.parent / (out.stem + "-mix.wav")
     fa = (
         f"[0:a]aformat=sample_rates=44100:channel_layouts=stereo,asplit=2[n1][n2];"
         f"[1:a]aformat=sample_rates=44100:channel_layouts=stereo,volume={mv}[m];"
         f"[m][n2]sidechaincompress=threshold=0.025:ratio=5:attack=40:release=800[md];"
         f"[n1][md]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-15:TP=-1.5:LRA=11,"
-        f"aresample=48000,apad,atrim=0:{vdur:.3f}[a]"
+        f"aresample=48000[a]"
     )
     run(["ffmpeg", "-y", "-i", narration.resolve(), "-i", music.resolve(), "-filter_complex", fa,
-         "-map", "[a]", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", sound.resolve()])
+         "-map", "[a]", "-c:a", "pcm_s16le", "-ar", "48000", "-ac", "2", mixed.resolve()])
+    exact = out.parent / (out.stem + "-mix-exact.wav")
+    need = round(vdur * 48000)
+    with wave.open(str(mixed), "rb") as src, wave.open(str(exact), "wb") as dst:
+        dst.setnchannels(2)
+        dst.setsampwidth(2)
+        dst.setframerate(48000)
+        data = src.readframes(need)
+        dst.writeframes(data + b"\x00" * (need * 4 - len(data)))
+    sound = out.parent / (out.stem + "-sound.m4a")
+    run(["ffmpeg", "-y", "-i", exact.resolve(), "-c:a", "aac", "-b:a", "192k", sound.resolve()])
     _check_sound(sound, "Sound mix")
 
     # 2) Picture only, with the captions burned in.
@@ -141,7 +153,7 @@ def _finish(silent: Path, narration: Path, ass: Path, out: Path, crf: int = 21, 
     run(["ffmpeg", "-y", "-i", picture.resolve(), "-i", sound.resolve(), "-map", "0:v:0", "-map", "1:a:0",
          "-c", "copy", "-movflags", "+faststart", out.resolve()])
     _check_sound(out, "Final video")
-    for f in (sound, picture, music):
+    for f in (sound, picture, music, mixed, exact):
         f.unlink(missing_ok=True)
 
 
