@@ -54,7 +54,7 @@
     },
     "002": {
       "case_no": 2,
-      "status": "awaiting_review",
+      "status": "discarded",
       "topics": [
         {
           "wiki_title": "",
@@ -87,6 +87,5 @@
     "date": "2026-11-09",
     "count": 5
   },
-  "active_job": "002",
-  "review_job": "002"
+  "active_job": "002"
 }
