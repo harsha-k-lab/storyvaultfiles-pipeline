@@ -131,8 +131,14 @@
     "script-003-202611101951"
   ],
   "claude_runs": {
-    "date": "2026-11-10",
-    "count": 2
+    "date": "2026-11-11",
+    "count": 1
   },
-  "active_job": "003"
+  "active_job": "003",
+  "claude_pending": {
+    "kind": "topics",
+    "date": "2026-11-11",
+    "wish": "",
+    "at": "2026-11-11T08:10:07-05:00"
+  }
 }
