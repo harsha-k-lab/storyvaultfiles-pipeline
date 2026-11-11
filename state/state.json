@@ -1,5 +1,5 @@
 {
-  "next_case": 4,
+  "next_case": 5,
   "jobs": {
     "001": {
       "case_no": 1,
@@ -122,23 +122,50 @@
       "writer": "Claude",
       "requested_at": "2026-11-10T14:47:14-05:00",
       "revisions": 0
+    },
+    "004": {
+      "case_no": 4,
+      "status": "awaiting_topic",
+      "topics": [
+        {
+          "wiki_title": "D. B. Cooper",
+          "url": "https://en.wikipedia.org/wiki/D._B._Cooper",
+          "working_title": "D. B. Cooper: The Man Who Jumped Into the Night (1971)",
+          "hook": "In 1971 a polite man in a business suit hijacked a Boeing 727 for $200,000, parachuted into a storm over Washington, and was never identified.",
+          "why_now": "The only unsolved US airline hijacking still pulls 237k Wikipedia views in 60 days, so search demand is huge.",
+          "summary": ""
+        },
+        {
+          "wiki_title": "Jennifer Fairgate case",
+          "url": "https://en.wikipedia.org/wiki/Jennifer_Fairgate_case",
+          "working_title": "Room 2805: The Woman Who Erased Herself (Oslo 1995)",
+          "hook": "A woman checked into Oslo's tallest hotel under a false name and address, and decades later no one knows who she was.",
+          "why_now": "Lesser-known but rising: steady interest after recent documentaries, and it fits fans of the Peter Bergmann episode.",
+          "summary": ""
+        },
+        {
+          "wiki_title": "Lost Library of Ivan the Terrible",
+          "url": "https://en.wikipedia.org/wiki/Lost_Library_of_Ivan_the_Terrible",
+          "working_title": "The Lost Library Beneath the Kremlin",
+          "hook": "A collection of ancient manuscripts said to come from Constantinople vanished in 16th-century Moscow, and people have dug under the Kremlin for it ever since.",
+          "why_now": "A non-violent historical treasure mystery that broadens the channel and suits a striking thumbnail.",
+          "summary": ""
+        }
+      ],
+      "created": "2026-11-11T08:11-05:00",
+      "topics_by": "Claude"
     }
   },
   "history": [],
-  "last_topics_date": "2026-11-10",
+  "last_topics_date": "2026-11-11",
   "delivered": [
     "topics-202611101815",
-    "script-003-202611101951"
+    "script-003-202611101951",
+    "topics-202611111310"
   ],
   "claude_runs": {
     "date": "2026-11-11",
     "count": 1
   },
-  "active_job": "003",
-  "claude_pending": {
-    "kind": "topics",
-    "date": "2026-11-11",
-    "wish": "",
-    "at": "2026-11-11T08:10:07-05:00"
-  }
+  "active_job": "004"
 }
