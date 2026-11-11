@@ -123,8 +123,11 @@ def _render_and_send(state: State, job_id: str, script: dict, images: list[dict]
     photos = _photos(images, work)
     pics = WORK_DIR / "images"
     publish.restore_images(job_id, pics)          # a revision reuses pictures that didn't change
-    long = render.render_long(script, work, job["case_no"], photos) if fmt != "short" else None
-    short = render.render_short(script, work, job["case_no"])
+    try:
+        long = render.render_long(script, work, job["case_no"], photos) if fmt != "short" else None
+        short = render.render_short(script, work, job["case_no"])
+    except render.NoAIPictures as exc:
+        return _ask_about_pictures(state, job_id, script, pics, work, note, exc)
     thumb = long["thumbnail"] if long else render.short_thumbnail(script, work, job["case_no"], short)
     files = [short["video"], thumb] + ([long["video"]] if long else [])
     bundle = publish.bundle_images(pics, work / "images.tar")
@@ -166,6 +169,54 @@ def _render_and_send(state: State, job_id: str, script: dict, images: list[dict]
         "• Or <b>type your changes</b> (e.g. <i>“make the opening punchier and explain step 3 more simply”</i>) "
         "and I'll rewrite and re-render it\n"
         f"• Full quality: {full}", review_rows)
+
+
+def _ask_about_pictures(state: State, job_id: str, script: dict, pics: Path, work: Path, note: str, exc):
+    """AI pictures are the first choice. When they can't be made, keep the ones made so far and
+    let the owner decide: wait for AI pictures, or use real photos + stock footage this time."""
+    job = state.job(job_id)
+    bundle = publish.bundle_images(pics, work / "images.tar")
+    if bundle:
+        publish.save_images(job_id, bundle, script["title"])
+    job["status"] = "awaiting_pictures"
+    job["pending_render_note"] = note
+    state.save()
+    have = exc.made + exc.reused
+    telegram.send(
+        f"🖼 <b>AI pictures aren't available right now</b> for <b>{esc(script['title'])}</b>\n"
+        f"Reason: {esc(exc.reason)}.\n"
+        + (f"{have} AI pictures are ready and saved, so they won't be made again.\n" if have else "")
+        + "\nWhat would you like to do?\n"
+        "• <b>Try AI pictures again</b> (best after the allowance resets)\n"
+        "• <b>Use real photos + stock</b>: finish now with real case photos and stock footage "
+        "for the sentences that have no AI picture",
+        [[("🔁 Try AI pictures again", f"aipics:{job_id}")],
+         [("📷 Use real photos + stock", f"stockpics:{job_id}")],
+         [("🗑 Discard", f"drop:{job_id}")]])
+
+
+def cmd_rerender(state: State, job_id: str, fallback: bool):
+    """Render the saved script again after the owner answered the AI-pictures question."""
+    job = state.job(job_id)
+    if job["status"] != "awaiting_pictures":
+        return telegram.send(f"Case #{job['case_no']:03d} is {job['status'].replace('_', ' ')}, "
+                             "so there's nothing waiting for pictures.")
+    script = load_json(case_dir(job_id) / "script.json")
+    images = load_json(case_dir(job_id) / "meta.json").get("images", [])
+    note = job.get("pending_render_note") or "Here's your draft."
+    job["status"] = "producing"
+    state.save()
+    if fallback:
+        script["picture_fallback"] = True     # this render only: the next one tries AI pictures first again
+        telegram.send("📷 Finishing with AI pictures where we have them, then real photos and stock "
+                      "footage. New version in ~20–30 minutes.")
+    else:
+        telegram.send("🔁 Trying AI pictures again. New version in ~20–30 minutes.")
+    state.data["retry_payload"] = {"kind": "button", "data": f"{'stockpics' if fallback else 'aipics'}:{job_id}"}
+    _render_and_send(state, job_id, script, images, note)
+    if state.job(job_id)["status"] == "awaiting_review":
+        job.pop("pending_render_note", None)
+        state.save()
 
 
 def _article_block(title: str, limit: int = 50000) -> str:
@@ -628,6 +679,8 @@ def _handle(state: State, payload: dict):
             return cmd_publish(state, job_id)
         if action == "redo":
             return cmd_revise(state, job_id, None)
+        if action in ("aipics", "stockpics"):
+            return cmd_rerender(state, job_id, fallback=action == "stockpics")
         if action == "drop":
             state.job(job_id)["status"] = "discarded"
             state.data.pop("review_job", None)
@@ -697,7 +750,8 @@ def main():
         # put a stuck job back so the buttons work again
         for v in state.data["jobs"].values():
             if v["status"] == "producing":
-                v["status"] = "awaiting_review" if "revisions" in v else "awaiting_topic"
+                v["status"] = ("awaiting_pictures" if v.get("pending_render_note")
+                               else "awaiting_review" if "revisions" in v else "awaiting_topic")
             if v["status"] == "publishing":
                 v["status"] = "awaiting_review"
         state.data["last_failed"] = state.data.pop("retry_payload", None) or payload

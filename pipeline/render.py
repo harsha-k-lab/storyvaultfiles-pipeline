@@ -7,7 +7,7 @@ from pathlib import Path
 
 from . import graphics
 from .core import CFG, log, media_duration, run
-from .aiimages import Images
+from .aiimages import Images, NoAIPictures  # noqa: F401  (NoAIPictures is caught in run.py)
 from .stock import Footage
 from .tts import speak_sentences
 
@@ -213,20 +213,25 @@ def plan_cuts(shots: list[dict], words: list[dict], total_frames: int, lead: flo
 def _shot_clip(footage: Footage, sh: dict, part: int, photos: list, mood: list[str],
                fcount: int, out: Path, w: int, h: int, credits: dict, blank: Path,
                images: Images | None = None, look: str = "") -> Path | None:
-    """Make one clip for a sentence. Order: the case's real photo → an AI picture made for
-    this exact sentence → matching stock footage → a plain dark card. Returns the still used."""
+    """Make one clip for a sentence. First choice: an AI picture made for this exact sentence.
+    If it can't be made, stop (NoAIPictures) so the owner can choose, unless they already chose
+    the other options: the case's real photo → matching stock footage → a plain dark card.
+    Returns the still used."""
+    prompt = sh.get("image_prompt") or sh.get("text", "")
+    if images is not None and prompt:
+        pic = images.get(prompt, look, variant=part)
+        if pic:
+            shot_from_image(pic, fcount, out, w, h)
+            log(f'  “{sh["text"][:50]}…” → AI picture')
+            return pic
+        if not images.fallback_ok:
+            raise NoAIPictures(images)
     img_idx = sh.get("image", -1)
     photo = photos[img_idx] if isinstance(img_idx, int) and 0 <= img_idx < len(photos) else None
     if part == 0 and photo:
         shot_from_image(photo, fcount, out, w, h)
         log(f'  “{sh["text"][:50]}…” → real case photo')
         return photo
-    if images is not None and sh.get("image_prompt"):
-        pic = images.get(sh["image_prompt"], look, variant=part)
-        if pic:
-            shot_from_image(pic, fcount, out, w, h)
-            log(f'  “{sh["text"][:50]}…” → AI picture')
-            return pic
     got = footage.get(sh.get("search") or [], mood)
     if not got:
         shot_from_image(blank, fcount, out, w, h)
@@ -250,7 +255,8 @@ def render_long(script: dict, work: Path, case_no: int, photos: list[Path | None
     for d in (shots_dir, audio_dir):
         d.mkdir(parents=True, exist_ok=True)
     footage = Footage(work / "footage", "landscape")
-    images = Images(work.parent / "images", script.get("picture_salt", ""))      # shared cache: the Short and revisions reuse pictures
+    images = Images(work.parent / "images", script.get("picture_salt", ""),
+                    fallback_ok=bool(script.get("picture_fallback")))      # shared cache: the Short and revisions reuse pictures
     look = script.get("look", "")
     per_shot = float(VC["seconds_per_shot"])
 
@@ -369,7 +375,8 @@ def render_short(script: dict, work: Path, case_no: int = 0) -> dict:
     total = dur + 0.5
     frames = _frames(total)
     footage = Footage(work / "footage_v", "portrait")
-    images = Images(work.parent / "images", script.get("picture_salt", ""))
+    images = Images(work.parent / "images", script.get("picture_salt", ""),
+                    fallback_ok=bool(script.get("picture_fallback")))
     blank = graphics.end_card(sdir / "blank.jpg", w, h)
     plan = plan_cuts(sh["shots"], words, frames, lead=0.05, min_s=1.6, max_s=3.8)  # a new picture every 2–4 s
     shot_files, credits, t = [], {}, 0.0

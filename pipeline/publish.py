@@ -57,6 +57,20 @@ def restore_images(job_id: str, dest: Path):
         pass   # first draft, or no pictures yet
 
 
+def save_images(job_id: str, bundle: Path, title: str):
+    """Keep the AI pictures made so far on the case's release (used when a render stops early),
+    so trying again later doesn't pay for them twice."""
+    if FAKE:
+        return
+    tag = release_tag(job_id)
+    try:
+        run(["gh", "release", "upload", tag, bundle, "--clobber", "-R", REPO], timeout=600)
+    except RuntimeError:
+        run(["gh", "release", "create", tag, bundle, "-R", REPO, "--prerelease",
+             "--title", f"Case {job_id} draft: {title[:80]}",
+             "--notes", "Pictures for a draft that is waiting for AI pictures."], timeout=600)
+
+
 def bundle_images(src: Path, out: Path) -> Path | None:
     pics = sorted(p.name for p in src.glob("*.jpg")) if src.exists() else []
     if not pics:

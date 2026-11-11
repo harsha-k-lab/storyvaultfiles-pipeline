@@ -250,8 +250,10 @@ for the day are used up, Gemini writes automatically and the bot tells you.
 ## Step 13 — Free AI pictures for every sentence (5 min)
 
 This gives each sentence its own photoreal, period-accurate picture. It uses Cloudflare's free Workers AI allowance on the account you already
-made in step 6: about 170 pictures a day, enough for one long video plus its Short. If the
-day's allowance runs out, the rest of that video uses stock footage automatically.
+made in step 6: about 170 pictures a day, enough for one long video plus its Short. AI pictures
+are always the first choice. If one can't be made (allowance used up, Worker not set up), the
+bot stops and asks you on Telegram: **Try AI pictures again** (the allowance resets at 7 PM
+Toronto time) or **Use real photos + stock** for that video. Pictures already made are kept.
 
 1. **Update the Worker code.** Open `worker/telegram-webhook.js` in your GitHub repo, click
    **Copy raw file**, then in Cloudflare go to your Worker → **Edit code**, paste over

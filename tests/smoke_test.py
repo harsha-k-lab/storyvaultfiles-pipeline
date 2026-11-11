@@ -125,3 +125,28 @@ run.cmd_deliver(state, inbox)
 assert state.job(job4)["status"] == "awaiting_review"
 assert (Path(os.environ["SVF_WORK_DIR"]) / f"case-{job4}" / "video.mp4").exists()
 print("OK  custom topics: short-only, buttons, Claude custom video")
+
+# ── AI pictures first: when they can't be made, ask; then the owner's choice ──
+from pipeline import aiimages  # noqa: E402
+
+real_get = aiimages.Images.get
+
+
+def no_allowance(self, prompt, look="", variant=0):
+    self.out_of_quota = self.quota_hit = True
+    return None
+
+
+aiimages.Images.get = no_allowance
+os.environ["SVF_FAKE_CLAUDE"] = "0"
+run.handle(state, {"kind": "text", "text": "/short the history of the telegraph"})
+job5 = max(state.data["jobs"])
+assert state.job(job5)["status"] == "awaiting_pictures", state.job(job5)["status"]
+run.handle(state, {"kind": "button", "data": f"aipics:{job5}"})        # still none → asked again
+assert state.job(job5)["status"] == "awaiting_pictures", state.job(job5)["status"]
+run.handle(state, {"kind": "button", "data": f"stockpics:{job5}"})     # owner chose other pictures
+assert state.job(job5)["status"] == "awaiting_review", state.job(job5)["status"]
+assert (Path(os.environ["SVF_WORK_DIR"]) / f"case-{job5}" / "short.mp4").exists()
+assert "picture_fallback" not in run.load_json(run.case_dir(job5) / "script.json"), "choice must not stick"
+aiimages.Images.get = real_get
+print("OK  AI pictures first: asks when unavailable, then real photos + stock on request")

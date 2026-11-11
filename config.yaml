@@ -57,7 +57,8 @@ voice:
 
 images:
   # One AI picture per sentence (photoreal, period-accurate), made free by your Cloudflare
-  # Worker's Workers AI binding — SETUP.md step 13. Without it, stock footage is used.
+  # Worker's Workers AI binding — SETUP.md step 13. If pictures can't be made, the bot asks
+  # you on Telegram before using real photos + stock. Set false to always use photos + stock.
   enabled: true
   model: "@cf/black-forest-labs/flux-1-schnell"   # ~170 free images/day. Sharper but ~3x the cost: "@cf/black-forest-labs/flux-2-klein-4b"
   width: 1024

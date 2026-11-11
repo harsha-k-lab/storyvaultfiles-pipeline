@@ -1,8 +1,10 @@
 """One AI-generated picture per sentence, through your Cloudflare Worker's free Workers AI
 allowance (10,000 neurons a day ≈ 170 FLUX.1-schnell images). See SETUP.md step 13.
 
-Pictures are cached by prompt, so a revision only pays for sentences that changed. When the
-day's allowance runs out, or the Worker isn't set up, callers fall back to stock footage.
+Pictures are cached by prompt, so a revision only pays for sentences that changed. AI pictures
+are the first choice: when one can't be made (allowance used up, Worker not set up, service
+failing) the render stops and the owner is asked on Telegram whether to wait or use real
+photos + stock footage instead, unless they already chose that (fallback_ok).
 """
 from __future__ import annotations
 
@@ -17,9 +19,22 @@ from .core import CFG, FAKE, log, retry, secret
 IC = CFG.get("images", {})
 
 
+class NoAIPictures(Exception):
+    """An AI picture couldn't be made and the owner hasn't agreed to other pictures yet."""
+
+    def __init__(self, images: "Images"):
+        self.made, self.reused = images.made, images.reused
+        self.reason = images.reason()
+        self.quota = images.quota_hit
+        super().__init__(f"AI pictures unavailable: {self.reason}")
+
+
 class Images:
-    def __init__(self, cache: Path, salt: str = ""):
+    def __init__(self, cache: Path, salt: str = "", fallback_ok: bool = False):
         self.salt = salt          # changed by "New pictures" so every picture is made fresh
+        # True once the owner chose "real photos + stock" for this render (or AI pictures are off)
+        self.fallback_ok = fallback_ok or not IC.get("enabled", True)
+        self.quota_hit = False
         self.cache = cache
         self.cache.mkdir(parents=True, exist_ok=True)
         self.url = secret("CLOUDFLARE_WORKER_URL", required=False).rstrip("/")
@@ -78,8 +93,9 @@ class Images:
                 self.out_of_quota = True
             return None
         if r.status_code == 429:
-            log("Cloudflare's free image allowance for today is used up — stock footage from here on.")
+            log("Cloudflare's free image allowance for today is used up.")
             self.out_of_quota = True
+            self.quota_hit = True
             return None
         if r.status_code != 200:
             log(f"AI image unavailable ({r.status_code}): {r.text[:200]}")
@@ -106,6 +122,16 @@ class Images:
         img.save(path, quality=90)
         self.made += 1
         return path
+
+    def reason(self) -> str:
+        """One plain sentence on why AI pictures stopped, for the owner."""
+        if not FAKE and not (self.url and self.key):
+            return "the Cloudflare picture service isn't set up yet (SETUP.md step 13)"
+        if self.quota_hit:
+            return "today's free Cloudflare picture allowance is used up (it resets at 7 PM Toronto time)"
+        if self.problem:
+            return f"the picture service refused: {self.problem}"
+        return "the picture service kept failing"
 
     def summary(self) -> str:
         if not FAKE and not (self.url and self.key):
