@@ -27,15 +27,11 @@ jobs:
           cache: pip
 
       - name: Install video tools and fonts
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core > /dev/null
-          for f in ofl/anton/Anton-Regular.ttf ofl/bebasneue/BebasNeue-Regular.ttf apache/specialelite/SpecialElite-Regular.ttf ofl/dmserifdisplay/DMSerifDisplay-Regular.ttf; do
-            curl -sSfL -o "assets/fonts/$(basename $f)" "https://github.com/google/fonts/raw/main/$f" || echo "font $f skipped"
-          done
-          pip install -q -r requirements.txt
+        timeout-minutes: 20
+        run: bash .github/setup-tools.sh
 
       - name: Run pipeline
+        id: run
         env:
           SVF_PAYLOAD: ${{ toJson(github.event.client_payload) }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -53,6 +49,15 @@ jobs:
           CLAUDE_ROUTINE_TOKEN: ${{ secrets.CLAUDE_ROUTINE_TOKEN }}
           GH_TOKEN: ${{ github.token }}
         run: python -m pipeline.run handle
+
+      - name: Tell the owner if setup failed
+        if: failure() && steps.run.outcome == 'skipped'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SVF_PAYLOAD: ${{ toJson(github.event.client_payload) }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: python3 .github/setup-failed.py "your last tap or message"
 
       - name: Save progress
         if: always()

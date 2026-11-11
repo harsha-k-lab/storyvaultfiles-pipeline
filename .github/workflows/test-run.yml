@@ -14,13 +14,9 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-      - name: Install
-        run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu-core > /dev/null
-          for f in ofl/anton/Anton-Regular.ttf ofl/bebasneue/BebasNeue-Regular.ttf apache/specialelite/SpecialElite-Regular.ttf ofl/dmserifdisplay/DMSerifDisplay-Regular.ttf; do
-            curl -sSfL -o "assets/fonts/$(basename $f)" "https://github.com/google/fonts/raw/main/$f" || true
-          done
-          pip install -q -r requirements.txt
+      - name: Install video tools and fonts
+        timeout-minutes: 20
+        run: bash .github/setup-tools.sh
       - name: Build sample videos
         env:
           SVF_FAKE: "1"
