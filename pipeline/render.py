@@ -76,27 +76,85 @@ def _frame_grab(video: Path, out: Path) -> Path | None:
         return None
 
 
+def audio_holes(path: Path) -> list[tuple[float, float]]:
+    """Places where an encoded file's sound track skips ahead: [(at seconds, missing seconds)].
+    An AAC packet holds 1024 samples (about 0.02 s); a longer one means audio was dropped there,
+    which players hear as the voice cutting out mid-sentence."""
+    proc = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "a:0", "-show_entries",
+                           "packet=pts_time,duration_time", "-of", "csv=p=0", str(path)],
+                          capture_output=True, text=True)
+    packets = []
+    for line in proc.stdout.split():
+        parts = line.split(",")
+        try:
+            packets.append((float(parts[0]), float(parts[1])))
+        except (IndexError, ValueError):
+            continue
+    # the very last packet carries the encoder's end padding, so it is often longer: skip it
+    return [(round(at, 2), round(d, 2)) for at, d in packets[:-1] if d > 0.1]
+
+
+def _check_sound(path: Path, what: str):
+    holes = audio_holes(path)
+    if holes:
+        raise RuntimeError(f"{what}: the sound track has gaps at "
+                           + ", ".join(f"{a:.1f}s ({d:.1f}s)" for a, d in holes[:6]))
+
+
 def _finish(silent: Path, narration: Path, ass: Path, out: Path, crf: int = 21, maxrate: str = "8M"):
+    """Burn captions, mix voice + music, and join them into the final file.
+
+    The sound and the picture are made separately and then copied together. Encoding them in one
+    ffmpeg run with -shortest made ffmpeg on GitHub's machines throw away ~3-second chunks of
+    narration (tested: 3–6 holes per video): the 'voice going off' in earlier videos."""
+    import wave
+
+    vdur = media_duration(silent)
     mv = float(VC["music_volume"])
     music = out.parent / (out.stem + "-music.wav")
-    graphics.ambient_music(music, media_duration(narration))
-    fontsdir = graphics.FONT_DIR.resolve()
-    fc = (
-        f"[0:v]subtitles=filename='{ass.name}':fontsdir='{fontsdir}',format=yuv420p[v];"
-        f"[1:a]aformat=sample_rates=44100:channel_layouts=stereo,asplit=2[n1][n2];"
-        f"[2:a]aformat=sample_rates=44100:channel_layouts=stereo,volume={mv}[m];"
+    graphics.ambient_music(music, vdur)
+
+    # 1) Sound only: voice + ducked music, loudness-normalised, written as plain samples (a WAV
+    #    can't contain a gap), then cut or padded to exactly the picture's length.
+    mixed = out.parent / (out.stem + "-mix.wav")
+    fa = (
+        f"[0:a]aformat=sample_rates=44100:channel_layouts=stereo,asplit=2[n1][n2];"
+        f"[1:a]aformat=sample_rates=44100:channel_layouts=stereo,volume={mv}[m];"
         f"[m][n2]sidechaincompress=threshold=0.025:ratio=5:attack=40:release=800[md];"
-        f"[n1][md]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-15:TP=-1.5:LRA=11[a]"
+        f"[n1][md]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-15:TP=-1.5:LRA=11,"
+        f"aresample=48000[a]"
     )
-    cmd = ["ffmpeg", "-y", "-i", silent.resolve(), "-i", narration.resolve(), "-i", music.resolve(),
-           "-filter_complex", fc, "-map", "[v]", "-map", "[a]",
+    run(["ffmpeg", "-y", "-i", narration.resolve(), "-i", music.resolve(), "-filter_complex", fa,
+         "-map", "[a]", "-c:a", "pcm_s16le", "-ar", "48000", "-ac", "2", mixed.resolve()])
+    exact = out.parent / (out.stem + "-mix-exact.wav")
+    need = round(vdur * 48000)
+    with wave.open(str(mixed), "rb") as src, wave.open(str(exact), "wb") as dst:
+        dst.setnchannels(2)
+        dst.setsampwidth(2)
+        dst.setframerate(48000)
+        data = src.readframes(need)
+        dst.writeframes(data + b"\x00" * (need * 4 - len(data)))
+    sound = out.parent / (out.stem + "-sound.m4a")
+    run(["ffmpeg", "-y", "-i", exact.resolve(), "-c:a", "aac", "-b:a", "192k", sound.resolve()])
+    _check_sound(sound, "Sound mix")
+
+    # 2) Picture only, with the captions burned in.
+    picture = out.parent / (out.stem + "-picture.mp4")
+    fontsdir = graphics.FONT_DIR.resolve()
+    cmd = ["ffmpeg", "-y", "-i", silent.resolve(),
+           "-vf", f"subtitles=filename='{ass.name}':fontsdir='{fontsdir}',format=yuv420p", "-an",
            "-c:v", "libx264", "-preset", "veryfast", "-crf", str(crf), "-profile:v", "high",
-           "-maxrate", maxrate, "-bufsize", str(int(maxrate[:-1]) * 2) + "M",
-           "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", "-shortest",
-           out.resolve()]
+           "-maxrate", maxrate, "-bufsize", str(int(maxrate[:-1]) * 2) + "M", picture.resolve()]
     proc = subprocess.run([str(c) for c in cmd], cwd=ass.parent, capture_output=True, text=True)
     if proc.returncode != 0:
         raise RuntimeError("Final video encode failed:\n" + proc.stderr[-1500:])
+
+    # 3) Join them without re-encoding, so nothing can be dropped.
+    run(["ffmpeg", "-y", "-i", picture.resolve(), "-i", sound.resolve(), "-map", "0:v:0", "-map", "1:a:0",
+         "-c", "copy", "-movflags", "+faststart", out.resolve()])
+    _check_sound(out, "Final video")
+    for f in (sound, picture, music, mixed, exact):
+        f.unlink(missing_ok=True)
 
 
 def preview(src: Path, out: Path, vertical: bool = False) -> Path:
@@ -106,8 +164,12 @@ def preview(src: Path, out: Path, vertical: bool = False) -> Path:
         run(["ffmpeg", "-y", "-i", src, "-vf", f"scale=-2:{height}", "-c:v", "libx264",
              "-preset", "veryfast", "-crf", str(crf), "-c:a", "aac", "-b:a", "96k",
              "-movflags", "+faststart", out])
+        if audio_holes(out):   # never send a preview whose voice skips: copy the sound as-is
+            run(["ffmpeg", "-y", "-i", src, "-vf", f"scale=-2:{height}", "-c:v", "libx264",
+                 "-preset", "veryfast", "-crf", str(crf), "-c:a", "copy", "-movflags", "+faststart", out])
         if out.stat().st_size < 48 * 1024 * 1024:
             break
+    _check_sound(out, "Telegram preview")
     return out
 
 
