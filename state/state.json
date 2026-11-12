@@ -1,5 +1,5 @@
 {
-  "next_case": 5,
+  "next_case": 6,
   "jobs": {
     "001": {
       "case_no": 1,
@@ -154,24 +154,51 @@
       ],
       "created": "2026-11-11T08:11-05:00",
       "topics_by": "Claude"
+    },
+    "005": {
+      "case_no": 5,
+      "status": "awaiting_topic",
+      "topics": [
+        {
+          "wiki_title": "Volcanic winter of 536",
+          "url": "https://en.wikipedia.org/wiki/Volcanic_winter_of_536",
+          "working_title": "536 AD: The Year the Sun Went Dark (And No One Knows Why)",
+          "hook": "For about 18 months the sun over Constantinople dimmed, summers froze and harvests failed across the Northern Hemisphere, and scientists still can't agree which volcano caused it.",
+          "why_now": "Hugely searched 'worst year to be alive' story (41k Wikipedia views in 60 days) with an open scientific whodunit at its heart.",
+          "summary": ""
+        },
+        {
+          "wiki_title": "Carroll A. Deering",
+          "url": "https://en.wikipedia.org/wiki/Carroll_A._Deering",
+          "working_title": "The Carroll A. Deering: A Ghost Ship With No Crew (1921)",
+          "hook": "In January 1921 a five-masted schooner ran aground off Cape Hatteras with its sails set and food in the galley, and its entire crew was never seen again.",
+          "why_now": "Classic ghost-ship mystery that rides the same interest as the Flying Dutchman, but with real people, real records and a federal investigation.",
+          "summary": ""
+        },
+        {
+          "wiki_title": "Bennington Triangle",
+          "url": "https://en.wikipedia.org/wiki/Bennington_Triangle",
+          "working_title": "The Bennington Triangle: 5 People Vanished in Vermont's Woods",
+          "hook": "Between 1945 and 1950 several people walked into the woods around Glastenbury Mountain, Vermont, and never came out, including college student Paula Jean Welden on a December afternoon hike.",
+          "why_now": "Lesser-known 'triangle' with strong search interest in Paula Welden, perfect for an eerie, atmospheric autumn-into-winter video.",
+          "summary": ""
+        }
+      ],
+      "created": "2026-11-12T17:11-05:00",
+      "topics_by": "Claude"
     }
   },
   "history": [],
-  "last_topics_date": "2026-11-11",
+  "last_topics_date": "2026-11-12",
   "delivered": [
     "topics-202611101815",
     "script-003-202611101951",
-    "topics-202611111310"
+    "topics-202611111310",
+    "topics-202611122211"
   ],
   "claude_runs": {
     "date": "2026-11-12",
     "count": 1
   },
-  "active_job": "004",
-  "claude_pending": {
-    "kind": "topics",
-    "date": "2026-11-12",
-    "wish": "",
-    "at": "2026-11-12T17:10:32-05:00"
-  }
+  "active_job": "005"
 }
