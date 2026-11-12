@@ -164,8 +164,14 @@
     "topics-202611111310"
   ],
   "claude_runs": {
-    "date": "2026-11-11",
+    "date": "2026-11-12",
     "count": 1
   },
-  "active_job": "004"
+  "active_job": "004",
+  "claude_pending": {
+    "kind": "topics",
+    "date": "2026-11-12",
+    "wish": "",
+    "at": "2026-11-12T17:10:32-05:00"
+  }
 }
