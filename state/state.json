@@ -157,7 +157,7 @@
     },
     "005": {
       "case_no": 5,
-      "status": "writing",
+      "status": "awaiting_pictures",
       "topics": [
         {
           "wiki_title": "Volcanic winter of 536",
@@ -196,7 +196,8 @@
       },
       "topic_index": 2,
       "writer": "Claude",
-      "requested_at": "2026-11-13T14:16:18-05:00"
+      "requested_at": "2026-11-13T14:16:18-05:00",
+      "pending_render_note": "Here's your draft, researched and written by Claude."
     }
   },
   "history": [],
@@ -205,7 +206,8 @@
     "topics-202611101815",
     "script-003-202611101951",
     "topics-202611111310",
-    "topics-202611122211"
+    "topics-202611122211",
+    "script-005-202611131920"
   ],
   "claude_runs": {
     "date": "2026-11-13",

@@ -1,0 +1,1157 @@
+{
+  "title": "Bennington Triangle: Where 5 People Vanished in 5 Years",
+  "thumbnail_text": "FOUR NEVER FOUND",
+  "description": "The Bennington Triangle: between 1945 and 1950, five people disappeared in the woods around Glastenbury Mountain in southwestern Vermont, including Bennington College student Paula Jean Welden. This is the full story of the Vermont disappearances, told case by case.\n\nWe follow hunter Middie Rivers in 1945, Paula Welden on the Long Trail in 1946, World War One veteran James Tedford in 1949, eight-year-old Paul Jepson and hiker Frieda Langer in 1950, the searches and the few clues left behind, and the theories, from the cold and the terrain to the \"Lost Horizon\" and the Bennington Monster.\n\nWhat do you think happened in the Bennington Triangle? Tell me in the comments.",
+  "tags": [
+    "bennington triangle",
+    "bennington triangle disappearances",
+    "paula jean welden",
+    "paula welden",
+    "glastenbury mountain",
+    "glastenbury vermont",
+    "vermont disappearances",
+    "long trail vermont",
+    "middie rivers",
+    "james tedford",
+    "paul jepson",
+    "frieda langer",
+    "bennington vermont",
+    "bennington monster",
+    "unsolved mysteries"
+  ],
+  "hashtags": [
+    "#unsolvedmysteries",
+    "#benningtontriangle",
+    "#vermont",
+    "#storyvaultfiles"
+  ],
+  "look": "1945-1950 southwestern Vermont: dense Green Mountain forest of birch, beech and spruce, late autumn and early winter, grey overcast light, 1940s clothing and cars, gravel roads",
+  "title_card": {
+    "kicker": "AN UNSOLVED CASE",
+    "title": "THE BENNINGTON TRIANGLE",
+    "subtitle": "— FIVE GONE IN FIVE YEARS"
+  },
+  "label": {
+    "name": "THE BENNINGTON TRIANGLE",
+    "detail": "VERMONT · 1945–1950"
+  },
+  "end_line": "STILL MISSING.",
+  "mood": [
+    "dark forest autumn mist",
+    "vermont mountains overcast",
+    "empty forest trail winter"
+  ],
+  "scenes": [
+    {
+      "chapter": "The Red Jacket",
+      "shots": [
+        {
+          "text": "You could walk the trail where an 18-year-old in a red jacket vanished on December 1, 1946.",
+          "search": [
+            "forest trail winter",
+            "trail"
+          ],
+          "image_prompt": "wide shot of a narrow hiking trail winding into a dense leafless Vermont forest in early December, a lone small figure in a red jacket far in the distance seen from behind, grey overcast light",
+          "image": -1
+        },
+        {
+          "text": "But nobody knows why she never came back.",
+          "search": [
+            "empty forest path dusk",
+            "forest"
+          ],
+          "image_prompt": "the same empty forest trail at dusk, no one on it, bare birch trees, cold blue light fading, light mist",
+          "image": -1
+        },
+        {
+          "text": "She had no camping gear, and nothing warm enough for a Vermont winter night.",
+          "search": [
+            "sneakers frost leaves",
+            "frost"
+          ],
+          "image_prompt": "close-up of worn white lightweight 1940s canvas sneakers stepping on frosted fallen leaves, frost on the ground, cold breath of mist",
+          "image": -1
+        },
+        {
+          "text": "She was not the first to disappear in these woods, and she would not be the last.",
+          "search": [
+            "forested mountains clouds",
+            "mountains"
+          ],
+          "image_prompt": "aerial-style wide view of rolling forested mountains under low grey clouds, endless dark spruce and bare hardwoods, no roads",
+          "image": -1
+        },
+        {
+          "text": "Between 1945 and 1950, five people went missing in one corner of southwestern Vermont.",
+          "search": [
+            "case files desk",
+            "files"
+          ],
+          "image_prompt": "five worn manila case folders laid side by side on a dark wooden desk under a single lamp, blank labels, moody shadows",
+          "image": -1
+        },
+        {
+          "text": "Only one of them was ever found.",
+          "search": [
+            "file folder lamp",
+            "folder"
+          ],
+          "image_prompt": "a single manila folder pulled slightly out from a row of four, dark desk, single lamp, deep shadows",
+          "image": -1
+        },
+        {
+          "text": "This is case file number 5.",
+          "search": [
+            "case file folder",
+            "file"
+          ],
+          "image_prompt": "close-up of a worn manila case file folder on a dark desk under a single lamp, blank label, moody shadows",
+          "image": -1
+        }
+      ],
+      "narration": "You could walk the trail where an 18-year-old in a red jacket vanished on December 1, 1946. But nobody knows why she never came back. She had no camping gear, and nothing warm enough for a Vermont winter night. She was not the first to disappear in these woods, and she would not be the last. Between 1945 and 1950, five people went missing in one corner of southwestern Vermont. Only one of them was ever found. This is case file number 5."
+    },
+    {
+      "chapter": "The Mountain",
+      "shots": [
+        {
+          "text": "The mountain is called Glastenbury, and it rises from the forests of southwestern Vermont.",
+          "search": [
+            "vermont mountain mist",
+            "mountain"
+          ],
+          "image_prompt": "wide establishing shot of a broad forested Vermont mountain under heavy grey sky, late autumn, mist on the ridgeline",
+          "image": -1
+        },
+        {
+          "text": "Around it lie the towns of Bennington, Woodford, Shaftsbury and Somerset.",
+          "search": [
+            "new england town valley",
+            "town"
+          ],
+          "image_prompt": "wide shot of a small 1940s New England town in a valley at the foot of wooded hills, white church steeple, smoke from chimneys, overcast",
+          "image": -1
+        },
+        {
+          "text": "Glastenbury and Somerset were once moderately thriving logging and industrial towns.",
+          "search": [
+            "old logging camp",
+            "logging"
+          ],
+          "image_prompt": "late 19th-century logging camp in a Vermont forest, stacked logs, horse-drawn sled, wooden sawmill, workers seen from a distance, sepia tones",
+          "image": -1
+        },
+        {
+          "text": "By the late 1800s, both had begun to decline.",
+          "search": [
+            "abandoned sawmill",
+            "ruins"
+          ],
+          "image_prompt": "abandoned wooden sawmill with collapsing roof in an overgrown clearing, weeds and young birch trees growing through, grey light",
+          "image": -1
+        },
+        {
+          "text": "In 1937, the Vermont General Assembly unincorporated them, and today they are essentially ghost towns.",
+          "search": [
+            "old stone foundation forest",
+            "ruins"
+          ],
+          "image_prompt": "stone cellar hole and crumbling foundation of a vanished house deep in a mossy forest, fallen leaves, no people",
+          "image": -1
+        },
+        {
+          "text": "Decades later, the author Joseph A. Citro gave this stretch of forest a name.",
+          "search": [
+            "writing desk lamp",
+            "writing"
+          ],
+          "image_prompt": "close-up of a hand writing with a fountain pen on a blank page beside a folded topographic map of mountains, warm desk lamp, no readable words",
+          "image": -1
+        },
+        {
+          "text": "He wrote about it in two books, including one called Shadow Child, with whole chapters on these disappearances.",
+          "search": [
+            "old books candle",
+            "books"
+          ],
+          "image_prompt": "stack of two old hardcover books on a wooden table beside a candle, closed, no readable titles, warm light",
+          "image": -1
+        },
+        {
+          "text": "He called it the Bennington Triangle.",
+          "search": [
+            "map pins string",
+            "map"
+          ],
+          "image_prompt": "old topographic map of forested mountains with three pins and red thread forming a triangle, no readable text, lamplight",
+          "image": -1
+        }
+      ],
+      "narration": "The mountain is called Glastenbury, and it rises from the forests of southwestern Vermont. Around it lie the towns of Bennington, Woodford, Shaftsbury and Somerset. Glastenbury and Somerset were once moderately thriving logging and industrial towns. By the late 1800s, both had begun to decline. In 1937, the Vermont General Assembly unincorporated them, and today they are essentially ghost towns. Decades later, the author Joseph A. Citro gave this stretch of forest a name. He wrote about it in two books, including one called Shadow Child, with whole chapters on these disappearances. He called it the Bennington Triangle."
+    },
+    {
+      "chapter": "",
+      "shots": [
+        {
+          "text": "No one agrees on exactly where its edges lie, but at its heart stands Glastenbury Mountain.",
+          "search": [
+            "mountain summit clouds",
+            "summit"
+          ],
+          "image_prompt": "wide shot of a dark forested mountain summit wrapped in low cloud at dusk, silhouetted spruce on the ridge",
+          "image": -1
+        },
+        {
+          "text": "Citro compared it to another place of strange tales, the Bridgewater Triangle in southeastern Massachusetts.",
+          "search": [
+            "misty swamp",
+            "swamp"
+          ],
+          "image_prompt": "misty swamp with dead standing trees and still black water at dawn, New England, grey light",
+          "image": -1
+        },
+        {
+          "text": "And for many years, people had told strange stories about Glastenbury and the land around it.",
+          "search": [
+            "oil lamp night",
+            "lamp"
+          ],
+          "image_prompt": "medium shot of an old wood stove and oil lamp in a dim 1940s farmhouse kitchen at night, two silhouetted figures talking, shadows on the walls",
+          "image": -1
+        }
+      ],
+      "narration": "No one agrees on exactly where its edges lie, but at its heart stands Glastenbury Mountain. Citro compared it to another place of strange tales, the Bridgewater Triangle in southeastern Massachusetts. And for many years, people had told strange stories about Glastenbury and the land around it."
+    },
+    {
+      "chapter": "The Hunter",
+      "shots": [
+        {
+          "text": "The first to vanish was Middie Rivers, a 74-year-old hunter.",
+          "search": [
+            "hunter walking forest",
+            "hunter"
+          ],
+          "image_prompt": "elderly hunter in a 1940s wool plaid coat and cap with a rifle, seen from behind walking into a late autumn forest, grey afternoon light",
+          "image": -1
+        },
+        {
+          "text": "He was a skilled outdoorsman who knew the area well, and often stayed at his son-in-law's hunting camp.",
+          "search": [
+            "log cabin forest",
+            "cabin"
+          ],
+          "image_prompt": "small rustic log hunting cabin in a Vermont forest clearing, smoke from the stone chimney, fallen leaves, overcast",
+          "image": -1
+        },
+        {
+          "text": "His friends described him as a man well acquainted with this country.",
+          "search": [
+            "old compass hands",
+            "compass"
+          ],
+          "image_prompt": "close-up of an elderly man's weathered hands checking an old brass compass on a cabin table, oil lamp light",
+          "image": -1
+        },
+        {
+          "text": "That November, he was hunting in Bickford Hollow, about four miles east of Bennington.",
+          "search": [
+            "wooded valley autumn",
+            "valley"
+          ],
+          "image_prompt": "wide shot of a narrow wooded valley hollow with bare hardwoods and a small stream, November grey sky",
+          "image": -1
+        },
+        {
+          "text": "Around four in the afternoon, a friend saw him on a nearby trail, walking away from camp.",
+          "search": [
+            "man walking trail",
+            "trail"
+          ],
+          "image_prompt": "distant figure in a plaid coat walking away along a leaf-covered forest trail in fading afternoon light, seen from far behind",
+          "image": -1
+        },
+        {
+          "text": "When he failed to return that evening, a search party set out.",
+          "search": [
+            "search party night forest",
+            "lanterns"
+          ],
+          "image_prompt": "1940s search party of men with lanterns and flashlights walking in a line through a dark forest at night, seen from behind",
+          "image": -1
+        },
+        {
+          "text": "Accounts give two dates for that day, November 9th and November 12th, 1945.",
+          "search": [
+            "old calendar",
+            "calendar"
+          ],
+          "image_prompt": "close-up of an old paper wall calendar from November 1945 on a cabin wall, two days circled in pencil, no readable words, dim light",
+          "image": -1
+        },
+        {
+          "text": "Volunteers from Fort Devens and the Vermont State Guard joined the search that autumn.",
+          "search": [
+            "soldiers searching woods",
+            "soldiers"
+          ],
+          "image_prompt": "line of young 1940s soldiers in wool uniforms searching through autumn underbrush, seen from behind, overcast",
+          "image": -1
+        },
+        {
+          "text": "One search leader expected to find his remains, because everyone lost here in recent decades had eventually been found.",
+          "search": [
+            "man reading map",
+            "map"
+          ],
+          "image_prompt": "medium shot of a weathered 1940s search leader in a hat studying a paper map on the hood of an old truck at a forest edge, face turned away",
+          "image": -1
+        }
+      ],
+      "narration": "The first to vanish was Middie Rivers, a 74-year-old hunter. He was a skilled outdoorsman who knew the area well, and often stayed at his son-in-law's hunting camp. His friends described him as a man well acquainted with this country. That November, he was hunting in Bickford Hollow, about four miles east of Bennington. Around four in the afternoon, a friend saw him on a nearby trail, walking away from camp. When he failed to return that evening, a search party set out. Accounts give two dates for that day, November 9th and November 12th, 1945. Volunteers from Fort Devens and the Vermont State Guard joined the search that autumn. One search leader expected to find his remains, because everyone lost here in recent decades had eventually been found."
+    },
+    {
+      "chapter": "",
+      "shots": [
+        {
+          "text": "But Middie Rivers was never found, not that autumn and not in all the years since.",
+          "search": [
+            "empty cabin porch",
+            "cabin"
+          ],
+          "image_prompt": "empty hunting camp porch at dusk, a chair and an unlit lantern, forest dark behind, no people",
+          "image": -1
+        },
+        {
+          "text": "The next spring, a hiker found one thing on a trail south of where he was last seen.",
+          "search": [
+            "spring forest trail",
+            "hiker"
+          ],
+          "image_prompt": "spring forest trail with melting snow patches and new green shoots, a hiker's boots stopped mid-step, low angle",
+          "image": -1
+        },
+        {
+          "text": "It was his handkerchief, and it was the only trace of him anyone ever found.",
+          "search": [
+            "handkerchief on ground",
+            "handkerchief"
+          ],
+          "image_prompt": "close-up of a faded cotton handkerchief lying on wet leaves and moss on a forest trail, soft spring light",
+          "image": -1
+        }
+      ],
+      "narration": "But Middie Rivers was never found, not that autumn and not in all the years since. The next spring, a hiker found one thing on a trail south of where he was last seen. It was his handkerchief, and it was the only trace of him anyone ever found."
+    },
+    {
+      "chapter": "The Student",
+      "shots": [
+        {
+          "text": "A year later, about two miles south of where Rivers vanished, a college student set out for a walk.",
+          "search": [
+            "college campus winter",
+            "campus"
+          ],
+          "image_prompt": "1940s college campus in Vermont on a cold December afternoon, brick and white clapboard buildings, bare trees, young woman in a red jacket walking away from camera",
+          "image": -1
+        },
+        {
+          "text": "Paula Jean Welden was 18, a sophomore at Bennington College.",
+          "search": [
+            "red jacket buttons",
+            "jacket"
+          ],
+          "image_prompt": "close-up of a young woman's hands buttoning a red 1940s jacket in a dormitory room, window light, face out of frame",
+          "image": -1
+        },
+        {
+          "text": "Early in the afternoon of December 1, 1946, she left campus to walk and hitchhike six miles to the Long Trail.",
+          "search": [
+            "hitchhiking country road",
+            "road"
+          ],
+          "image_prompt": "young woman in a red jacket standing at the edge of a 1940s rural road with her thumb out, seen from behind, bare trees, grey sky",
+          "image": -1
+        },
+        {
+          "text": "At that time, the trail crossed Route 9 near Harbour Road.",
+          "search": [
+            "mountain road forest",
+            "highway"
+          ],
+          "image_prompt": "two-lane 1940s mountain highway curving through a forest, a narrow footpath entering the trees beside it, overcast winter light",
+          "image": -1
+        },
+        {
+          "text": "A local man drove her from the college to a spot on Route 9, two miles west of the trail.",
+          "search": [
+            "vintage car roadside",
+            "car"
+          ],
+          "image_prompt": "1940s sedan pulled over on the shoulder of a forest highway, passenger door open, a figure in a red jacket stepping out, seen from behind",
+          "image": -1
+        },
+        {
+          "text": "Other witnesses said they saw her on or near the trail.",
+          "search": [
+            "woman walking forest",
+            "trail"
+          ],
+          "image_prompt": "distant figure in a red jacket walking up a forest trail among bare grey trees, seen from far behind",
+          "image": -1
+        },
+        {
+          "text": "One, a Bennington Banner employee, said he gave her directions.",
+          "search": [
+            "man pointing directions",
+            "directions"
+          ],
+          "image_prompt": "man in a 1940s overcoat and hat pointing up a forest trail, seen from behind, a figure in a red jacket beside him, both faces turned away",
+          "image": -1
+        }
+      ],
+      "narration": "A year later, about two miles south of where Rivers vanished, a college student set out for a walk. Paula Jean Welden was 18, a sophomore at Bennington College. Early in the afternoon of December 1, 1946, she left campus to walk and hitchhike six miles to the Long Trail. At that time, the trail crossed Route 9 near Harbour Road. A local man drove her from the college to a spot on Route 9, two miles west of the trail. Other witnesses said they saw her on or near the trail. One, a Bennington Banner employee, said he gave her directions."
+    },
+    {
+      "chapter": "",
+      "shots": [
+        {
+          "text": "Of everyone who vanished here, hers is the name people remember best.",
+          "search": [
+            "woman trailhead",
+            "trailhead"
+          ],
+          "image_prompt": "medium shot of a young woman in a red jacket standing still at a forest trailhead, seen from behind, bare trees ahead",
+          "image": -1
+        },
+        {
+          "text": "She wore a red jacket, jeans and lightweight sneakers.",
+          "search": [
+            "red jacket woods",
+            "jacket"
+          ],
+          "image_prompt": "close-up detail of a red wool jacket sleeve and blue denim jeans against grey winter bark, cold light",
+          "image": -1
+        },
+        {
+          "text": "She carried no camping gear, and nothing meant for freezing temperatures.",
+          "search": [
+            "frost branches dusk",
+            "frost"
+          ],
+          "image_prompt": "frost forming on bare branches at a forest edge as the light fades, cold blue tones, empty trail",
+          "image": -1
+        },
+        {
+          "text": "The next morning, she did not come to class.",
+          "search": [
+            "empty classroom desk",
+            "classroom"
+          ],
+          "image_prompt": "1940s college classroom with wooden desks, one empty desk near the window, grey morning light",
+          "image": -1
+        },
+        {
+          "text": "An extensive search followed, with a reward of five thousand dollars and help from the FBI.",
+          "search": [
+            "search snowy forest",
+            "search"
+          ],
+          "image_prompt": "1940s men in overcoats and hats searching a snowy forest slope in a line, seen from behind, grey winter sky",
+          "image": -1
+        },
+        {
+          "text": "No evidence of her was ever found.",
+          "search": [
+            "snowy trail empty",
+            "snow"
+          ],
+          "image_prompt": "empty snow-dusted forest trail at dusk, untouched snow, no footprints, deep silence",
+          "image": -1
+        },
+        {
+          "text": "In 1951, her disappearance inspired Shirley Jackson's novel Hangsaman.",
+          "search": [
+            "old book typewriter",
+            "book"
+          ],
+          "image_prompt": "close-up of an old hardcover novel lying closed on a wooden desk beside a typewriter, no readable title, lamplight",
+          "image": -1
+        }
+      ],
+      "narration": "Of everyone who vanished here, hers is the name people remember best. She wore a red jacket, jeans and lightweight sneakers. She carried no camping gear, and nothing meant for freezing temperatures. The next morning, she did not come to class. An extensive search followed, with a reward of five thousand dollars and help from the FBI. No evidence of her was ever found. In 1951, her disappearance inspired Shirley Jackson's novel Hangsaman."
+    },
+    {
+      "chapter": "The Others",
+      "shots": [
+        {
+          "text": "On December 1, 1949, three years to the day after Paula vanished, someone else disappeared.",
+          "search": [
+            "vintage bus station night",
+            "bus"
+          ],
+          "image_prompt": "1940s bus depot at night in winter, lights glowing on wet pavement, a bus idling, no readable signs",
+          "image": -1
+        },
+        {
+          "text": "James Tedford was 68, a World War One veteran living at the Vermont Soldiers' Home in Bennington.",
+          "search": [
+            "old veteran walking",
+            "veteran"
+          ],
+          "image_prompt": "elderly man in a 1940s overcoat and hat seen from behind, walking slowly toward a large brick institutional building, winter trees",
+          "image": -1
+        },
+        {
+          "text": "He had been visiting relatives in St. Albans, who watched him board a southbound bus.",
+          "search": [
+            "boarding vintage bus",
+            "bus"
+          ],
+          "image_prompt": "elderly man in an overcoat climbing the steps of a 1940s bus at dusk, seen from behind, family silhouettes on the platform",
+          "image": -1
+        },
+        {
+          "text": "At the Burlington depot he spoke briefly with an acquaintance, then changed to a Bennington bus at about 6:15 that evening.",
+          "search": [
+            "old bus station interior",
+            "clock"
+          ],
+          "image_prompt": "interior of a 1940s bus station waiting room at evening, wooden benches, a wall clock near quarter past six, two men talking in silhouette",
+          "image": -1
+        },
+        {
+          "text": "That was the last confirmed sighting of James Tedford.",
+          "search": [
+            "empty bus seat",
+            "seat"
+          ],
+          "image_prompt": "empty seat on a dimly lit 1940s bus at night, a folded newspaper with no readable words on the seat, dark windows",
+          "image": -1
+        },
+        {
+          "text": "The driver later told police that a man resembling him may have stepped off in Brandon, about seventy miles north of Bennington.",
+          "search": [
+            "bus stop night town",
+            "bus"
+          ],
+          "image_prompt": "1940s bus stopped on a small-town main street at night, door open, a lone figure stepping down, seen from behind, streetlamp glow",
+          "image": -1
+        },
+        {
+          "text": "That same night, Brandon police looked into a report of a man fitting his description acting strangely downtown.",
+          "search": [
+            "small town street night",
+            "police"
+          ],
+          "image_prompt": "small 1940s New England downtown at night, wet street, a policeman with a flashlight seen from behind, empty storefronts with no readable signs",
+          "image": -1
+        }
+      ],
+      "narration": "On December 1, 1949, three years to the day after Paula vanished, someone else disappeared. James Tedford was 68, a World War One veteran living at the Vermont Soldiers' Home in Bennington. He had been visiting relatives in St. Albans, who watched him board a southbound bus. At the Burlington depot he spoke briefly with an acquaintance, then changed to a Bennington bus at about 6:15 that evening. That was the last confirmed sighting of James Tedford. The driver later told police that a man resembling him may have stepped off in Brandon, about seventy miles north of Bennington. That same night, Brandon police looked into a report of a man fitting his description acting strangely downtown."
+    },
+    {
+      "chapter": "",
+      "shots": [
+        {
+          "text": "His disappearance went unreported for a week, until the Soldiers' Home superintendent called police on December 8.",
+          "search": [
+            "vintage telephone desk",
+            "telephone"
+          ],
+          "image_prompt": "close-up of a 1940s black rotary telephone on an office desk, a hand lifting the receiver, window light, papers with no readable words",
+          "image": -1
+        },
+        {
+          "text": "Newspapers said he was mentally ill, and his family said he was despondent about going back.",
+          "search": [
+            "old man hands",
+            "hands"
+          ],
+          "image_prompt": "elderly man's hands folded on his knees on a bench, worn overcoat, grey winter light, face out of frame",
+          "image": -1
+        },
+        {
+          "text": "The next autumn brought the strangest month of all.",
+          "search": [
+            "autumn valley vermont",
+            "autumn"
+          ],
+          "image_prompt": "wide shot of a Vermont valley in full October colour under a heavy grey sky, wind in the trees",
+          "image": -1
+        },
+        {
+          "text": "On October 12, 1950, an eight-year-old boy named Paul Jepson went with his mother on her farm chores.",
+          "search": [
+            "old truck gravel road",
+            "truck"
+          ],
+          "image_prompt": "1940s farm truck on a gravel road on a grey October afternoon, autumn leaves, wooded hills, seen from a distance",
+          "image": -1
+        },
+        {
+          "text": "At the Bennington town dump, where the family kept pigs, she left him in the vehicle for about thirty minutes.",
+          "search": [
+            "pig pen farm",
+            "pigs"
+          ],
+          "image_prompt": "wide shot of a rural 1950 farm pen with pigs at the edge of woods, a parked vintage vehicle in the distance, overcast autumn",
+          "image": -1
+        },
+        {
+          "text": "When she came back, around four o'clock, he was gone.",
+          "search": [
+            "empty car door open",
+            "car"
+          ],
+          "image_prompt": "open passenger door of an empty 1940s vehicle parked near autumn woods, nobody inside, grey late-afternoon light",
+          "image": -1
+        },
+        {
+          "text": "A bloodhound tracked his scent along a road to an intersection, where the trail simply ended.",
+          "search": [
+            "bloodhound tracking road",
+            "bloodhound"
+          ],
+          "image_prompt": "bloodhound with its nose to a wet gravel road at a rural crossroads, handler's boots beside it, autumn leaves, overcast",
+          "image": -1
+        },
+        {
+          "text": "Police thought rain may have washed the scent away.",
+          "search": [
+            "rain country road",
+            "rain"
+          ],
+          "image_prompt": "rain falling on an empty rural crossroads among autumn trees, puddles on gravel, grey light",
+          "image": -1
+        },
+        {
+          "text": "His father wondered whether a driver had struck the boy by accident, and taken him away in a panic.",
+          "search": [
+            "rural road dusk",
+            "road"
+          ],
+          "image_prompt": "empty rural road at dusk curving into autumn woods, faint headlights far away, rain-wet gravel",
+          "image": -1
+        },
+        {
+          "text": "He also said searchers might have overlooked his son, whose brown and tan clothes blended into the fallen leaves.",
+          "search": [
+            "autumn leaves forest floor",
+            "leaves"
+          ],
+          "image_prompt": "wide shot of a forest floor thick with brown and tan fallen autumn leaves, dappled grey light, empty and still",
+          "image": -1
+        }
+      ],
+      "narration": "His disappearance went unreported for a week, until the Soldiers' Home superintendent called police on December 8. Newspapers said he was mentally ill, and his family said he was despondent about going back. The next autumn brought the strangest month of all. On October 12, 1950, an eight-year-old boy named Paul Jepson went with his mother on her farm chores. At the Bennington town dump, where the family kept pigs, she left him in the vehicle for about thirty minutes. When she came back, around four o'clock, he was gone. A bloodhound tracked his scent along a road to an intersection, where the trail simply ended. Police thought rain may have washed the scent away. His father wondered whether a driver had struck the boy by accident, and taken him away in a panic. He also said searchers might have overlooked his son, whose brown and tan clothes blended into the fallen leaves."
+    },
+    {
+      "chapter": "",
+      "shots": [
+        {
+          "text": "Sixteen days later, on October 28, 1950, Frieda Langer went hiking near Somerset Reservoir.",
+          "search": [
+            "lake autumn forest",
+            "reservoir"
+          ],
+          "image_prompt": "wide shot of a calm grey reservoir surrounded by autumn forest and low hills, small cabin on the shore, overcast",
+          "image": -1
+        },
+        {
+          "text": "She was 53, a skilled hiker and hunter, there with her husband Max and her cousin Herbert Elsner.",
+          "search": [
+            "hikers lakeside path",
+            "hikers"
+          ],
+          "image_prompt": "three 1950 hikers in wool coats walking along a lakeside forest path, seen from behind at a distance",
+          "image": -1
+        },
+        {
+          "text": "Around one in the afternoon, she slipped and fell into a stream, soaking her clothes.",
+          "search": [
+            "forest stream rocks",
+            "stream"
+          ],
+          "image_prompt": "close-up of a cold rocky forest stream rushing over mossy stones, fallen leaves in the water, grey light",
+          "image": -1
+        },
+        {
+          "text": "She told her cousin she would take a shortcut back to the cabin to change, and catch up with him later.",
+          "search": [
+            "woman walking into woods",
+            "woods"
+          ],
+          "image_prompt": "woman in a wool coat walking away alone into dense woods off the path, seen from behind, damp clothing, autumn",
+          "image": -1
+        },
+        {
+          "text": "She never reached the cabin, and her cousin never saw her again.",
+          "search": [
+            "cabin dusk",
+            "cabin"
+          ],
+          "image_prompt": "empty lakeside cabin at dusk, unlit windows, a wooden door closed, autumn leaves on the steps",
+          "image": -1
+        },
+        {
+          "text": "Aircraft, helicopters and up to three hundred searchers looked for her.",
+          "search": [
+            "plane over forest",
+            "aircraft"
+          ],
+          "image_prompt": "1950 small propeller plane flying low over a vast autumn forest, searchers in a line on a hillside below, overcast",
+          "image": -1
+        },
+        {
+          "text": "On May 12, 1951, fishermen found her body by the Deerfield River, in an area only lightly searched.",
+          "search": [
+            "fishermen riverbank",
+            "river"
+          ],
+          "image_prompt": "two fishermen in 1950s clothing standing still on a rocky riverbank in spring, seen from behind, looking toward the water, no body visible",
+          "image": -1
+        },
+        {
+          "text": "Because of the condition of her remains, no cause of death could be determined.",
+          "search": [
+            "spring river",
+            "river"
+          ],
+          "image_prompt": "quiet spring river flowing past rocks and new green leaves, soft light, empty bank",
+          "image": -1
+        }
+      ],
+      "narration": "Sixteen days later, on October 28, 1950, Frieda Langer went hiking near Somerset Reservoir. She was 53, a skilled hiker and hunter, there with her husband Max and her cousin Herbert Elsner. Around one in the afternoon, she slipped and fell into a stream, soaking her clothes. She told her cousin she would take a shortcut back to the cabin to change, and catch up with him later. She never reached the cabin, and her cousin never saw her again. Aircraft, helicopters and up to three hundred searchers looked for her. On May 12, 1951, fishermen found her body by the Deerfield River, in an area only lightly searched. Because of the condition of her remains, no cause of death could be determined."
+    },
+    {
+      "chapter": "The Theories",
+      "shots": [
+        {
+          "text": "In November 1950, the Bennington Evening Banner suggested the region might hold a Lost Horizon.",
+          "search": [
+            "old printing press",
+            "newspaper"
+          ],
+          "image_prompt": "close-up of a 1950 newspaper printing press with blurred rolling newsprint, no readable words, warm light",
+          "image": -1
+        },
+        {
+          "text": "It was a nod to James Hilton's novel, in which people are lost in a mystical mountain land in Tibet.",
+          "search": [
+            "misty mountain monastery",
+            "mountains"
+          ],
+          "image_prompt": "misty Himalayan mountain valley with a hidden monastery among clouds, golden soft light, dreamlike",
+          "image": -1
+        },
+        {
+          "text": "Local lore also tells of the Bennington Monster, a Bigfoot-like creature said to roam these woods.",
+          "search": [
+            "dark forest night mist",
+            "shadow"
+          ],
+          "image_prompt": "dark Vermont forest at night, a tall indistinct shadow between distant trees, mist, nothing clearly visible",
+          "image": -1
+        },
+        {
+          "text": "But each case also has a plainer explanation.",
+          "search": [
+            "map compass desk",
+            "compass"
+          ],
+          "image_prompt": "medium shot of a desk with an open topographic map, a compass and a flashlight, single lamp, night",
+          "image": -1
+        },
+        {
+          "text": "Frieda Langer had a seizure disorder, and her husband believed the cold may have triggered a seizure that left her lost.",
+          "search": [
+            "cold misty forest",
+            "mist"
+          ],
+          "image_prompt": "cold mist drifting through a dense autumn forest, wet ground, dim grey light, no people",
+          "image": -1
+        },
+        {
+          "text": "One investigator theorised she fell down an embankment into a deep pond, and a spring freshet later carried her out.",
+          "search": [
+            "steep bank pond",
+            "pond"
+          ],
+          "image_prompt": "steep wooded embankment dropping to a dark still pond, fallen leaves on the water, overcast",
+          "image": -1
+        },
+        {
+          "text": "As for James Tedford, the popular story says he vanished into thin air while riding the bus.",
+          "search": [
+            "empty bus interior night",
+            "bus"
+          ],
+          "image_prompt": "inside an empty 1940s bus at night, rows of seats under dim yellow lights, dark windows",
+          "image": -1
+        },
+        {
+          "text": "Author Tony Jinks points to the missing week between his last sighting and the report.",
+          "search": [
+            "calendar pencil",
+            "calendar"
+          ],
+          "image_prompt": "close-up of a desk calendar with a week of days crossed out in pencil, no readable words, lamplight",
+          "image": -1
+        },
+        {
+          "text": "He argues there is enough evidence that Tedford did not simply dematerialise, even though no trace was ever found.",
+          "search": [
+            "calendar pencil",
+            "calendar"
+          ],
+          "image_prompt": "close-up of a desk calendar with a week of days marked by pencil lines, no readable words, lamplight",
+          "image": -1
+        }
+      ],
+      "narration": "In November 1950, the Bennington Evening Banner suggested the region might hold a Lost Horizon. It was a nod to James Hilton's novel, in which people are lost in a mystical mountain land in Tibet. Local lore also tells of the Bennington Monster, a Bigfoot-like creature said to roam these woods. But each case also has a plainer explanation. Frieda Langer had a seizure disorder, and her husband believed the cold may have triggered a seizure that left her lost. One investigator theorised she fell down an embankment into a deep pond, and a spring freshet later carried her out. As for James Tedford, the popular story says he vanished into thin air while riding the bus. Author Tony Jinks points to the missing week between his last sighting and the report. He argues there is enough evidence that Tedford did not simply dematerialise, even though no trace was ever found."
+    },
+    {
+      "chapter": "",
+      "shots": [
+        {
+          "text": "And these woods were dangerous without any legend at all, in cold weather, for anyone without the right gear.",
+          "search": [
+            "winter forest dusk",
+            "winter"
+          ],
+          "image_prompt": "wide shot of a vast snowy forest at dusk in deep winter, bitter cold blue light, no people",
+          "image": -1
+        },
+        {
+          "text": "Two of the five were last seen outside the forest, one at a town dump, one on a bus.",
+          "search": [
+            "empty highway mountains",
+            "highway"
+          ],
+          "image_prompt": "wide shot of a lonely 1940s country highway at dusk leading away from dark wooded mountains, empty",
+          "image": -1
+        },
+        {
+          "text": "Perhaps there is no single answer, only five separate stories that happened close together.",
+          "search": [
+            "forest paths fork",
+            "paths"
+          ],
+          "image_prompt": "five separate dirt paths branching into a misty forest from one clearing, overcast, no people",
+          "image": -1
+        },
+        {
+          "text": "Yet that search leader in 1945 believed that everyone lost here eventually turned up.",
+          "search": [
+            "lanterns forest night",
+            "lantern"
+          ],
+          "image_prompt": "a 1940s search party's lanterns glowing in a dark forest far away, seen from a distance",
+          "image": -1
+        }
+      ],
+      "narration": "And these woods were dangerous without any legend at all, in cold weather, for anyone without the right gear. Two of the five were last seen outside the forest, one at a town dump, one on a bus. Perhaps there is no single answer, only five separate stories that happened close together. Yet that search leader in 1945 believed that everyone lost here eventually turned up."
+    },
+    {
+      "chapter": "What Remains",
+      "shots": [
+        {
+          "text": "Middie Rivers, Paula Welden, James Tedford and Paul Jepson have never been found.",
+          "search": [
+            "empty chairs room",
+            "chairs"
+          ],
+          "image_prompt": "four empty wooden chairs in a row in a dim room, a single window of grey light, dust in the air",
+          "image": -1
+        },
+        {
+          "text": "For one of them, all that came back was a handkerchief on a spring trail.",
+          "search": [
+            "handkerchief moss",
+            "handkerchief"
+          ],
+          "image_prompt": "close-up of a faded handkerchief on wet moss, soft spring light, shallow focus",
+          "image": -1
+        },
+        {
+          "text": "In 2008, a Bennington College student got lost in the same area, and police found him safe.",
+          "search": [
+            "lost hiker night",
+            "hiker"
+          ],
+          "image_prompt": "modern hiker with a headlamp sitting on a log in a dark forest, seen from behind, distant flashlights approaching",
+          "image": -1
+        },
+        {
+          "text": "The Long Trail still runs through these mountains, and Glastenbury is still a ghost town.",
+          "search": [
+            "mountain trail aerial",
+            "forest"
+          ],
+          "image_prompt": "wide aerial-style view of a hiking trail threading through a vast autumn mountain forest under grey sky",
+          "image": -1
+        },
+        {
+          "text": "Their stories have since been retold on the Lore podcast and on a Travel Channel series about America's most terrifying places.",
+          "search": [
+            "old tv dark room",
+            "television"
+          ],
+          "image_prompt": "old radio and a glowing television set in a dark living room at night, blank screen glow, no readable text",
+          "image": -1
+        },
+        {
+          "text": "But behind the legend are real families, who waited for news that never came.",
+          "search": [
+            "lit window night snow",
+            "window"
+          ],
+          "image_prompt": "a single lit window in a 1940s farmhouse at night, snow falling, dark woods behind",
+          "image": -1
+        },
+        {
+          "text": "Five people, five years, one mountain, and almost no answers.",
+          "search": [
+            "mountain fog dusk",
+            "fog"
+          ],
+          "image_prompt": "slow wide shot of a forested mountain disappearing into low cloud at dusk",
+          "image": -1
+        },
+        {
+          "text": "Until someone finds them, the file remains open.",
+          "search": [
+            "closing file folder",
+            "file"
+          ],
+          "image_prompt": "a manila case file folder closing on a dark desk under a single lamp, shadows",
+          "image": -1
+        },
+        {
+          "text": "What do you think happened in the Bennington Triangle: the weather, the land, or something no one has explained?",
+          "search": [
+            "forest trail mist night",
+            "trail"
+          ],
+          "image_prompt": "dark forest trail at night with a faint mist and a single distant light between the trees",
+          "image": -1
+        },
+        {
+          "text": "Tell me in the comments, and subscribe for more case files.",
+          "search": [
+            "case files shelf",
+            "files"
+          ],
+          "image_prompt": "a row of worn manila case folders on a shelf in dim lamplight, blank labels",
+          "image": -1
+        }
+      ],
+      "narration": "Middie Rivers, Paula Welden, James Tedford and Paul Jepson have never been found. For one of them, all that came back was a handkerchief on a spring trail. In 2008, a Bennington College student got lost in the same area, and police found him safe. The Long Trail still runs through these mountains, and Glastenbury is still a ghost town. Their stories have since been retold on the Lore podcast and on a Travel Channel series about America's most terrifying places. But behind the legend are real families, who waited for news that never came. Five people, five years, one mountain, and almost no answers. Until someone finds them, the file remains open. What do you think happened in the Bennington Triangle: the weather, the land, or something no one has explained? Tell me in the comments, and subscribe for more case files."
+    }
+  ],
+  "short": {
+    "shots": [
+      {
+        "text": "You could drive the Vermont roads where 5 people vanished by 1950, but nobody knows what happened to 4 of them.",
+        "search": [
+          "forested mountain dusk",
+          "mountain"
+        ],
+        "image_prompt": "wide shot of a dark forested Vermont mountain under low cloud at dusk",
+        "image": -1
+      },
+      {
+        "text": "In November 1945, a 74-year-old hunter, Middie Rivers, walked away from camp.",
+        "search": [
+          "hunter forest",
+          "hunter"
+        ],
+        "image_prompt": "elderly hunter in a wool plaid coat seen from behind walking into an autumn forest",
+        "image": -1
+      },
+      {
+        "text": "He knew these woods, and never came back.",
+        "search": [
+          "man walking trail",
+          "trail"
+        ],
+        "image_prompt": "distant figure walking away on a leafy forest trail in fading light",
+        "image": -1
+      },
+      {
+        "text": "Next spring, a hiker found only his handkerchief.",
+        "search": [
+          "handkerchief ground",
+          "handkerchief"
+        ],
+        "image_prompt": "close-up of a faded handkerchief on wet leaves on a forest trail",
+        "image": -1
+      },
+      {
+        "text": "A year later, Paula Jean Welden, 18, set out for the Long Trail.",
+        "search": [
+          "hitchhiker road",
+          "road"
+        ],
+        "image_prompt": "young woman in a red jacket hitchhiking on a 1940s rural road, seen from behind",
+        "image": -1
+      },
+      {
+        "text": "She wore a red jacket, jeans and lightweight sneakers.",
+        "search": [
+          "sneakers frost",
+          "sneakers"
+        ],
+        "image_prompt": "close-up of white canvas sneakers on frosted leaves, red jacket hem in frame",
+        "image": -1
+      },
+      {
+        "text": "She had nothing warm enough for December.",
+        "search": [
+          "frost branches",
+          "frost"
+        ],
+        "image_prompt": "frost on bare branches at dusk, cold blue light",
+        "image": -1
+      },
+      {
+        "text": "Witnesses saw her near the trail, then nothing.",
+        "search": [
+          "empty snowy trail",
+          "snow"
+        ],
+        "image_prompt": "empty snow-dusted forest trail at dusk",
+        "image": -1
+      },
+      {
+        "text": "Three years to the day later, a 68-year-old veteran boarded a bus to Bennington.",
+        "search": [
+          "vintage bus",
+          "bus"
+        ],
+        "image_prompt": "elderly man in an overcoat boarding a 1940s bus at dusk, seen from behind",
+        "image": -1
+      },
+      {
+        "text": "He never arrived.",
+        "search": [
+          "empty bus seat",
+          "seat"
+        ],
+        "image_prompt": "empty seat on a dim 1940s bus at night",
+        "image": -1
+      },
+      {
+        "text": "In October 1950, eight-year-old Paul Jepson vanished from his mother's vehicle.",
+        "search": [
+          "empty car door",
+          "car"
+        ],
+        "image_prompt": "open door of an empty vintage vehicle near autumn woods, grey light",
+        "image": -1
+      },
+      {
+        "text": "A bloodhound tracked him to an intersection, where the scent stopped.",
+        "search": [
+          "bloodhound road",
+          "bloodhound"
+        ],
+        "image_prompt": "bloodhound sniffing a gravel crossroads, autumn leaves",
+        "image": -1
+      },
+      {
+        "text": "Sixteen days later, Frieda Langer took a shortcut back to her cabin.",
+        "search": [
+          "woman woods",
+          "woods"
+        ],
+        "image_prompt": "woman in a wool coat walking alone into dense autumn woods, seen from behind",
+        "image": -1
+      },
+      {
+        "text": "Up to three hundred people searched for her.",
+        "search": [
+          "search party",
+          "search"
+        ],
+        "image_prompt": "line of searchers on an autumn hillside, small plane overhead",
+        "image": -1
+      },
+      {
+        "text": "Her body was found the next spring, the only one ever recovered.",
+        "search": [
+          "spring river",
+          "river"
+        ],
+        "image_prompt": "quiet spring riverbank with rocks and new leaves, empty",
+        "image": -1
+      },
+      {
+        "text": "People call this place the Bennington Triangle.",
+        "search": [
+          "map pins",
+          "map"
+        ],
+        "image_prompt": "old topographic map with three pins and red thread forming a triangle, no text",
+        "image": -1
+      },
+      {
+        "text": "Some blame the cold and the wild terrain.",
+        "search": [
+          "winter forest",
+          "winter"
+        ],
+        "image_prompt": "vast snowy forest at dusk, bitter blue light",
+        "image": -1
+      },
+      {
+        "text": "Others tell stories of something living in the trees.",
+        "search": [
+          "dark forest mist",
+          "shadow"
+        ],
+        "image_prompt": "tall indistinct shadow between distant trees in a misty night forest",
+        "image": -1
+      },
+      {
+        "text": "In 1945, a search leader said everyone lost here in recent decades had been found.",
+        "search": [
+          "man reading map",
+          "map"
+        ],
+        "image_prompt": "1940s search leader studying a map at a forest edge, face turned away",
+        "image": -1
+      },
+      {
+        "text": "So what changed after 1945?",
+        "search": [
+          "mountain fog",
+          "fog"
+        ],
+        "image_prompt": "dark forested mountain swallowed by low cloud",
+        "image": -1
+      },
+      {
+        "text": "Tell me what you think happened.",
+        "search": [
+          "forest trail night",
+          "trail"
+        ],
+        "image_prompt": "forest trail at night with mist and a single distant light",
+        "image": -1
+      },
+      {
+        "text": "The full case file is on StoryVaultFiles.",
+        "search": [
+          "case file",
+          "file"
+        ],
+        "image_prompt": "worn manila case folder on a dark desk under a lamp, blank label",
+        "image": -1
+      }
+    ],
+    "caption": "Five people vanished in one corner of Vermont between 1945 and 1950.\nFour were never found.\nWhat do you think happened in the Bennington Triangle?",
+    "narration": "You could drive the Vermont roads where 5 people vanished by 1950, but nobody knows what happened to 4 of them. In November 1945, a 74-year-old hunter, Middie Rivers, walked away from camp. He knew these woods, and never came back. Next spring, a hiker found only his handkerchief. A year later, Paula Jean Welden, 18, set out for the Long Trail. She wore a red jacket, jeans and lightweight sneakers. She had nothing warm enough for December. Witnesses saw her near the trail, then nothing. Three years to the day later, a 68-year-old veteran boarded a bus to Bennington. He never arrived. In October 1950, eight-year-old Paul Jepson vanished from his mother's vehicle. A bloodhound tracked him to an intersection, where the scent stopped. Sixteen days later, Frieda Langer took a shortcut back to her cabin. Up to three hundred people searched for her. Her body was found the next spring, the only one ever recovered. People call this place the Bennington Triangle. Some blame the cold and the wild terrain. Others tell stories of something living in the trees. In 1945, a search leader said everyone lost here in recent decades had been found. So what changed after 1945? Tell me what you think happened. The full case file is on StoryVaultFiles."
+  },
+  "picture_salt": ""
+}
