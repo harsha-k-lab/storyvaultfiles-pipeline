@@ -157,7 +157,7 @@
     },
     "005": {
       "case_no": 5,
-      "status": "awaiting_topic",
+      "status": "writing",
       "topics": [
         {
           "wiki_title": "Volcanic winter of 536",
@@ -185,7 +185,18 @@
         }
       ],
       "created": "2026-11-12T17:11-05:00",
-      "topics_by": "Claude"
+      "topics_by": "Claude",
+      "topic": {
+        "wiki_title": "Bennington Triangle",
+        "url": "https://en.wikipedia.org/wiki/Bennington_Triangle",
+        "working_title": "The Bennington Triangle: 5 People Vanished in Vermont's Woods",
+        "hook": "Between 1945 and 1950 several people walked into the woods around Glastenbury Mountain, Vermont, and never came out, including college student Paula Jean Welden on a December afternoon hike.",
+        "why_now": "Lesser-known 'triangle' with strong search interest in Paula Welden, perfect for an eerie, atmospheric autumn-into-winter video.",
+        "summary": ""
+      },
+      "topic_index": 2,
+      "writer": "Claude",
+      "requested_at": "2026-11-13T14:16:18-05:00"
     }
   },
   "history": [],
@@ -197,7 +208,7 @@
     "topics-202611122211"
   ],
   "claude_runs": {
-    "date": "2026-11-12",
+    "date": "2026-11-13",
     "count": 1
   },
   "active_job": "005"
