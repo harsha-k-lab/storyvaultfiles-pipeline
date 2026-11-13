@@ -1,5 +1,5 @@
 {
-  "next_case": 6,
+  "next_case": 7,
   "jobs": {
     "001": {
       "case_no": 1,
@@ -198,26 +198,53 @@
       "writer": "Claude",
       "requested_at": "2026-11-13T14:16:18-05:00",
       "pending_render_note": "Here's your draft, researched and written by Claude."
+    },
+    "006": {
+      "case_no": 6,
+      "status": "awaiting_topic",
+      "topics": [
+        {
+          "wiki_title": "USS Cyclops",
+          "url": "https://en.wikipedia.org/wiki/USS_Cyclops",
+          "working_title": "306 Men Vanished With USS Cyclops in 1918. No Wreck Was Ever Found",
+          "hook": "In March 1918 a 542-foot US Navy collier carrying 10,800 tons of manganese ore left Barbados for Baltimore and vanished with all 306 aboard: no distress call, no debris, and the Navy still lists the cause as unknown.",
+          "why_now": "The Bermuda Triangle draws over 200k Wikipedia views every 60 days, and this is its biggest single loss of life, still officially unexplained.",
+          "summary": ""
+        },
+        {
+          "wiki_title": "Flyby anomaly",
+          "url": "https://en.wikipedia.org/wiki/Flyby_anomaly",
+          "working_title": "NASA's Probes Keep Speeding Up Near Earth. Nobody Knows Why",
+          "hook": "Since 1990, spacecraft such as Galileo and NEAR have come out of Earth flybys going millimetres per second faster than the physics predicts, and decades later there is still no accepted explanation.",
+          "why_now": "A real, measured space mystery with no answer, a fresh angle for a channel built on disappearances, and it's rarely covered in long-form video.",
+          "summary": ""
+        },
+        {
+          "wiki_title": "Skyquake",
+          "url": "https://en.wikipedia.org/wiki/Skyquake",
+          "working_title": "The Seneca Guns: Booms From an Empty Sky Since the 1800s",
+          "hook": "For about two centuries people near lakes and coasts have heard thunderous booms from clear skies that shake walls but leave no storm, no aircraft and no earthquake behind them.",
+          "why_now": "It's a recurring local news story that viewers may have heard themselves. It has steady search interest (8.6k views every 60 days) and no settled cause.",
+          "summary": ""
+        }
+      ],
+      "created": "2026-11-13T16:53-05:00",
+      "topics_by": "Claude"
     }
   },
   "history": [],
-  "last_topics_date": "2026-11-12",
+  "last_topics_date": "2026-11-13",
   "delivered": [
     "topics-202611101815",
     "script-003-202611101951",
     "topics-202611111310",
     "topics-202611122211",
-    "script-005-202611131920"
+    "script-005-202611131920",
+    "topics-202611132152"
   ],
   "claude_runs": {
     "date": "2026-11-13",
     "count": 2
   },
-  "active_job": "005",
-  "claude_pending": {
-    "kind": "topics",
-    "date": "2026-11-13",
-    "wish": "",
-    "at": "2026-11-13T16:51:48-05:00"
-  }
+  "active_job": "006"
 }
