@@ -1,5 +1,5 @@
 {
-  "next_case": 7,
+  "next_case": 8,
   "jobs": {
     "001": {
       "case_no": 1,
@@ -230,27 +230,54 @@
       ],
       "created": "2026-11-13T16:53-05:00",
       "topics_by": "Claude"
+    },
+    "007": {
+      "case_no": 7,
+      "status": "awaiting_topic",
+      "topics": [
+        {
+          "wiki_title": "Flight 19",
+          "url": "https://en.wikipedia.org/wiki/Flight_19",
+          "working_title": "Flight 19: Five Bombers Vanished in 1945. So Did the Rescue",
+          "hook": "Five Navy Avengers flew out on a routine training run, their leader's compasses failed, and then the 13-man flying boat sent to find them vanished too.",
+          "why_now": "The most famous Bermuda Triangle case, with 20k Wikipedia views in 60 days and real radio transcripts to build tension.",
+          "summary": ""
+        },
+        {
+          "wiki_title": "Shugborough inscription",
+          "url": "https://en.wikipedia.org/wiki/Shugborough_inscription",
+          "working_title": "8 Letters Carved in 1750s England That No One Can Read",
+          "hook": "Eight letters, O U O S V A V V, carved under a mirrored Poussin painting on an English estate have defeated codebreakers for over 250 years.",
+          "why_now": "Cipher mysteries perform well and this one is far less covered than the Voynich manuscript, with Bletchley Park codebreakers in the story.",
+          "summary": ""
+        },
+        {
+          "wiki_title": "1939 City of San Francisco derailment",
+          "url": "https://en.wikipedia.org/wiki/1939_City_of_San_Francisco_derailment",
+          "working_title": "1939: Someone Derailed a Streamliner in Nevada. Never Caught",
+          "hook": "In August 1939 saboteurs tampered with the tracks near Harney, Nevada, derailing the City of San Francisco streamliner and killing 24, and despite a manhunt and rewards no one was ever caught.",
+          "why_now": "A little-known unsolved sabotage case with a manhunt, rewards and a clear whodunit question, ideal for a lesser-known slot.",
+          "summary": ""
+        }
+      ],
+      "created": "2026-11-14T15:33-05:00",
+      "topics_by": "Claude"
     }
   },
   "history": [],
-  "last_topics_date": "2026-11-13",
+  "last_topics_date": "2026-11-14",
   "delivered": [
     "topics-202611101815",
     "script-003-202611101951",
     "topics-202611111310",
     "topics-202611122211",
     "script-005-202611131920",
-    "topics-202611132152"
+    "topics-202611132152",
+    "topics-202611142032"
   ],
   "claude_runs": {
     "date": "2026-11-14",
     "count": 1
   },
-  "active_job": "006",
-  "claude_pending": {
-    "kind": "topics",
-    "date": "2026-11-14",
-    "wish": "",
-    "at": "2026-11-14T15:32:16-05:00"
-  }
+  "active_job": "007"
 }
